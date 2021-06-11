@@ -2,11 +2,10 @@ package wolf.playingwithfire3;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import wolf.playingwithfire3.display.Display;
 import wolf.playingwithfire3.gfx.Assets;
-import wolf.playingwithfire3.gfx.SpriteSheet;
+import wolf.playingwithfire3.input.KeyManager;
 import wolf.playingwithfire3.states.GameState;
 import wolf.playingwithfire3.states.State;
 
@@ -22,40 +21,41 @@ public class Game implements Runnable{
 	
 	private BufferStrategy bs;
 	private Graphics g;
-	
-	//test attribute
-	private BufferedImage testImage;
-	private int posx=-400;
-	private SpriteSheet sheet;
-	
+		
 	//States
 	private State gameState;
+	
+	//Input
+	private KeyManager keyManager;
 	
 	public Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;	
+		keyManager = new KeyManager();
 	}
 	
 	private void init() {
 		display = new Display(title, width, height);
+		display.getFrame().addKeyListener(keyManager);
+		
 		Assets.init();
 		
-		gameState = new GameState();
+		//alle states erstellen und ersten state setzen
+		gameState = new GameState(this);
 		State.setState(gameState);
 	}
 	
+	public KeyManager getKeyManager() {
+		return keyManager;
+	}
+	
 	//tick: Positionen, Variablen werden aktualisiert
-	private void tick() {
+	private void tick() {	
+		keyManager.tick();
 		
 		if(State.getState() != null)
 			State.getState().tick();
-		
-	//test
-		posx+=5;
-		if(posx>1200) {
-			posx=-400;
-		}
 	}
 	
 	//render: Variablen, die durch tick geändert wurden(z.B. Postionen) werden jetzt zum rendern verwendet
@@ -68,16 +68,11 @@ public class Game implements Runnable{
 		g = bs.getDrawGraphics();
 		//Clear Screen
 		g.clearRect(0, 0, width, height);
-		//Hier malen
+		//ab hier malen
 		
-		//test
-				g.fillRect(0, 0, width, height);
-				g.drawImage(Assets.shrek,posx,300,null);
-		//testend		
 		if(State.getState() != null)
 			State.getState().render(g);
-		
-		
+			
 		//gemaltes Bild wird im Screen gezeigt
 		bs.show();
 		g.dispose();
