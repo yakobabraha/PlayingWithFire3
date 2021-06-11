@@ -6,8 +6,9 @@ import java.awt.image.BufferedImage;
 
 import wolf.playingwithfire3.display.Display;
 import wolf.playingwithfire3.gfx.Assets;
-import wolf.playingwithfire3.gfx.ImageLoader;
 import wolf.playingwithfire3.gfx.SpriteSheet;
+import wolf.playingwithfire3.states.GameState;
+import wolf.playingwithfire3.states.State;
 
 //Hauptklasse
 public class Game implements Runnable{
@@ -27,6 +28,9 @@ public class Game implements Runnable{
 	private int posx=-400;
 	private SpriteSheet sheet;
 	
+	//States
+	private State gameState;
+	
 	public Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -37,10 +41,16 @@ public class Game implements Runnable{
 		display = new Display(title, width, height);
 		Assets.init();
 		
+		gameState = new GameState();
+		State.setState(gameState);
 	}
 	
 	//tick: Positionen, Variablen werden aktualisiert
 	private void tick() {
+		
+		if(State.getState() != null)
+			State.getState().tick();
+		
 	//test
 		posx+=5;
 		if(posx>1200) {
@@ -58,13 +68,15 @@ public class Game implements Runnable{
 		g = bs.getDrawGraphics();
 		//Clear Screen
 		g.clearRect(0, 0, width, height);
-		
 		//Hier malen
 		
 		//test
-		g.fillRect(0, 0, width, height);
-		g.drawImage(Assets.shrek,posx,300,null);
-		//testend
+				g.fillRect(0, 0, width, height);
+				g.drawImage(Assets.shrek,posx,300,null);
+		//testend		
+		if(State.getState() != null)
+			State.getState().render(g);
+		
 		
 		//gemaltes Bild wird im Screen gezeigt
 		bs.show();
