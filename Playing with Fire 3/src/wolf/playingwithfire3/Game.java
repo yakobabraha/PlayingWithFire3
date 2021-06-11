@@ -3,13 +3,11 @@ package wolf.playingwithfire3;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import wolf.playingwithfire3.display.Display;
+import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.gfx.ImageLoader;
+import wolf.playingwithfire3.gfx.SpriteSheet;
 
 //Hauptklasse
 public class Game implements Runnable{
@@ -27,6 +25,7 @@ public class Game implements Runnable{
 	//test attribute
 	private BufferedImage testImage;
 	private int posx=-400;
+	private SpriteSheet sheet;
 	
 	public Game(String title, int width, int height) {
 		this.title = title;
@@ -36,7 +35,8 @@ public class Game implements Runnable{
 	
 	private void init() {
 		display = new Display(title, width, height);
-		testImage = ImageLoader.loadImage("res/textures/shrek.png");
+		Assets.init();
+		
 	}
 	
 	//tick: Positionen, Variablen werden aktualisiert
@@ -59,11 +59,11 @@ public class Game implements Runnable{
 		//Clear Screen
 		g.clearRect(0, 0, width, height);
 		
-		//Draw Here!
+		//Hier malen
 		
 		//test
 		g.fillRect(0, 0, width, height);
-		g.drawImage(testImage, posx, 20, null);
+		g.drawImage(Assets.shrek,posx,300,null);
 		//testend
 		
 		//gemaltes Bild wird im Screen gezeigt
