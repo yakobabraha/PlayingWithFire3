@@ -8,7 +8,7 @@ import wolf.playingwithfire3.gfx.Assets;
 public class Player extends Entity{
 	
 	public static int DEFAULT_HEALTH = 10;
-	public static float DEFAULT_SPEED = 3.0f;
+	public static float DEFAULT_SPEED = 5.0f;
 
 	protected int health;
 	protected float speed;
@@ -83,6 +83,6 @@ public class Player extends Entity{
 
 	public void render(Graphics g) {
 		//test
-		g.drawImage(Assets.shrek,(int) x,(int) y, null);
+		g.drawImage(Assets.yellowDog,(int) x,(int) y, null);
 	}
 }

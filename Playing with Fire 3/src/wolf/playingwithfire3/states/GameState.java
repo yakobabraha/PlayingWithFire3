@@ -5,27 +5,32 @@ import java.awt.Graphics;
 import wolf.playingwithfire3.Game;
 import wolf.playingwithfire3.entities.Player;
 import wolf.playingwithfire3.gfx.Assets;
+import wolf.playingwithfire3.worlds.World;
 
 public class GameState extends State{
 
 	private Player player;
 	private Game game;
+	private World world;
 	
 	public GameState(Game game) {
 		super(game);
 		this.game = game;
+		world = new World("res/worlds/world1.txt");
 		player = new Player(game,100,100);
 	}
 
 	public void tick() {
+		world.tick();
 		player.tick();
 	}
 	
 	public void render(Graphics g) {
 		g.fillRect(0, 0, game.width, game.height);
-		g.drawImage(Assets.amogus,40,200, null);
-		g.drawImage(Assets.amogus,500,500, null);
-		g.drawImage(Assets.amogus,150,170, null);
+		world.render(g);
+		g.drawImage(Assets.whiteDog,40,200, null);
+		g.drawImage(Assets.whiteDog,500,500, null);
+		g.drawImage(Assets.whiteDog,150,170, null);
 		player.render(g);
 	}
 	
