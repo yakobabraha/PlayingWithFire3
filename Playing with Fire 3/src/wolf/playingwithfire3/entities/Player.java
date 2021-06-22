@@ -81,8 +81,8 @@ public class Player extends Entity{
 		this.speed = speed;
 	}
 
-	public void render(Graphics g) {
+	public void render(Graphics graphics) {
 		//test
-		g.drawImage(Assets.yellowDog,(int) x,(int) y, null);
+		graphics.drawImage(Assets.yellowDog,(int) x,(int) y, null);
 	}
 }

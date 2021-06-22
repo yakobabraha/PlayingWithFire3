@@ -25,13 +25,13 @@ public class GameState extends State{
 		player.tick();
 	}
 	
-	public void render(Graphics g) {
-		g.fillRect(0, 0, game.width, game.height);
-		world.render(g);
-		g.drawImage(Assets.whiteDog,40,200, null);
-		g.drawImage(Assets.whiteDog,500,500, null);
-		g.drawImage(Assets.whiteDog,150,170, null);
-		player.render(g);
+	public void render(Graphics graphics) {
+		graphics.fillRect(0, 0, game.width, game.height);
+		world.render(graphics);
+		graphics.drawImage(Assets.whiteDog,40,200, null);
+		graphics.drawImage(Assets.whiteDog,500,500, null);
+		graphics.drawImage(Assets.whiteDog,150,170, null);
+		player.render(graphics);
 	}
 	
 }
