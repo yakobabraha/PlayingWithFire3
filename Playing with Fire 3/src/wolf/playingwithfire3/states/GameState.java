@@ -17,7 +17,7 @@ public class GameState extends State{
 		super(game);
 		this.game = game;
 		world = new World("res/worlds/world1.txt");
-		player = new Player(game,100,100);
+		player = new Player(world,game,90,135);
 	}
 
 	public void tick() {
