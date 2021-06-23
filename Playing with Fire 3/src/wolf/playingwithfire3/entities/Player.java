@@ -127,10 +127,14 @@ public class Player extends Entity{
 		this.speed = speed;
 	}
 
-	public void render(Graphics g) {
+	public void render(Graphics graphics) {
 		//test
-		g.drawImage(Assets.yellowDog,(int) x,(int) y, null);
-		g.setColor(Color.red);
+
+		graphics.drawImage(Assets.yellowDog,(int) x,(int) y, null);
+		graphics.setColor(Color.red);
 		//g.fillRect((int) (x +bounds.x), (int) (y +bounds.y), bounds.width, bounds.height);
+
+		graphics.drawImage(Assets.yellowDog,(int) x,(int) y, null);
+
 	}
 }

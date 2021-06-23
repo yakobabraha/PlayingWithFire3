@@ -26,8 +26,8 @@ public class Tile {
 		
 	}
 	
-	public void render(Graphics g, int x, int y) {
-		g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT,null);
+	public void render(Graphics graphics, int x, int y) {
+		graphics.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT,null);
 	}
 	
 	public boolean isSolid() {
