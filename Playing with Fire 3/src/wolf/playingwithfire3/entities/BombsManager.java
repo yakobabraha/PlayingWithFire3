@@ -29,9 +29,12 @@ public class BombsManager {
 
 	}
 	
-	public void addBomb(int x, int y) {
-		if(bombs[x][y]==null)
-			bombs[x][y]=new Bomb(x*Tile.TILEWIDTH,y*Tile.TILEHEIGHT,Tile.TILEWIDTH,Tile.TILEHEIGHT,bombDuration,explosionDuration,3,fps,this,world);
+	public boolean addBomb(int x, int y, Player owner) {
+		if(bombs[x][y]==null) {
+			bombs[x][y]=new Bomb(x*Tile.TILEWIDTH,y*Tile.TILEHEIGHT,Tile.TILEWIDTH,Tile.TILEHEIGHT,bombDuration,explosionDuration,3,fps,this,world, owner);
+			return true;
+		}
+		return false;
 	}
 	
 	public void endExplosion(int x, int y) {

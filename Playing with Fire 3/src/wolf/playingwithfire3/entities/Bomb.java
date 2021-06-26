@@ -18,8 +18,9 @@ public class Bomb extends Entity{
 	private int range;
 	private World world;
 	private int[] toDestroy = new int[4];
+	private Player owner;
 	
-	public Bomb(float x, float y, int width, int height, float bombDuration, float explosionDuration,int range,int fps, BombsManager bombsManager, World world) {
+	public Bomb(float x, float y, int width, int height, float bombDuration, float explosionDuration,int range,int fps, BombsManager bombsManager, World world, Player owner) {
 		super(x, y, width, height);
 		this.bombDuration = bombDuration;
 		this.fps = fps;
@@ -28,6 +29,7 @@ public class Bomb extends Entity{
 		this.range = range;
 		this.world = world;
 		this.explosionDuration = explosionDuration;
+		this.owner = owner;
 	}
 
 	@Override
@@ -84,6 +86,7 @@ public class Bomb extends Entity{
 			bombsManager.sendOn((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT-i);
 		}
 		
+		owner.setBombAmount(owner.getBombAmount()+1);
 		
 	}
 	

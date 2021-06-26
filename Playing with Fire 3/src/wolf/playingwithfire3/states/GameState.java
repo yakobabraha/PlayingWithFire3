@@ -23,8 +23,8 @@ public class GameState extends State{
 		world = new World("res/worlds/world1.txt");
 		bombsManager = new BombsManager(world.getWidth(), world.getHeight(),3.0f,1.0f,game.getFps(),world);
 		players = new Player[4];
-		players[0] = new Player(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH,world.getSpawnY1()*Tile.TILEWIDTH,1100000000,1);
-		players[1] = new Player(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH,world.getSpawnY2()*Tile.TILEWIDTH,1100000000,2);
+		players[0] = new Player(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH,world.getSpawnY1()*Tile.TILEWIDTH,1100000000,1,3);
+		players[1] = new Player(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH,world.getSpawnY2()*Tile.TILEWIDTH,1100000000,2,3);
 	}
 
 	public void tick() {

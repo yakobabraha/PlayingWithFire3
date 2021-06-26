@@ -22,8 +22,9 @@ public class Player extends Entity{
 	private long lastTimeDamage = -1;
 	private long damageCooldown;
 	private int playerNumber;
+	private int bombAmount;
 	
-	public Player(World world,Game game, BombsManager bombsManager,float x, float y, long damageCooldown, int playerNumber) {
+	public Player(World world,Game game, BombsManager bombsManager,float x, float y, long damageCooldown, int playerNumber, int bombAmount) {
 		super(x, y, 45, 45);
 		this.bombsManager = bombsManager;
 		health = DEFAULT_HEALTH;
@@ -40,6 +41,8 @@ public class Player extends Entity{
 		
 		this.damageCooldown = damageCooldown;
 		this.playerNumber = playerNumber;
+		this.bombAmount = bombAmount;
+		
 	}
 	
 	protected boolean collisionWithTile(int x, int y) {
@@ -168,9 +171,21 @@ public class Player extends Entity{
 	}
 	
 	public void setBomb() {
-		bombsManager.addBomb(getTilePositionX(), getTilePositionY());
+		if(bombAmount != 0)
+			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this))
+				bombAmount--;
 	}
 	
+	
+	
+	public int getBombAmount() {
+		return bombAmount;
+	}
+
+	public void setBombAmount(int bombAmount) {
+		this.bombAmount = bombAmount;
+	}
+
 	public int getTilePositionX() {
 		return ((int)x + bounds.x+(bounds.width/2))/Tile.TILEWIDTH;
 	}
