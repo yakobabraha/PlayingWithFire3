@@ -64,6 +64,10 @@ public class BombsManager {
 	public boolean getExplosions(int x, int y) {
 		return explosions[x][y];
 	}
+	
+	public boolean isSolid(int x, int y) {
+		return bombs[x][y] != null && !bombs[x][y].isExploded();
+	}
 	public void tick() {
 		for(int y = 0;y<height;y++) {
 			for(int x = 0;x<width;x++) {

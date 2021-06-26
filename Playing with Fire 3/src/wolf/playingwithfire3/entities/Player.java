@@ -43,7 +43,7 @@ public class Player extends Entity{
 	}
 	
 	protected boolean collisionWithTile(int x, int y) {
-		return world.getTile(x, y).isSolid();
+		return world.getTile(x, y).isSolid() || bombsManager.isSolid(x, y);
 	}
 	
 	public boolean isPixelInExplosion(int x, int y) {
@@ -58,6 +58,11 @@ public class Player extends Entity{
 	public void moveX() {
 		if(xMove > 0) {
 			int tx = (int) (x+ xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
+			if(tx == (int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH) {
+				x+=xMove;
+				return;
+			}
+				
 			if(!collisionWithTile(tx, (int) (y+bounds.y)/Tile.TILEHEIGHT)&&!collisionWithTile(tx, (int) (y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
 				x +=xMove;
 			}else {
@@ -66,6 +71,10 @@ public class Player extends Entity{
 			}
 		}else if(xMove < 0) {
 			int tx = (int) (x+ xMove + bounds.x ) / Tile.TILEWIDTH;
+			if(tx == (int) (x+ bounds.x ) / Tile.TILEWIDTH) {
+				x+=xMove;
+				return;
+			}
 			if(!collisionWithTile(tx, (int) (y+bounds.y)/Tile.TILEHEIGHT)&&!collisionWithTile(tx, (int) (y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
 				x +=xMove;
 			}
@@ -76,10 +85,18 @@ public class Player extends Entity{
 		// TODO Auto-generated method stub
 		if(yMove < 0) {
 			int ty = (int) (y +yMove + bounds.y) / Tile.TILEHEIGHT;
+			if(ty == (int) (y + bounds.y) / Tile.TILEHEIGHT) {
+				y += yMove;
+				return;
+			}
 			if(!collisionWithTile((int) (x+bounds.x)/Tile.TILEWIDTH ,ty)&&!collisionWithTile((int) (x+bounds.x+bounds.width)/Tile.TILEWIDTH ,ty))
 				y+=yMove;
 		}else if(yMove > 0){
 			int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
+			if(ty == (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT) {
+				y += yMove;
+				return;
+			}
 			if(!collisionWithTile((int) (x+bounds.x)/Tile.TILEWIDTH ,ty)&&!collisionWithTile((int) (x+bounds.x+bounds.width)/Tile.TILEWIDTH ,ty))
 				y+=yMove;
 		}
