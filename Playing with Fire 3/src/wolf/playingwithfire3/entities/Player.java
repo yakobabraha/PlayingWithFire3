@@ -21,8 +21,9 @@ public class Player extends Entity{
 	private BombsManager bombsManager;
 	private long lastTimeDamage = -1;
 	private long damageCooldown;
+	private int playerNumber;
 	
-	public Player(World world,Game game, BombsManager bombsManager,float x, float y, long damageCooldown) {
+	public Player(World world,Game game, BombsManager bombsManager,float x, float y, long damageCooldown, int playerNumber) {
 		super(x, y, 45, 45);
 		this.bombsManager = bombsManager;
 		health = DEFAULT_HEALTH;
@@ -38,6 +39,7 @@ public class Player extends Entity{
 		bounds.height = 31;
 		
 		this.damageCooldown = damageCooldown;
+		this.playerNumber = playerNumber;
 	}
 	
 	protected boolean collisionWithTile(int x, int y) {
@@ -122,17 +124,29 @@ public class Player extends Entity{
 	private void getInput() {
 		xMove = 0;
 		yMove = 0;
-		
-		if(game.getKeyManager().up)
-			yMove = -speed;
-		if(game.getKeyManager().down)
-			yMove = speed;
-		if(game.getKeyManager().left)
-			xMove = -speed;
-		if(game.getKeyManager().right)
-			xMove = speed;
-		if(game.getKeyManager().setBomb)
-			setBomb();
+		if(playerNumber == 1) {
+			if(game.getKeyManager().up1)
+				yMove = -speed;
+			if(game.getKeyManager().down1)
+				yMove = speed;
+			if(game.getKeyManager().left1)
+				xMove = -speed;
+			if(game.getKeyManager().right1)
+				xMove = speed;
+			if(game.getKeyManager().setBomb1)
+				setBomb();
+		}else {
+			if(game.getKeyManager().up2)
+				yMove = -speed;
+			if(game.getKeyManager().down2)
+				yMove = speed;
+			if(game.getKeyManager().left2)
+				xMove = -speed;
+			if(game.getKeyManager().right2)
+				xMove = speed;
+			if(game.getKeyManager().setBomb2)
+				setBomb();
+		}
 
 	}
 	
@@ -168,8 +182,10 @@ public class Player extends Entity{
 
 	public void render(Graphics graphics) {
 		//test
-
-		graphics.drawImage(Assets.yellowDog,(int) x,(int) y, null);
+		if(playerNumber == 1)
+			graphics.drawImage(Assets.yellowDog,(int) x,(int) y, null);
+		if(playerNumber == 2)
+			graphics.drawImage(Assets.whiteDog,(int) x,(int) y, null);
 		graphics.setColor(Color.red);
 		//graphics.fillRect((int) (x +bounds.x), (int) (y +bounds.y), bounds.width, bounds.height);
 

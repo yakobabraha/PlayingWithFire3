@@ -43,6 +43,38 @@ public class World {
 		tiles[x][y]= id;
 	}
 	
+	public int getSpawnX1() {
+		return spawnX1;
+	}
+
+	public int getSpawnY1() {
+		return spawnY1;
+	}
+
+	public int getSpawnX2() {
+		return spawnX2;
+	}
+
+	public int getSpawnY2() {
+		return spawnY2;
+	}
+
+	public int getSpawnX3() {
+		return spawnX3;
+	}
+
+	public int getSpawnY3() {
+		return spawnY3;
+	}
+
+	public int getSpawnX4() {
+		return spawnX4;
+	}
+
+	public int getSpawnY4() {
+		return spawnY4;
+	}
+
 	private void loadWorld(String path) {
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");

@@ -13,8 +13,8 @@ public class Assets {
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));
 		
-		whiteDog = sheet.crop(width*3, 0, width, height);
-		yellowDog = sheet.crop(0, width, width, height);
+		whiteDog = sheet.crop(0, 2*height, width, height);
+		yellowDog = sheet.crop(0, height, width, height);
 		
 		floor = sheet.crop(0, 0, width, height);
 		box = sheet.crop(width, 0, width, height);
