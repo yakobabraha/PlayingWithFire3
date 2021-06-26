@@ -33,6 +33,9 @@ public class Tile {
 	public boolean isSolid() {
 		return false;
 	}
+	public boolean isDestructible() {
+		return false;
+	}
 	
 	public int getId() {
 		return id;

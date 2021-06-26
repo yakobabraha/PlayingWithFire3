@@ -21,7 +21,9 @@ public class Game implements Runnable{
 	
 	private BufferStrategy bs;
 	private Graphics g;
-		
+	
+	
+	private int fps = 60;
 	//States
 	private State gameState;
 	
@@ -78,11 +80,13 @@ public class Game implements Runnable{
 		g.dispose();
 	}	
 	
+
+	
 	//wird am Anfang gerunnt (Thread) und die Schleife wird gestartet
 	public void run() {		
 		init();	
 		//Game loop: Es soll genau 60 mal in der sekunde getickt werden 
-		int fps = 60;
+		this.fps = 60;
 		double timePerTick = 1000000000/fps;
 		double delta = 0;
 		long now;
@@ -101,6 +105,14 @@ public class Game implements Runnable{
 		
 	}
 	
+	public int getFps() {
+		return fps;
+	}
+
+	public void setFps(int fps) {
+		this.fps = fps;
+	}
+
 	//thread wird gestartet (in dem läuft der Game Loop)
 	public synchronized void start() {
 		if(running) 

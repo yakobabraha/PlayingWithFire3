@@ -18,9 +18,13 @@ public class Player extends Entity{
 	protected float xMove, yMove;
 	private Game game;
 	private World world;
+	private BombsManager bombsManager;
+	private long lastTimeDamage = -1;
+	private long damageCooldown;
 	
-	public Player(World world,Game game, float x, float y) {
+	public Player(World world,Game game, BombsManager bombsManager,float x, float y, long damageCooldown) {
 		super(x, y, 45, 45);
+		this.bombsManager = bombsManager;
 		health = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;
 		xMove = 0;
@@ -32,10 +36,16 @@ public class Player extends Entity{
 		bounds.y = 16;
 		bounds.width = 18;
 		bounds.height = 31;
+		
+		this.damageCooldown = damageCooldown;
 	}
 	
 	protected boolean collisionWithTile(int x, int y) {
 		return world.getTile(x, y).isSolid();
+	}
+	
+	public boolean isPixelInExplosion(int x, int y) {
+		return bombsManager.getExplosions(x/Tile.TILEWIDTH, y/Tile.TILEHEIGHT);
 	}
 	
 	public void move() {
@@ -49,8 +59,6 @@ public class Player extends Entity{
 			if(!collisionWithTile(tx, (int) (y+bounds.y)/Tile.TILEHEIGHT)&&!collisionWithTile(tx, (int) (y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
 				x +=xMove;
 			}else {
-				System.out.println(x);
-				System.out.println(tx*Tile.TILEWIDTH-bounds.x-bounds.width);
 				x = tx*Tile.TILEWIDTH-bounds.x-bounds.width-1;
 				
 			}
@@ -90,10 +98,25 @@ public class Player extends Entity{
 	public void setyMove(float yMove) {
 		this.yMove = yMove;
 	}
+	
+
 
 	public void tick() {
 		getInput();
 		move();
+		explosionDamage();
+	}
+	
+	public void explosionDamage() {
+		if(System.nanoTime()-lastTimeDamage>=damageCooldown||lastTimeDamage == -1) {
+			//check if collision box in explosion
+			if(isPixelInExplosion((int) x+bounds.x, (int) y+bounds.y)||isPixelInExplosion((int) x+bounds.x+bounds.width, (int) y+bounds.y)||isPixelInExplosion((int) x+bounds.x, (int) y+bounds.y+bounds.height)||isPixelInExplosion((int) x+bounds.x+bounds.width, (int) y+bounds.y+bounds.height)) {
+				System.out.println("Damage!");
+				health--;
+				lastTimeDamage = System.nanoTime();
+			}
+			
+		}
 	}
 	
 	private void getInput() {
@@ -108,7 +131,21 @@ public class Player extends Entity{
 			xMove = -speed;
 		if(game.getKeyManager().right)
 			xMove = speed;
+		if(game.getKeyManager().setBomb)
+			setBomb();
 
+	}
+	
+	public void setBomb() {
+		bombsManager.addBomb(getTilePositionX(), getTilePositionY());
+	}
+	
+	public int getTilePositionX() {
+		return ((int)x + bounds.x+(bounds.width/2))/Tile.TILEWIDTH;
+	}
+	
+	public int getTilePositionY() {
+		return ((int)y + bounds.y+(bounds.height/2))/Tile.TILEHEIGHT;
 	}
 	
 	public int getHealth() {
@@ -126,15 +163,17 @@ public class Player extends Entity{
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
+	
+
 
 	public void render(Graphics graphics) {
 		//test
 
 		graphics.drawImage(Assets.yellowDog,(int) x,(int) y, null);
 		graphics.setColor(Color.red);
-		//g.fillRect((int) (x +bounds.x), (int) (y +bounds.y), bounds.width, bounds.height);
+		//graphics.fillRect((int) (x +bounds.x), (int) (y +bounds.y), bounds.width, bounds.height);
 
-		graphics.drawImage(Assets.yellowDog,(int) x,(int) y, null);
+
 
 	}
 }

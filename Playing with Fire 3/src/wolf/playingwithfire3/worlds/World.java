@@ -39,6 +39,10 @@ public class World {
 		return t;
 	}
 	
+	public void setTile(int x, int y, int id) {
+		tiles[x][y]= id;
+	}
+	
 	private void loadWorld(String path) {
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
@@ -61,4 +65,17 @@ public class World {
 			}
 		}
 	}
+
+	public int getWidth() {
+		return width;
+	}
+
+
+
+	public int getHeight() {
+		return height;
+	}
+
+
+	
 }

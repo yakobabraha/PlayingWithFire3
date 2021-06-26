@@ -12,5 +12,7 @@ public class WallTile extends Tile{
 	public boolean isSolid() {
 		return true;
 	}
-	
+	public boolean isDestructible() {
+		return false;
+	}
 }

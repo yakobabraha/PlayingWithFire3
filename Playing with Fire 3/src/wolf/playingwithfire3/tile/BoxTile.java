@@ -14,5 +14,7 @@ public class BoxTile extends Tile{
 	public boolean isSolid() {
 		return true;
 	}
-
+	public boolean isDestructible() {
+		return true;
+	}
 }
