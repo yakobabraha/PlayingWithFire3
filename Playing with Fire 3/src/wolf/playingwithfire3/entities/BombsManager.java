@@ -2,6 +2,7 @@ package wolf.playingwithfire3.entities;
 
 import java.awt.Graphics;
 
+import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.worlds.World;
 
@@ -31,7 +32,7 @@ public class BombsManager {
 	
 	public boolean addBomb(int x, int y, Player owner) {
 		if(bombs[x][y]==null) {
-			bombs[x][y]=new Bomb(x*Tile.TILEWIDTH,y*Tile.TILEHEIGHT,Tile.TILEWIDTH,Tile.TILEHEIGHT,bombDuration,explosionDuration,3,fps,this,world, owner);
+			bombs[x][y]=new Bomb(x*Tile.TILEWIDTH+SettingState.xOffset,y*Tile.TILEHEIGHT+SettingState.yOffset,Tile.TILEWIDTH,Tile.TILEHEIGHT,bombDuration,explosionDuration,3,fps,this,world, owner);
 			return true;
 		}
 		return false;

@@ -5,12 +5,13 @@ import java.awt.Graphics;
 
 import wolf.playingwithfire3.Game;
 import wolf.playingwithfire3.gfx.Assets;
+import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.worlds.World;
 
 public class Player extends Entity{
 	
-	public static int DEFAULT_HEALTH = 10;
+	public static int DEFAULT_HEALTH = 3;
 	public static float DEFAULT_SPEED = 3.0f;
 	
 	protected int health;
@@ -50,7 +51,7 @@ public class Player extends Entity{
 	}
 	
 	public boolean isPixelInExplosion(int x, int y) {
-		return bombsManager.getExplosions(x/Tile.TILEWIDTH, y/Tile.TILEHEIGHT);
+		return bombsManager.getExplosions((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT);
 	}
 	
 	public void move() {
@@ -60,25 +61,25 @@ public class Player extends Entity{
 	
 	public void moveX() {
 		if(xMove > 0) {
-			int tx = (int) (x+ xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
-			if(tx == (int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH) {
+			int tx = (int) (x+ xMove + bounds.x + bounds.width-SettingState.xOffset) / Tile.TILEWIDTH;
+			if(tx == (int) (x + bounds.x + bounds.width-SettingState.xOffset) / Tile.TILEWIDTH) {
 				x+=xMove;
 				return;
 			}
 				
-			if(!collisionWithTile(tx, (int) (y+bounds.y)/Tile.TILEHEIGHT)&&!collisionWithTile(tx, (int) (y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
+			if(!collisionWithTile(tx, (int) (y+bounds.y-SettingState.yOffset)/Tile.TILEHEIGHT)&&!collisionWithTile(tx, (int) (y+bounds.y+bounds.height-SettingState.yOffset)/Tile.TILEHEIGHT)) {
 				x +=xMove;
 			}else {
-				x = tx*Tile.TILEWIDTH-bounds.x-bounds.width-1;
+				x = tx*Tile.TILEWIDTH-bounds.x-bounds.width-1+SettingState.xOffset;
 				
 			}
 		}else if(xMove < 0) {
-			int tx = (int) (x+ xMove + bounds.x ) / Tile.TILEWIDTH;
-			if(tx == (int) (x+ bounds.x ) / Tile.TILEWIDTH) {
+			int tx = (int) (x+ xMove + bounds.x - SettingState.xOffset) / Tile.TILEWIDTH;
+			if(tx == (int) (x+ bounds.x - SettingState.xOffset) / Tile.TILEWIDTH) {
 				x+=xMove;
 				return;
 			}
-			if(!collisionWithTile(tx, (int) (y+bounds.y)/Tile.TILEHEIGHT)&&!collisionWithTile(tx, (int) (y+bounds.y+bounds.height)/Tile.TILEHEIGHT)) {
+			if(!collisionWithTile(tx, (int) (y+bounds.y-SettingState.yOffset)/Tile.TILEHEIGHT)&&!collisionWithTile(tx, (int) (y+bounds.y+bounds.height-SettingState.yOffset)/Tile.TILEHEIGHT)) {
 				x +=xMove;
 			}
 		}
@@ -87,20 +88,20 @@ public class Player extends Entity{
 	public void movey() {
 		// TODO Auto-generated method stub
 		if(yMove < 0) {
-			int ty = (int) (y +yMove + bounds.y) / Tile.TILEHEIGHT;
-			if(ty == (int) (y + bounds.y) / Tile.TILEHEIGHT) {
+			int ty = (int) (y +yMove + bounds.y-SettingState.yOffset) / Tile.TILEHEIGHT;
+			if(ty == (int) (y + bounds.y-SettingState.yOffset) / Tile.TILEHEIGHT) {
 				y += yMove;
 				return;
 			}
-			if(!collisionWithTile((int) (x+bounds.x)/Tile.TILEWIDTH ,ty)&&!collisionWithTile((int) (x+bounds.x+bounds.width)/Tile.TILEWIDTH ,ty))
+			if(!collisionWithTile((int) (x+bounds.x-SettingState.xOffset)/Tile.TILEWIDTH ,ty)&&!collisionWithTile((int) (x+bounds.x+bounds.width-SettingState.xOffset)/Tile.TILEWIDTH ,ty))
 				y+=yMove;
 		}else if(yMove > 0){
-			int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
-			if(ty == (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT) {
+			int ty = (int) (y + yMove + bounds.y + bounds.height-SettingState.yOffset) / Tile.TILEHEIGHT;
+			if(ty == (int) (y + bounds.y + bounds.height-SettingState.yOffset) / Tile.TILEHEIGHT) {
 				y += yMove;
 				return;
 			}
-			if(!collisionWithTile((int) (x+bounds.x)/Tile.TILEWIDTH ,ty)&&!collisionWithTile((int) (x+bounds.x+bounds.width)/Tile.TILEWIDTH ,ty))
+			if(!collisionWithTile((int) (x+bounds.x-SettingState.xOffset)/Tile.TILEWIDTH ,ty)&&!collisionWithTile((int) (x+bounds.x+bounds.width-SettingState.xOffset)/Tile.TILEWIDTH ,ty))
 				y+=yMove;
 		}
 	}
@@ -187,11 +188,11 @@ public class Player extends Entity{
 	}
 
 	public int getTilePositionX() {
-		return ((int)x + bounds.x+(bounds.width/2))/Tile.TILEWIDTH;
+		return ((int)x + bounds.x+(bounds.width/2)-SettingState.xOffset)/Tile.TILEWIDTH;
 	}
 	
 	public int getTilePositionY() {
-		return ((int)y + bounds.y+(bounds.height/2))/Tile.TILEHEIGHT;
+		return ((int)y + bounds.y+(bounds.height/2)-SettingState.yOffset)/Tile.TILEHEIGHT;
 	}
 	
 	public int getHealth() {

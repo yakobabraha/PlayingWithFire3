@@ -1,5 +1,6 @@
 package wolf.playingwithfire3.states;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import wolf.playingwithfire3.Game;
@@ -23,8 +24,8 @@ public class GameState extends State{
 		world = new World("res/worlds/world1.txt");
 		bombsManager = new BombsManager(world.getWidth(), world.getHeight(),3.0f,1.0f,game.getFps(),world);
 		players = new Player[4];
-		players[0] = new Player(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH,world.getSpawnY1()*Tile.TILEWIDTH,1100000000,1,3);
-		players[1] = new Player(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH,world.getSpawnY2()*Tile.TILEWIDTH,1100000000,2,3);
+		players[0] = new Player(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY1()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,1,3);
+		players[1] = new Player(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY2()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,2,3);
 	}
 
 	public void tick() {
@@ -38,14 +39,55 @@ public class GameState extends State{
 	}
 	
 	public void render(Graphics graphics) {
-		graphics.fillRect(0, 0, game.width, game.height);
+		
 		world.render(graphics);
 		bombsManager.render(graphics);
 		for(int i = 0; i < players.length;i++) {
 			if(players[i]!=null)
 				players[i].render(graphics);
 		}
-		graphics.drawString("Health: "+players[0].getHealth(), 90, 180);
+		drawlayout(graphics);
+		//graphics.drawString("Health: "+players[0].getHealth(), 90, 180);
+		
+	}
+	
+	public void drawlayout(Graphics graphics) {
+		graphics.setColor(Color.LIGHT_GRAY);
+		//SideBar hintergrund
+		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
+		//Ränder
+		graphics.fillRect(0, 0, game.width, SettingState.yOffset);
+		graphics.fillRect(0, game.height-5, game.width, SettingState.yOffset);
+		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
+		drawsidebar(graphics);
+		
+	}
+	
+	public void drawsidebar(Graphics graphics) {
+		graphics.drawImage(Assets.logo, 5, 10, null);
+		for(int i = 0;i<4;i++) {
+			drawPlayerCard(graphics, i);
+		}
+	}
+	
+	public void drawPlayerCard(Graphics graphics, int i) {
+		//player card rand
+		graphics.setColor(Color.black);
+		graphics.drawRect(10, 120 + i * 100, 100, 80);
+		//playerbild
+		graphics .setColor(Color.darkGray);
+		graphics.fillRect(32, 120 + i * 100+5, 55, 50);
+		if(i == 0)
+			graphics.drawImage(Assets.yellowDogFace,32+5, 120 + i * 100+5+4, null);
+		if(i==1)
+			graphics.drawImage(Assets.whiteDogFace,32+5, 120 + i * 100+5+5, null);
+		//herze
+		if(players[i]!=null) {
+			int playerHealth = players[i].getHealth();
+			for(int x = 0; x<playerHealth;x++) {
+				graphics.drawImage(Assets.heart, 25 +24 * x, 120 + i * 100 + 55, null);
+			}
+		}
 	}
 	
 }

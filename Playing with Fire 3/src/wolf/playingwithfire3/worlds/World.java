@@ -2,6 +2,7 @@ package wolf.playingwithfire3.worlds;
 
 import java.awt.Graphics;
 
+import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.utils.Utils;
 
@@ -23,7 +24,7 @@ public class World {
 	public void render(Graphics graphics) {
 		for(int y = 0;y<height;y++) {
 			for(int x = 0; x < width; x++) {
-				getTile(x,y).render(graphics, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT);
+				getTile(x,y).render(graphics, x * Tile.TILEWIDTH+SettingState.xOffset, y * Tile.TILEHEIGHT+SettingState.yOffset);
 			}
 		}
 	}

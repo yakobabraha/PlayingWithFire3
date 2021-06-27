@@ -4,6 +4,7 @@ package wolf.playingwithfire3.entities;
 import java.awt.Graphics;
 
 import wolf.playingwithfire3.gfx.Assets;
+import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.worlds.World;
 
@@ -45,7 +46,7 @@ public class Bomb extends Entity{
 		}else {
 			tickCounter++;
 			if(tickCounter/fps>=explosionDuration) {
-				bombsManager.endExplosion((int)x/Tile.TILEWIDTH, (int) y/Tile.TILEHEIGHT);
+				bombsManager.endExplosion((int)(x-SettingState.xOffset)/Tile.TILEWIDTH, (int) (y-SettingState.yOffset)/Tile.TILEHEIGHT);
 			}
 		}
 	}
@@ -54,36 +55,36 @@ public class Bomb extends Entity{
 		explosion = true; 
 		tickCounter = 0;
 		for(int i = 1;i<range;i++) {
-			if(world.getTile((int)x/Tile.TILEWIDTH+i,(int) y/Tile.TILEHEIGHT).isSolid()) {
-				if(world.getTile((int)x/Tile.TILEWIDTH+i,(int) y/Tile.TILEHEIGHT).isDestructible())
-					toDestroy[0]=(int)x/Tile.TILEWIDTH+i;
+			if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isSolid()) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isDestructible())
+					toDestroy[0]=(int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i;
 				break;	
 			}	
-			bombsManager.sendOn((int)x/Tile.TILEWIDTH+i,(int) y/Tile.TILEHEIGHT);
+			bombsManager.sendOn((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT);
 		}
 		for(int i = 1;i<range;i++) {
-			if(world.getTile((int)x/Tile.TILEWIDTH-i,(int) y/Tile.TILEHEIGHT).isSolid()) {
-				if(world.getTile((int)x/Tile.TILEWIDTH-i,(int) y/Tile.TILEHEIGHT).isDestructible())
-					toDestroy[1]=(int)x/Tile.TILEWIDTH-i;
+			if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isSolid()) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isDestructible())
+					toDestroy[1]=(int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i;
 				break;
 			}
-			bombsManager.sendOn((int)x/Tile.TILEWIDTH-i,(int) y/Tile.TILEHEIGHT);
+			bombsManager.sendOn((int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT);
 		}
 		for(int i = 1;i<range;i++) {
-			if(world.getTile((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT+i).isSolid()) {
-				if(world.getTile((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT+i).isDestructible())
-					toDestroy[2]=(int) y/Tile.TILEHEIGHT+i;
+			if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i).isSolid()) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i).isDestructible())
+					toDestroy[2]=(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i;
 				break;
 			}
-			bombsManager.sendOn((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT+i);
+			bombsManager.sendOn((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i);
 		}
 		for(int i = 1;i<range;i++) {
-			if(world.getTile((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT-i).isSolid()) {
-				if(world.getTile((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT-i).isDestructible())
-					toDestroy[3] = (int) y/Tile.TILEHEIGHT-i;
+			if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i).isSolid()) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i).isDestructible())
+					toDestroy[3] = (int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i;
 				break;
 			}
-			bombsManager.sendOn((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT-i);
+			bombsManager.sendOn((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i);
 		}
 		
 		owner.setBombAmount(owner.getBombAmount()+1);
@@ -113,51 +114,51 @@ public class Bomb extends Entity{
 		}else {
 			graphics.drawImage(Assets.bombExplosion,(int) x,(int) y, null);
 			for(int i = 1;i<range;i++) {
-				if(world.getTile((int)x/Tile.TILEWIDTH+i,(int) y/Tile.TILEHEIGHT).isSolid()) {
-					if(world.getTile((int)x/Tile.TILEWIDTH+i,(int) y/Tile.TILEHEIGHT).isDestructible()) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isSolid()) {
+					if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isDestructible()) {
 						graphics.drawImage(Assets.bombExplosion,(int) x+i*Tile.TILEWIDTH,(int) y, null);;
 					}
 					break;	
 				}
 				graphics.drawImage(Assets.bombExplosion,(int) x+i*Tile.TILEWIDTH,(int) y, null);
-				bombsManager.setExplosions((int) x/Tile.TILEWIDTH+i,(int) y/Tile.TILEHEIGHT, true);
-				if((int)x/Tile.TILEWIDTH+i==toDestroy[0])
+				bombsManager.setExplosions((int) (x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT, true);
+				if((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i==toDestroy[0])
 					break;
 			}
 			for(int i = 1;i<range;i++) {
-				if(world.getTile((int)x/Tile.TILEWIDTH-i,(int) y/Tile.TILEHEIGHT).isSolid()) {
-					if(world.getTile((int)x/Tile.TILEWIDTH-i,(int) y/Tile.TILEHEIGHT).isDestructible()) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isSolid()) {
+					if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isDestructible()) {
 						graphics.drawImage(Assets.bombExplosion,(int) x-i*Tile.TILEWIDTH,(int) y, null);
 					}
 					break;
 				}
 				graphics.drawImage(Assets.bombExplosion,(int) x-i*Tile.TILEWIDTH,(int) y, null);
-				bombsManager.setExplosions((int) x/Tile.TILEWIDTH-i,(int) y/Tile.TILEHEIGHT, true);
-				if((int)x/Tile.TILEWIDTH-i==toDestroy[1])
+				bombsManager.setExplosions((int) (x-SettingState.xOffset)/Tile.TILEWIDTH-i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT, true);
+				if((int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i==toDestroy[1])
 					break;
 			}
 			for(int i = 1;i<range;i++) {
-				if(world.getTile((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT+i).isSolid()) {
-					if(world.getTile((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT+i).isDestructible()) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i).isSolid()) {
+					if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i).isDestructible()) {
 						graphics.drawImage(Assets.bombExplosion,(int) x,(int) y+i*Tile.TILEHEIGHT, null);
 					}
 					break;
 				}
 				graphics.drawImage(Assets.bombExplosion,(int) x,(int) y+i*Tile.TILEHEIGHT, null);
-				bombsManager.setExplosions((int) x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT+i, true);
-				if((int)y/Tile.TILEHEIGHT+i==toDestroy[2])
+				bombsManager.setExplosions((int) (x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i, true);
+				if((int)(y-SettingState.yOffset)/Tile.TILEHEIGHT+i==toDestroy[2])
 					break;
 			}
 			for(int i = 1;i<range;i++) {
-				if(world.getTile((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT-i).isSolid()) {
-					if(world.getTile((int)x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT-i).isDestructible()) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i).isSolid()) {
+					if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i).isDestructible()) {
 						graphics.drawImage(Assets.bombExplosion,(int) x,(int) y-i*Tile.TILEHEIGHT, null);
 					}
 					break;
 				}
 				graphics.drawImage(Assets.bombExplosion,(int) x,(int) y-i*Tile.TILEHEIGHT, null);
-				bombsManager.setExplosions((int) x/Tile.TILEWIDTH,(int) y/Tile.TILEHEIGHT-i, true);
-				if((int)y/Tile.TILEHEIGHT-i==toDestroy[3])
+				bombsManager.setExplosions((int) (x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i, true);
+				if((int)(y-SettingState.yOffset)/Tile.TILEHEIGHT-i==toDestroy[3])
 					break;
 			}
 		}
