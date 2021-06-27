@@ -1,11 +1,11 @@
 package wolf.playingwithfire3.states;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import wolf.playingwithfire3.Game;
 import wolf.playingwithfire3.entities.BombsManager;
-import wolf.playingwithfire3.entities.Entity;
 import wolf.playingwithfire3.entities.Player;
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.tile.Tile;
@@ -17,6 +17,11 @@ public class GameState extends State{
 	private Game game;
 	private World world;
 	private BombsManager bombsManager;
+	
+	//timer
+	private int startTimer = 90;
+	private int currentTimer;
+	private long startTime = System.currentTimeMillis();
 	
 	public GameState(Game game) {
 		super(game);
@@ -35,7 +40,12 @@ public class GameState extends State{
 			if(players[i]!=null)
 				players[i].tick();
 		}
-		
+		timertick();
+	}
+	
+	public void timertick() {
+		long difference = System.currentTimeMillis() - startTime;
+		currentTimer= (int) (startTimer - (difference/1000));
 	}
 	
 	public void render(Graphics graphics) {
@@ -88,6 +98,18 @@ public class GameState extends State{
 				graphics.drawImage(Assets.heart, 25 +24 * x, 120 + i * 100 + 55, null);
 			}
 		}
+		renderTimer(graphics);
+	}
+	
+	public void renderTimer(Graphics graphics) {
+		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
+		graphics.drawString(formatSeconds(currentTimer), 30, 550);
+	}
+	
+	public String formatSeconds(int seconds) {
+		int rest = seconds % 60;
+		int minutes = (seconds - rest)/60;
+		return Integer.toString(minutes)+" : "+rest;
 	}
 	
 }
