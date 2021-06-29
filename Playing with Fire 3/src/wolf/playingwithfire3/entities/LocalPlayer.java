@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import wolf.playingwithfire3.Game;
+import wolf.playingwithfire3.gfx.Animation;
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
@@ -25,6 +26,8 @@ public class LocalPlayer extends Player{
 	private int playerNumber;
 	private int bombAmount;
 	
+	private Animation animDown, animUp, animLeft, animRight;
+	
 	public LocalPlayer(World world,Game game, BombsManager bombsManager,float x, float y, long damageCooldown, int playerNumber, int bombAmount) {
 		super(x, y, 45, 45);
 		this.bombsManager = bombsManager;
@@ -43,6 +46,11 @@ public class LocalPlayer extends Player{
 		this.damageCooldown = damageCooldown;
 		this.playerNumber = playerNumber;
 		this.bombAmount = bombAmount;
+		
+		animDown = new Animation(250,Assets.default_bluePlayer_down);
+		animUp = new Animation(250,Assets.default_bluePlayer_up);
+		animLeft = new Animation(500,Assets.default_bluePlayer_left);
+		animRight = new Animation(500,Assets.default_bluePlayer_right);
 		
 	}
 	
@@ -125,6 +133,8 @@ public class LocalPlayer extends Player{
 
 
 	public void tick() {
+		animDown.tick();
+		animUp.tick();
 		getInput();
 		move();
 		explosionDamage();
@@ -214,12 +224,16 @@ public class LocalPlayer extends Player{
 
 
 	public void render(Graphics graphics) {
-		//test
-		if(playerNumber == 1)
-			graphics.drawImage(Assets.yellowDog,(int) x,(int) y, null);
-		if(playerNumber == 2)
-			graphics.drawImage(Assets.whiteDog,(int) x,(int) y, null);
-		graphics.setColor(Color.red);
+		if(xMove>0)
+			graphics.drawImage(animRight.getCurrentFrame(),(int) x,(int) y, null);
+		if(xMove<0)
+			graphics.drawImage(animLeft.getCurrentFrame(),(int) x,(int) y, null);
+		if(yMove>0)
+			graphics.drawImage(animDown.getCurrentFrame(),(int) x,(int) y, null);
+		if(yMove<0)
+			graphics.drawImage(animUp.getCurrentFrame(),(int) x,(int) y, null);
+		
+		//graphics.setColor(Color.red);
 		//graphics.fillRect((int) (x +bounds.x), (int) (y +bounds.y), bounds.width, bounds.height);
 
 
