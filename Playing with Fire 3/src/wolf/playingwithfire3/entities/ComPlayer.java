@@ -17,7 +17,6 @@ public class ComPlayer extends Player{
 
 	@Override
 	public int getBombAmount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

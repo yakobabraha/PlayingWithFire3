@@ -40,6 +40,10 @@ public class World {
 		return t;
 	}
 	
+	public void destroyBox(int x, int y) {
+		
+	}
+	
 	public void setTile(int x, int y, int id) {
 		tiles[x][y]= id;
 	}

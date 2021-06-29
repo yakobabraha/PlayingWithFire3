@@ -41,13 +41,13 @@ public class BombsManager {
 	public void endExplosion(int x, int y) {
 		int[] toDestroy = bombs[x][y].getToDestroy();
 		if(toDestroy[0]!=0)
-			world.setTile(toDestroy[0], y, 0);
+			world.destroyBox(toDestroy[0], y);
 		if(toDestroy[1]!=0)
-			world.setTile(toDestroy[1], y, 0);
+			world.destroyBox(toDestroy[1], y);
 		if(toDestroy[2]!=0)
-			world.setTile(x, toDestroy[2], 0);
+			world.destroyBox(x, toDestroy[2]);
 		if(toDestroy[3]!=0)
-			world.setTile(x, toDestroy[3], 0);
+			world.destroyBox(x, toDestroy[3]);
 		System.out.println(toDestroy[0]);
 		System.out.println(toDestroy[1]);
 		System.out.println(toDestroy[2]);
