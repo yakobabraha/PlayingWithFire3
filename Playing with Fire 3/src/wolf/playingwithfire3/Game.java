@@ -2,10 +2,15 @@ package wolf.playingwithfire3;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import wolf.playingwithfire3.display.Display;
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.input.KeyManager;
+import wolf.playingwithfire3.sound.AudioPlayer;
 import wolf.playingwithfire3.states.GameState;
 import wolf.playingwithfire3.states.State;
 

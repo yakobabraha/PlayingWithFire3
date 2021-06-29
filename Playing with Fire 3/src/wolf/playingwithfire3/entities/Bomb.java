@@ -2,8 +2,13 @@ package wolf.playingwithfire3.entities;
 
 
 import java.awt.Graphics;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import wolf.playingwithfire3.gfx.Assets;
+import wolf.playingwithfire3.sound.AudioPlayer;
 import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.worlds.World;
@@ -88,6 +93,7 @@ public class Bomb extends Entity{
 		}
 		
 		owner.setBombAmount(owner.getBombAmount()+1);
+		AudioPlayer.playExplosionSound();
 		
 	}
 	
