@@ -30,8 +30,8 @@ public class GameState extends State{
 		world = new World("res/worlds/world1.txt");
 		bombsManager = new BombsManager(world.getWidth(), world.getHeight(),3.0f,1.0f,game.getFps(),world);
 		players = new Player[4];
-		players[0] = new LocalPlayer(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY1()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,1,3);
-		players[1] = new LocalPlayer(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY2()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,2,3);
+		players[0] = new LocalPlayer(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY1()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,1,3, "default");
+		players[1] = new LocalPlayer(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY2()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,2,3,"default");
 	}
 
 	public void tick() {
@@ -71,7 +71,6 @@ public class GameState extends State{
 		graphics.fillRect(0, game.height-5, game.width, SettingState.yOffset);
 		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
 		drawsidebar(graphics);
-		
 	}
 	
 	public void drawsidebar(Graphics graphics) {

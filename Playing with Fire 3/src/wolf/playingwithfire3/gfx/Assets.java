@@ -21,6 +21,16 @@ public class Assets {
 	public static BufferedImage[] default_redPlayer_left;
 	public static BufferedImage[] default_redPlayer_up;
 	
+	public static BufferedImage[] default_purplePlayer_down;
+	public static BufferedImage[] default_purplePlayer_right;
+	public static BufferedImage[] default_purplePlayer_left;
+	public static BufferedImage[] default_purplePlayer_up;
+	
+	public static BufferedImage[] default_greenPlayer_down;
+	public static BufferedImage[] default_greenPlayer_right;
+	public static BufferedImage[] default_greenPlayer_left;
+	public static BufferedImage[] default_greenPlayer_up;
+	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));
 		//test
@@ -41,8 +51,8 @@ public class Assets {
 		//players
 		default_bluePlayer_down = new BufferedImage[2];
 		default_bluePlayer_up = new BufferedImage[2];
-		default_bluePlayer_right = new BufferedImage[2];
-		default_bluePlayer_left = new BufferedImage[2];
+		default_bluePlayer_right = new BufferedImage[1];
+		default_bluePlayer_left = new BufferedImage[1];
 		
 		default_bluePlayer_down[0] = sheet.crop(width * 4, height * 0, width, height);
 		default_bluePlayer_down[1] = sheet.crop(width * 5, height * 0, width, height);
@@ -53,8 +63,8 @@ public class Assets {
 		
 		default_redPlayer_down = new BufferedImage[2];
 		default_redPlayer_up = new BufferedImage[2];
-		default_redPlayer_right = new BufferedImage[2];
-		default_redPlayer_left = new BufferedImage[2];
+		default_redPlayer_right = new BufferedImage[1];
+		default_redPlayer_left = new BufferedImage[1];
 		
 		default_redPlayer_down[0] = sheet.crop(width * 4, height * 1, width, height);
 		default_redPlayer_down[1] = sheet.crop(width * 5, height * 1, width, height);
@@ -63,6 +73,29 @@ public class Assets {
 		default_redPlayer_left[0] = sheet.crop(width * 8, height * 1, width, height);
 		default_redPlayer_right[0] = sheet.crop(width * 9, height * 1, width, height);
 
+		default_purplePlayer_down = new BufferedImage[2];
+		default_purplePlayer_up = new BufferedImage[2];
+		default_purplePlayer_right = new BufferedImage[1];
+		default_purplePlayer_left = new BufferedImage[1];
+		
+		default_purplePlayer_down[0] = sheet.crop(width * 4, height * 2, width, height);
+		default_purplePlayer_down[1] = sheet.crop(width * 5, height * 2, width, height);
+		default_purplePlayer_up[0] = sheet.crop(width * 6, height * 2, width, height);
+		default_purplePlayer_up[1] = sheet.crop(width * 7, height * 2, width, height);
+		default_purplePlayer_left[0] = sheet.crop(width * 8, height * 2, width, height);
+		default_purplePlayer_right[0] = sheet.crop(width * 9, height * 2, width, height);
+		
+		default_greenPlayer_down = new BufferedImage[2];
+		default_greenPlayer_up = new BufferedImage[2];
+		default_greenPlayer_right = new BufferedImage[1];
+		default_greenPlayer_left = new BufferedImage[1];
+		
+		default_greenPlayer_down[0] = sheet.crop(width * 4, height * 3, width, height);
+		default_greenPlayer_down[1] = sheet.crop(width * 5, height * 3, width, height);
+		default_greenPlayer_up[0] = sheet.crop(width * 6, height * 3, width, height);
+		default_greenPlayer_up[1] = sheet.crop(width * 7, height * 3, width, height);
+		default_greenPlayer_left[0] = sheet.crop(width * 8, height * 3, width, height);
+		default_greenPlayer_right[0] = sheet.crop(width * 9, height * 3, width, height);
 		
 		
 		//testend
