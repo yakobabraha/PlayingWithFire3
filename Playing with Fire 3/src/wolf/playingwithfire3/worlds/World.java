@@ -79,6 +79,36 @@ public class World {
 	public int getSpawnY4() {
 		return spawnY4;
 	}
+	
+	public int getSpawnX(int playerNumber) {
+		switch(playerNumber) {
+		case 1:
+			return spawnX1;
+		case 2:
+			return spawnX2;
+		case 3:
+			return spawnX3;
+		case 4:
+			return spawnX4;
+		default:
+			return spawnX1;		
+		}
+	}
+	
+	public int getSpawnY(int playerNumber) {
+		switch(playerNumber) {
+		case 1:
+			return spawnY1;
+		case 2:
+			return spawnY2;
+		case 3:
+			return spawnY3;
+		case 4:
+			return spawnY4;
+		default:
+			return spawnY1;
+		}
+	}
 
 	private void loadWorld(String path) {
 		String file = Utils.loadFileAsString(path);

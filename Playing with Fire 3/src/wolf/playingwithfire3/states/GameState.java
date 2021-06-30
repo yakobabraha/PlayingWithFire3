@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import wolf.playingwithfire3.Game;
 import wolf.playingwithfire3.entities.BombsManager;
+import wolf.playingwithfire3.entities.ComPlayer;
 import wolf.playingwithfire3.entities.LocalPlayer;
 import wolf.playingwithfire3.entities.Player;
 import wolf.playingwithfire3.gfx.Assets;
@@ -32,6 +33,8 @@ public class GameState extends State{
 		players = new Player[4];
 		players[0] = new LocalPlayer(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY1()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,1,3, "default");
 		players[1] = new LocalPlayer(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY2()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,2,3,"default");
+		players[2] = new ComPlayer(world,3, "default");
+		players[3] = new ComPlayer(world,4, "default");
 	}
 
 	public void tick() {
