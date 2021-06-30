@@ -12,5 +12,5 @@ public abstract class Player extends Entity{
 	
 	public abstract int getBombAmount();
 	public abstract void setBombAmount(int bombAmount);
-		
+	public abstract int getPlayerNumber();
 }

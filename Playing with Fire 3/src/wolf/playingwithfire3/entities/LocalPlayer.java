@@ -125,7 +125,9 @@ public class LocalPlayer extends Player{
 		this.yMove = yMove;
 	}
 	
-
+	public int getPlayerNumber() {
+		return playerNumber;
+	}
 
 	public void tick() {
 		getInput();

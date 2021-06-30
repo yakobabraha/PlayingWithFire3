@@ -38,4 +38,10 @@ public class ComPlayer extends Player{
 		
 	}
 
+	@Override
+	public int getPlayerNumber() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

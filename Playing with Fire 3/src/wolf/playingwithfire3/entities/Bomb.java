@@ -2,10 +2,7 @@ package wolf.playingwithfire3.entities;
 
 
 import java.awt.Graphics;
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.image.BufferedImage;
 
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.sound.AudioPlayer;
@@ -25,6 +22,7 @@ public class Bomb extends Entity{
 	private World world;
 	private int[] toDestroy = new int[4];
 	private Player owner;
+	private BufferedImage bombPicture;
 	
 	public Bomb(float x, float y, int width, int height, float bombDuration, float explosionDuration,int range,int fps, BombsManager bombsManager, World world, Player owner) {
 		super(x, y, width, height);
@@ -36,8 +34,25 @@ public class Bomb extends Entity{
 		this.world = world;
 		this.explosionDuration = explosionDuration;
 		this.owner = owner;
+		chooseBombPicture(owner.getPlayerNumber());
 	}
-
+	
+	public void chooseBombPicture(int playerNumber) {
+		switch(playerNumber) {
+		case 1:
+			bombPicture = Assets.blueBomb;
+			break;
+		case 2:
+			bombPicture = Assets.redBomb;
+			break;
+		case 3:
+			bombPicture = Assets.purpleBomb;
+			break;
+		case 4:
+			bombPicture = Assets.greenBomb;
+		}
+	}
+	
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
@@ -116,7 +131,7 @@ public class Bomb extends Entity{
 	@Override
 	public void render(Graphics graphics) {
 		if(!explosion) {
-			graphics.drawImage(Assets.redBomb,(int) x,(int) y, null);
+			graphics.drawImage(bombPicture,(int) x,(int) y, null);
 		}else {
 			graphics.drawImage(Assets.bombExplosion,(int) x,(int) y, null);
 			for(int i = 1;i<range;i++) {

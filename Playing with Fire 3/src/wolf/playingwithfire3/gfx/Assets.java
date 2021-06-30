@@ -8,7 +8,7 @@ public class Assets {
 	
 	public static BufferedImage whiteDog, yellowDog, yellowDogFace, whiteDogFace;
 	public static BufferedImage floor, box, wall;
-	public static BufferedImage redBomb,bombExplosion;
+	public static BufferedImage blueBomb, redBomb, purpleBomb, greenBomb, bombExplosion;
 	public static BufferedImage logo, heart;
 	
 	public static BufferedImage[] default_bluePlayer_down;
@@ -32,7 +32,8 @@ public class Assets {
 	public static BufferedImage[] default_greenPlayer_up;
 	
 	public static void init() {
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/spritesheet.png"));
+		SpriteSheet spritesheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));
 		//test
 		whiteDog = sheet.crop(0, 2*height, width, height);
 		yellowDog = sheet.crop(0, height, width, height);
@@ -42,8 +43,11 @@ public class Assets {
 		floor = sheet.crop(0, 0, width, height);
 		box = sheet.crop(width, 0, width, height);
 		wall = sheet.crop(2*width, 0, width, height);
-		
-		redBomb = sheet.crop(2*width, height, width, height);
+		//bombs and explosions
+		blueBomb = spritesheet.crop(0*width, 0*height, width, height);
+		redBomb = spritesheet.crop(2*width, 0*height, width, height);
+		purpleBomb = spritesheet.crop(3*width, 0*height, width, height);
+		greenBomb = spritesheet.crop(1*width, 0*height, width, height);
 		bombExplosion = sheet.crop(3*width, height, width, height);
 		
 		logo = sheet.crop(width, 2* height, 116, 87);
