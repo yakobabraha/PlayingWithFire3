@@ -153,27 +153,36 @@ public class LocalPlayer extends Player{
 		xMove = 0;
 		yMove = 0;
 		if(playerNumber == 1) {
-			if(game.getKeyManager().up1)
+			if(game.getKeyManager().setBomb1)
+				setBomb();
+			if(game.getKeyManager().up1) {
 				yMove = -speed;
-			if(game.getKeyManager().down1)
+				return;
+			}
+			if(game.getKeyManager().down1) {
 				yMove = speed;
+				return;
+			}
 			if(game.getKeyManager().left1)
 				xMove = -speed;
 			if(game.getKeyManager().right1)
 				xMove = speed;
-			if(game.getKeyManager().setBomb1)
-				setBomb();
 		}else {
-			if(game.getKeyManager().up2)
+			if(game.getKeyManager().setBomb2)
+				setBomb();
+			if(game.getKeyManager().up2) {
 				yMove = -speed;
-			if(game.getKeyManager().down2)
+				return;
+			}
+			if(game.getKeyManager().down2) {
 				yMove = speed;
+				return;
+			}
 			if(game.getKeyManager().left2)
 				xMove = -speed;
 			if(game.getKeyManager().right2)
 				xMove = speed;
-			if(game.getKeyManager().setBomb2)
-				setBomb();
+			
 		}
 
 	}
