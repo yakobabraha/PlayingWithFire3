@@ -21,8 +21,8 @@ public class GameState extends State{
 	private BombsManager bombsManager;
 	
 	//timer
-	private int startTimer = 90;
-	private int currentTimer;
+	private int startTimer = 180;
+	private int currentTimer = -1;
 	private long startTime = System.currentTimeMillis();
 	
 	public GameState(Game game) {
@@ -48,8 +48,10 @@ public class GameState extends State{
 	}
 	
 	public void timertick() {
-		long difference = System.currentTimeMillis() - startTime;
-		currentTimer= (int) (startTimer - (difference/1000));
+		if(currentTimer != 0) {
+			long difference = System.currentTimeMillis() - startTime;
+			currentTimer= (int) (startTimer - (difference/1000));
+		}
 	}
 	
 	public void render(Graphics graphics) {
@@ -105,8 +107,20 @@ public class GameState extends State{
 	}
 	
 	public void renderTimer(Graphics graphics) {
+		//time digits
 		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
 		graphics.drawString(formatSeconds(currentTimer), 30, 550);
+		//timeline
+		float G = startTimer * 1000;
+		float W = G - (System.currentTimeMillis() - startTime);
+		float percent = W / G;
+		int length = 0;
+		if(currentTimer != 0)
+			length = (int) (100 * percent);
+		graphics.drawRect(14, 599, 102, 22);
+		graphics.drawRect(13, 598, 104, 24);
+		graphics.setColor(Color.RED);
+		graphics.fillRect(15, 600, length, 21);
 	}
 	
 	public String formatSeconds(int seconds) {
