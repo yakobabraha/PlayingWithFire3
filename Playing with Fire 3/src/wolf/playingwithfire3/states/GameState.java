@@ -33,8 +33,8 @@ public class GameState extends State{
 		players = new Player[4];
 		players[0] = new LocalPlayer(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY1()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,1,3, "default");
 		players[1] = new LocalPlayer(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY2()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,2,3,"default");
-		players[2] = new ComPlayer(world,3, "default");
-		players[3] = new ComPlayer(world,4, "default");
+		players[2] = new ComPlayer(3, "default", world, bombsManager);
+		players[3] = new ComPlayer(4, "default", world, bombsManager);
 	}
 
 	public void tick() {
@@ -92,10 +92,20 @@ public class GameState extends State{
 		//playerbild
 		graphics .setColor(Color.darkGray);
 		graphics.fillRect(32, 120 + i * 100+5, 55, 50);
+
+		graphics.drawImage(Assets.yellowDogFace,32+5, 120 + i * 100+5+4, null);
 		if(i == 0)
-			graphics.drawImage(Assets.yellowDogFace,32+5, 120 + i * 100+5+4, null);
-		if(i==1)
-			graphics.drawImage(Assets.whiteDogFace,32+5, 120 + i * 100+5+5, null);
+			graphics.setColor(Color.blue);
+		if(i == 1)
+			graphics.setColor(Color.red);
+		if(i == 2)
+			graphics.setColor(Color.pink);
+		if(i == 3)
+			graphics.setColor(Color.green);
+		
+		graphics.fillRect(32+5+40, 120 + i * 100+5+4+22,15,15);
+		graphics.setColor(Color.black);
+
 		//herze
 		if(players[i]!=null) {
 			int playerHealth = players[i].getHealth();

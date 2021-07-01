@@ -52,7 +52,7 @@ public class Bomb extends Entity{
 			bombPicture = Assets.greenBomb;
 		}
 	}
-	
+
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub

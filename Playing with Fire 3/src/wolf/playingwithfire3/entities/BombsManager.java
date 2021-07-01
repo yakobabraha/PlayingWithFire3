@@ -31,6 +31,7 @@ public class BombsManager {
 	}
 	
 	public boolean addBomb(int x, int y, Player owner) {
+		System.out.println(x);
 		if(bombs[x][y]==null) {
 			bombs[x][y]=new Bomb(x*Tile.TILEWIDTH+SettingState.xOffset,y*Tile.TILEHEIGHT+SettingState.yOffset,Tile.TILEWIDTH,Tile.TILEHEIGHT,bombDuration,explosionDuration,3,fps,this,world, owner);
 			return true;
