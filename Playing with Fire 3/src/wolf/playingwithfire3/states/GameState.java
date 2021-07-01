@@ -73,8 +73,9 @@ public class GameState extends State{
 		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
 		//Ränder
 		graphics.fillRect(0, 0, game.width, SettingState.yOffset);
-		graphics.fillRect(0, game.height-5, game.width, SettingState.yOffset);
+		graphics.fillRect(0, game.height-15, game.width, SettingState.yOffset);
 		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
+		graphics.fillRect(805, 0, 15, game.height);
 		drawsidebar(graphics);
 	}
 	
