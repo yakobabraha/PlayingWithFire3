@@ -1,6 +1,7 @@
 package wolf.playingwithfire3.worlds;
 
 import java.awt.Graphics;
+import java.util.Random;
 
 import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
@@ -11,10 +12,12 @@ public class World {
 	private int width, height;
 	private int spawnX1, spawnY1,spawnX2,spawnY2,spawnX3, spawnY3,spawnX4, spawnY4;
 	private int[][] tiles;
+	private Random random;
 	
 
 	public World(String path) {
 		loadWorld(path);
+		random = new Random();
 		
 	}
 	
@@ -41,7 +44,20 @@ public class World {
 	}
 	
 	public void destroyBox(int x, int y) {
-		
+		if(random.nextBoolean()) {
+			tiles[x][y] = 0;
+			return;
+		}
+		float bruh=random.nextFloat();
+		if(bruh<=0.33) {
+			tiles[x][y] = 3;
+		}
+		else if(bruh<=0.66) {
+			tiles[x][y] = 4;
+		}
+		else {
+			tiles[x][y] = 5;
+		}
 	}
 	
 	public void setTile(int x, int y, int id) {
@@ -78,6 +94,9 @@ public class World {
 
 	public int getSpawnY4() {
 		return spawnY4;
+	}
+	public int getTileID(int x, int y) {
+		return tiles[x][y];
 	}
 	
 	public int getSpawnX(int playerNumber) {

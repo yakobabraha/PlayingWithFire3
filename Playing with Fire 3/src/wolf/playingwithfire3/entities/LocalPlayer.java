@@ -24,6 +24,7 @@ public class LocalPlayer extends Player{
 	private int playerNumber;
 	private int bombAmount;
 	private AnimationPacket animations;
+	private int bombrange;
 	
 	
 	public LocalPlayer(World world,Game game, BombsManager bombsManager, long damageCooldown, int playerNumber, int bombAmount, String skinName) {
@@ -35,7 +36,7 @@ public class LocalPlayer extends Player{
 		yMove = 0;
 		this.game = game;
 		this.world = world;
-		
+		bombrange = 3;
 		bounds.x = 9;
 		bounds.y = 16;
 		bounds.width = 18;
@@ -43,7 +44,7 @@ public class LocalPlayer extends Player{
 		
 		this.damageCooldown = damageCooldown;
 		this.playerNumber = playerNumber;
-		this.bombAmount = bombAmount;
+		this.bombAmount = 1;
 		
 		animations = new AnimationPacket(playerNumber, skinName);
 		
@@ -108,6 +109,24 @@ public class LocalPlayer extends Player{
 				y+=yMove;
 		}
 	}
+	public void isPixelInItem(int x, int y) {
+		 if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==3) {
+				if(speed<5.25) {
+					speed = speed+0.75f;
+					}
+		 }
+		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==4) {
+				if(this.bombAmount<4) {
+					this.bombAmount = this.bombAmount + 1;
+					}
+		}
+		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==5) {
+				if(bombrange<6) {
+					bombrange = bombrange + 1;
+					}
+		}
+				world.setTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH, (int)(y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
+	}
 
 	public float getxMove() {
 		return xMove;
@@ -128,11 +147,18 @@ public class LocalPlayer extends Player{
 	public int getPlayerNumber() {
 		return playerNumber;
 	}
+	public void checkItem() {
+		isPixelInItem((int) x+bounds.x, (int) y+bounds.y);
+		isPixelInItem((int) x+bounds.x+bounds.width, (int) y+bounds.y);
+		isPixelInItem((int) x+bounds.x, (int) y+bounds.y+bounds.height);
+		isPixelInItem((int) x+bounds.x+bounds.width, (int) y+bounds.y+bounds.height);
+		}
 
 	public void tick() {
 		getInput();
 		move();
 		explosionDamage();
+		checkItem();
 		animations.directionByMovement(xMove, yMove);
 		animations.tick();
 	}
@@ -189,7 +215,7 @@ public class LocalPlayer extends Player{
 	
 	public void setBomb() {
 		if(bombAmount != 0)
-			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this))
+			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this,bombrange))
 				bombAmount--;
 	}
 	

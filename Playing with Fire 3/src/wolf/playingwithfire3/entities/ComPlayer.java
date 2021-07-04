@@ -15,30 +15,32 @@ public class ComPlayer extends Player{
 	private float xMove = 0;
 	private float yMove = -2;
 	private AnimationPacket animations;
-	
+	private float speed;
 	private World world;
 	private BombsManager bombsManager;
 	
 	private Random random = new Random();
 	
 	private int playerNumber;
-	private int bombAmount = 3;
+	private int bombAmount = 1;
 	private int health = 3;
 	
 	private long lastTimeDamage = -1;
 	private long damageCooldown = 1000000000;
+	
+	private int bombrange;
 	
 	public ComPlayer(int playerNumber, String skinName, World world, BombsManager bombsManager) {
 		
 		super(world.getSpawnX(playerNumber)*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY(playerNumber)*Tile.TILEHEIGHT+SettingState.yOffset, Tile.TILEWIDTH, Tile.TILEHEIGHT);
 		// TODO Auto-generated constructor stub
 		animations = new AnimationPacket(playerNumber, skinName);
-		
+		speed = 3.0f;
 		bounds.x = 9;
 		bounds.y = 16;
 		bounds.width = 18;
 		bounds.height = 31;
-		
+		bombrange = 3;
 		this.world = world;
 		this.bombsManager = bombsManager;
 		this.playerNumber = playerNumber;
@@ -61,7 +63,12 @@ public class ComPlayer extends Player{
 		this.bombAmount = bombAmount;
 	}
 	
-
+	public void checkItem() {
+		isPixelInItem((int) x+bounds.x, (int) y+bounds.y);
+		isPixelInItem((int) x+bounds.x+bounds.width, (int) y+bounds.y);
+		isPixelInItem((int) x+bounds.x, (int) y+bounds.y+bounds.height);
+		isPixelInItem((int) x+bounds.x+bounds.width, (int) y+bounds.y+bounds.height);
+		}
 
 	@Override
 	public void tick() {
@@ -71,8 +78,27 @@ public class ComPlayer extends Player{
 		randomMovement();
 		move();
 		explosionDamage();
+		checkItem();
 		animations.tick();
 		animations.directionByMovement(xMove, yMove);
+	}
+	public void isPixelInItem(int x, int y) {
+		 if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==3) {
+				if(speed<5.25) {
+					speed = speed+0.75f;
+					}
+		 }
+		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==4) {
+				if(this.bombAmount<4) {
+					this.bombAmount = this.bombAmount + 1;
+					}
+		}
+		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==5) {
+				if(bombrange<6) {
+					bombrange = bombrange + 1;
+					}
+		}
+				world.setTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH, (int)(y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
 	}
 	
 	public void randomMovement() {
@@ -82,16 +108,16 @@ public class ComPlayer extends Player{
 			float r = random.nextFloat();
 			if(r<=0.25) {
 				direction = "left";
-				xMove = -3;
+				xMove = -speed;
 			}else if(r<=0.5) {
 				direction = "right";
-				xMove = 3;
+				xMove = speed;
 			}else if(r<=0.75) {
 				direction = "up";
-				yMove = -3;
+				yMove = -speed;
 			}else {
 				direction = "down";
-				yMove = 3;
+				yMove = speed;
 			}			
 		}
 	}
@@ -110,7 +136,7 @@ public class ComPlayer extends Player{
 	
 	public void setBomb() {
 		if(bombAmount != 0)
-			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this))
+			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this,bombrange))
 				bombAmount--;
 	}
 	

@@ -8,6 +8,7 @@ public class Assets {
 	
 	public static BufferedImage whiteDog, yellowDog, yellowDogFace, whiteDogFace;
 	public static BufferedImage floor, box, wall;
+	public static BufferedImage speedTile, bombAmount,bombRange;
 	public static BufferedImage blueBomb, redBomb, purpleBomb, greenBomb, bombExplosion;
 	public static BufferedImage logo, heart;
 	
@@ -45,6 +46,10 @@ public class Assets {
 		floor = sheet.crop(0, 0, width, height);
 		box = sheet.crop(width, 0, width, height);
 		wall = sheet.crop(2*width, 0, width, height);
+		
+		speedTile = sheet.crop(3*width, 4*height, width, height);
+		bombAmount = sheet.crop(2*width,4*height,width,height);
+		bombRange = sheet.crop(width,4*height,width,height);
 		
 		//button
 		btn_start = new BufferedImage[2];
