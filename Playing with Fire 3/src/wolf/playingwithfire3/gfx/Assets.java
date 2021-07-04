@@ -31,6 +31,8 @@ public class Assets {
 	public static BufferedImage[] default_greenPlayer_left;
 	public static BufferedImage[] default_greenPlayer_up;
 	
+	public static BufferedImage[] btn_start;
+	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/spritesheet.png"));
 		SpriteSheet spritesheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));
@@ -43,6 +45,11 @@ public class Assets {
 		floor = sheet.crop(0, 0, width, height);
 		box = sheet.crop(width, 0, width, height);
 		wall = sheet.crop(2*width, 0, width, height);
+		
+		//button
+		btn_start = new BufferedImage[2];
+		btn_start[0] = sheet.crop(180, 225, 180, 22);
+		btn_start[1] = sheet.crop(180, 271, 180, 22);
 		//bombs and explosions
 		blueBomb = spritesheet.crop(0*width, 0*height, width, height);
 		redBomb = spritesheet.crop(2*width, 0*height, width, height);

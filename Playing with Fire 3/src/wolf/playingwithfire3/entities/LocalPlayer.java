@@ -26,8 +26,8 @@ public class LocalPlayer extends Player{
 	private AnimationPacket animations;
 	
 	
-	public LocalPlayer(World world,Game game, BombsManager bombsManager,float x, float y, long damageCooldown, int playerNumber, int bombAmount, String skinName) {
-		super(x, y, 45, 45);
+	public LocalPlayer(World world,Game game, BombsManager bombsManager, long damageCooldown, int playerNumber, int bombAmount, String skinName) {
+		super(world.getSpawnX(playerNumber)*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY(playerNumber)*Tile.TILEHEIGHT+SettingState.yOffset, 45, 45);
 		this.bombsManager = bombsManager;
 		health = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;

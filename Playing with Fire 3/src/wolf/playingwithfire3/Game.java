@@ -2,16 +2,13 @@ package wolf.playingwithfire3;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.io.IOException;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import wolf.playingwithfire3.display.Display;
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.input.KeyManager;
-import wolf.playingwithfire3.sound.AudioPlayer;
+import wolf.playingwithfire3.input.MouseManager;
 import wolf.playingwithfire3.states.GameState;
+import wolf.playingwithfire3.states.MenuState;
 import wolf.playingwithfire3.states.State;
 
 //Hauptklasse
@@ -30,31 +27,39 @@ public class Game implements Runnable{
 	
 	private int fps = 60;
 	//States
-	private State gameState;
 	
 	//Input
 	private KeyManager keyManager;
+	private MouseManager mouseManager;
 	
 	public Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;	
 		keyManager = new KeyManager();
+		mouseManager = new MouseManager();
 	}
 	
 	private void init() {
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
-		
+		display.getFrame().addMouseListener(mouseManager);
+		display.getFrame().addMouseMotionListener(mouseManager);
+		display.getCanvas().addMouseListener(mouseManager);
+		display.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.init();
 		
 		//alle states erstellen und ersten state setzen
-		gameState = new GameState(this);
-		State.setState(gameState);
+
+		State.setState(new MenuState(this));
 	}
 	
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public MouseManager getMouseManager() {
+		return mouseManager;
 	}
 	
 	//tick: Positionen, Variablen werden aktualisiert

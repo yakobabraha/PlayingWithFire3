@@ -11,6 +11,8 @@ import wolf.playingwithfire3.entities.LocalPlayer;
 import wolf.playingwithfire3.entities.Player;
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.tile.Tile;
+import wolf.playingwithfire3.ui.QuitButton;
+import wolf.playingwithfire3.ui.UIManager;
 import wolf.playingwithfire3.worlds.World;
 
 public class GameState extends State{
@@ -19,27 +21,49 @@ public class GameState extends State{
 	private Game game;
 	private World world;
 	private BombsManager bombsManager;
+	private UIManager uiManager;
 	
 	//timer
 	private int startTimer = 180;
 	private int currentTimer = -1;
 	private long startTime = System.currentTimeMillis();
 	
-	public GameState(Game game) {
+	public GameState(Game game, int playerNumber, int opponentAmount) {
 		super(game);
 		this.game = game;
+		
+		uiManager = new UIManager();
+		uiManager.addObject(new QuitButton(0,650, 180, 22, Assets.btn_start, game));
+		game.getMouseManager().setUIManager(uiManager);
+		
 		world = new World("res/worlds/world1.txt");
-		bombsManager = new BombsManager(world.getWidth(), world.getHeight(),3.0f,1.0f,game.getFps(),world);
+		bombsManager = new BombsManager(world.getWidth(), world.getHeight(),1.5f,1.0f,game.getFps(),world);
 		players = new Player[4];
-		players[0] = new LocalPlayer(world,game,bombsManager,world.getSpawnX1()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY1()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,1,3, "default");
-		players[1] = new LocalPlayer(world,game,bombsManager,world.getSpawnX2()*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY2()*Tile.TILEWIDTH+SettingState.yOffset,1100000000,2,3,"default");
-		players[2] = new ComPlayer(3, "default", world, bombsManager);
-		players[3] = new ComPlayer(4, "default", world, bombsManager);
+		spawnPlayers(playerNumber, opponentAmount);
+		//players[0] = new LocalPlayer(world,game,bombsManager,1100000000,1,3, "default");
+		//players[1] = new LocalPlayer(world,game,bombsManager,1100000000,2,3,"default");
+		//players[2] = new ComPlayer(3, "default", world, bombsManager);
+		//players[3] = new ComPlayer(4, "default", world, bombsManager);
+	}
+	
+	public void spawnPlayers(int playerNumber, int opponentAmount) {
+		for(int i = 1;i<=playerNumber;i++) {
+			System.out.println(i);
+			players[i-1] = new LocalPlayer(world,game,bombsManager,1100000000,i,3, "default");
+		}
+		
+		for(int i = 2;i<=opponentAmount+1;i++) {
+			System.out.println(i);
+			if(players[i-1]==null) {
+				players[i-1] = new ComPlayer(i, "default", world, bombsManager);
+			}
+		}
 	}
 
 	public void tick() {
 		world.tick();
 		bombsManager.tick();
+		uiManager.tick();
 		for(int i = 0; i < players.length;i++) {
 			if(players[i]!=null)
 				players[i].tick();
@@ -58,11 +82,13 @@ public class GameState extends State{
 		
 		world.render(graphics);
 		bombsManager.render(graphics);
+
 		for(int i = 0; i < players.length;i++) {
 			if(players[i]!=null)
 				players[i].render(graphics);
 		}
 		drawlayout(graphics);
+		uiManager.render(graphics);
 		//graphics.drawString("Health: "+players[0].getHealth(), 90, 180);
 		
 	}
