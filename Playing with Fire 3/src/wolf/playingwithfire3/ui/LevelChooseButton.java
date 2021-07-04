@@ -3,27 +3,31 @@ package wolf.playingwithfire3.ui;
 import java.awt.image.BufferedImage;
 
 import wolf.playingwithfire3.Game;
-import wolf.playingwithfire3.states.LevelChooseState;
+import wolf.playingwithfire3.states.GameState;
 import wolf.playingwithfire3.states.State;
 
-public class OpponentAmountButton extends UIImageButton{
+public class LevelChooseButton extends UIImageButton{
 
 	private Game game;
+	
 	private int playerAmount;
 	private int opponentAmount;
+	private String levelName;
 	
-	public OpponentAmountButton(float x, float y, int width, int height, BufferedImage[] images, Game game, int playerAmount, int opponentAmount) {
+	public LevelChooseButton(float x, float y, int width, int height, BufferedImage[] images, Game game, int playerAmount, int opponentAmount, String levelName) {
 		super(x, y, width, height, images, game);
+		
 		this.game = game;
+		
 		this.playerAmount = playerAmount;
 		this.opponentAmount = opponentAmount;
+		this.levelName = levelName;
 	}
 
 	@Override
 	public void onClick() {
-		// TODO Auto-generated method stub
 		game.getMouseManager().setUIManager(null);
-		State.setState(new LevelChooseState(game, playerAmount, opponentAmount));
+		State.setState(new GameState(game, playerAmount, opponentAmount, levelName));
 	}
 
 }

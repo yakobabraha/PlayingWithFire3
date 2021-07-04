@@ -28,7 +28,7 @@ public class GameState extends State{
 	private int currentTimer = -1;
 	private long startTime = System.currentTimeMillis();
 	
-	public GameState(Game game, int playerNumber, int opponentAmount) {
+	public GameState(Game game, int playerNumber, int opponentAmount, String worldName) {
 		super(game);
 		this.game = game;
 		
@@ -36,7 +36,7 @@ public class GameState extends State{
 		uiManager.addObject(new QuitButton(0,650, 180, 22, Assets.btn_start, game));
 		game.getMouseManager().setUIManager(uiManager);
 		
-		world = new World("res/worlds/world1.txt");
+		world = new World("res/worlds/"+worldName+".txt");
 		bombsManager = new BombsManager(world.getWidth(), world.getHeight(),1.5f,1.0f,game.getFps(),world);
 		players = new Player[4];
 		spawnPlayers(playerNumber, opponentAmount);
