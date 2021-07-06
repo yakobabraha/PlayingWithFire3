@@ -13,7 +13,7 @@ public class OpponentAmountButton extends UIImageButton{
 	private int opponentAmount;
 	
 	public OpponentAmountButton(float x, float y, int width, int height, BufferedImage[] images, Game game, int playerAmount, int opponentAmount) {
-		super(x, y, width, height, images, game);
+		super(x, y, width, height, images, game, opponentAmount+" Opponent[s]");
 		this.game = game;
 		this.playerAmount = playerAmount;
 		this.opponentAmount = opponentAmount;

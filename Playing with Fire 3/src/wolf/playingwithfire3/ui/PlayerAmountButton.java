@@ -13,7 +13,7 @@ public class PlayerAmountButton extends UIImageButton{
 	private int playerAmount;
 	
 	public PlayerAmountButton(float x, float y, int width, int height, BufferedImage[] images, Game game, int playerAmount) {
-		super(x, y, width, height, images, game);
+		super(x, y, width, height, images, game,playerAmount+" Player");
 		this.game = game;
 		this.playerAmount = playerAmount;
 	}

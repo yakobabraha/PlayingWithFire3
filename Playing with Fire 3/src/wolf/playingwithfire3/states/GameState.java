@@ -33,7 +33,7 @@ public class GameState extends State{
 		this.game = game;
 		
 		uiManager = new UIManager();
-		uiManager.addObject(new QuitButton(0,650, 180, 22, Assets.btn_start, game));
+		uiManager.addObject(new QuitButton(10,650, 110, 22, Assets.btn_start, game));
 		game.getMouseManager().setUIManager(uiManager);
 		
 		world = new World("res/worlds/"+worldName+".txt");
