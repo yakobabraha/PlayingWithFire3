@@ -125,7 +125,6 @@ public class LocalPlayer extends Player{
 					bombrange = bombrange + 1;
 					}
 		}
-				world.setTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH, (int)(y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
 	}
 
 	public float getxMove() {
