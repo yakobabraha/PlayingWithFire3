@@ -1,10 +1,10 @@
 package wolf.playingwithfire3.entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
 import wolf.playingwithfire3.gfx.AnimationPacket;
-import wolf.playingwithfire3.states.GameState;
 import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.worlds.World;
@@ -39,7 +39,7 @@ public class ComPlayer extends Player{
 		bounds.x = 9;
 		bounds.y = 16;
 		bounds.width = 18;
-		bounds.height = 31;
+		bounds.height = 28;
 		bombrange = 3;
 		this.world = world;
 		this.bombsManager = bombsManager;

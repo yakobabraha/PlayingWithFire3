@@ -40,7 +40,7 @@ public class LocalPlayer extends Player{
 		bounds.x = 9;
 		bounds.y = 16;
 		bounds.width = 18;
-		bounds.height = 31;
+		bounds.height = 28;
 		
 		this.damageCooldown = damageCooldown;
 		this.playerNumber = playerNumber;
