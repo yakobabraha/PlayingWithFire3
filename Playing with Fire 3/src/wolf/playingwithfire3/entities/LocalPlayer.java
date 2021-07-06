@@ -114,16 +114,19 @@ public class LocalPlayer extends Player{
 				if(speed<5.25) {
 					speed = speed+0.75f;
 					}
+				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
 		 }
 		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==4) {
 				if(this.bombAmount<4) {
 					this.bombAmount = this.bombAmount + 1;
 					}
+				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
 		}
 		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==5) {
 				if(bombrange<6) {
 					bombrange = bombrange + 1;
 					}
+				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
 		}
 	}
 
@@ -154,12 +157,14 @@ public class LocalPlayer extends Player{
 		}
 
 	public void tick() {
-		getInput();
-		move();
-		explosionDamage();
-		checkItem();
-		animations.directionByMovement(xMove, yMove);
-		animations.tick();
+		if(health != 0) {
+			getInput();
+			move();
+			explosionDamage();
+			checkItem();
+			animations.directionByMovement(xMove, yMove);
+			animations.tick();
+		}
 	}
 	
 	public void explosionDamage() {
@@ -255,7 +260,9 @@ public class LocalPlayer extends Player{
 
 
 	public void render(Graphics graphics) {
+		if(health != 0) {
 		graphics.drawImage(animations.getCurrentFrame(), (int) x, (int) y, null);
+		}
 		
 		//graphics.setColor(Color.red);
 		//graphics.fillRect((int) (x +bounds.x), (int) (y +bounds.y), bounds.width, bounds.height);

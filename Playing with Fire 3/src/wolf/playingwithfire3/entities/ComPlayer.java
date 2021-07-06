@@ -72,31 +72,35 @@ public class ComPlayer extends Player{
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-		if(random.nextFloat()<=0.005f)
-			setBomb();
-		randomMovement();
-		move();
-		explosionDamage();
-		checkItem();
-		animations.tick();
-		animations.directionByMovement(xMove, yMove);
+		if(health != 0) {
+			if(random.nextFloat()<=0.005f)
+				setBomb();
+			randomMovement();
+			move();
+			explosionDamage();
+			checkItem();
+			animations.tick();
+			animations.directionByMovement(xMove, yMove);
+		}
 	}
 	public void isPixelInItem(int x, int y) {
 		 if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==3) {
 				if(speed<5.25) {
 					speed = speed+0.75f;
 					}
+				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
 		 }
 		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==4) {
 				if(this.bombAmount<4) {
 					this.bombAmount = this.bombAmount + 1;
 					}
+				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
 		}
 		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==5) {
 				if(bombrange<6) {
 					bombrange = bombrange + 1;
 					}
+				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
 		}
 	}
 	
@@ -210,7 +214,9 @@ public class ComPlayer extends Player{
 	@Override
 	public void render(Graphics graphics) {
 		// TODO Auto-generated method stub
+		if(health != 0) {
 		graphics.drawImage(animations.getCurrentFrame(), (int) x, (int) y, null);
+		}
 	}
 
 	@Override
