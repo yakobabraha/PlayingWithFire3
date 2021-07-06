@@ -11,6 +11,7 @@ public class Assets {
 	public static BufferedImage speedTile, bombAmount,bombRange;
 	public static BufferedImage blueBomb, redBomb, purpleBomb, greenBomb, bombExplosion;
 	public static BufferedImage logo, heart;
+	public static BufferedImage skull;
 	
 	public static BufferedImage[] default_bluePlayer_down;
 	public static BufferedImage[] default_bluePlayer_right;
@@ -42,6 +43,7 @@ public class Assets {
 		yellowDog = sheet.crop(0, height, width, height);
 		whiteDogFace = sheet.crop(3*width, 0, width, height);
 		yellowDogFace = sheet.crop(width, height, width, height);
+		skull = sheet.crop(0, 4*width, width, height);
 		
 		floor = sheet.crop(0, 0, width, height);
 		box = sheet.crop(width, 0, width, height);

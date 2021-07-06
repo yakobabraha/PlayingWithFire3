@@ -65,10 +65,28 @@ public class GameState extends State{
 		bombsManager.tick();
 		uiManager.tick();
 		for(int i = 0; i < players.length;i++) {
-			if(players[i]!=null)
+			if(players[i]!=null) {
+				checkWin();
 				players[i].tick();
+			}
 		}
 		timertick();
+	}
+	
+	public void checkWin() {
+		int amount = 0;
+		for(int i = 0; i < players.length;i++) {
+			if(players[i]!=null && players[i].getHealth() != 0) {
+				amount++;
+			}
+		}
+		if(amount == 1) {
+			for(int i = 0; i < players.length;i++) {
+				if(players[i]!=null && players[i].getHealth() != 0) {
+					State.setState(new WinState(game, i));
+				}
+			}
+		}
 	}
 	
 	public void timertick() {
@@ -119,19 +137,25 @@ public class GameState extends State{
 		//playerbild
 		graphics .setColor(Color.darkGray);
 		graphics.fillRect(32, 120 + i * 100+5, 55, 50);
-
-		graphics.drawImage(Assets.yellowDogFace,32+5, 120 + i * 100+5+4, null);
-		if(i == 0)
-			graphics.setColor(Color.blue);
-		if(i == 1)
-			graphics.setColor(Color.red);
-		if(i == 2)
-			graphics.setColor(Color.pink);
-		if(i == 3)
-			graphics.setColor(Color.green);
-		
-		graphics.fillRect(32+5+40, 120 + i * 100+5+4+22,15,15);
-		graphics.setColor(Color.black);
+		if(players[i]!=null) {
+			if(players[i].getHealth() == 0) {
+				graphics.drawImage(Assets.skull,32+5, 120 + i * 100+5+4, null);
+			}else {
+				graphics.drawImage(Assets.yellowDogFace,32+5, 120 + i * 100+5+4, null);
+			}
+			if(i == 0)
+				graphics.setColor(Color.blue);
+			if(i == 1)
+				graphics.setColor(Color.red);
+			if(i == 2)
+				graphics.setColor(Color.pink);
+			if(i == 3)
+				graphics.setColor(Color.green);
+			
+			
+			graphics.fillRect(32+5+40, 120 + i * 100+5+4+22,15,15);
+			graphics.setColor(Color.black);
+		}
 
 		//herze
 		if(players[i]!=null) {
