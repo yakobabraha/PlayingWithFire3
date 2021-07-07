@@ -25,9 +25,9 @@ public class OpponentAmountState extends State{
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new OpponentAmountButton(300, 300, 180, 22, Assets.btn_start,game, playerAmount, 1));
-		uiManager.addObject(new OpponentAmountButton(300, 340, 180, 22, Assets.btn_start,game, playerAmount, 2));
-		uiManager.addObject(new OpponentAmountButton(300, 380, 180, 22, Assets.btn_start,game, playerAmount, 3));
+		uiManager.addObject(new OpponentAmountButton(280, 370, 270, 45, Assets.btn_start,game, playerAmount, 1));
+		uiManager.addObject(new OpponentAmountButton(280, 450, 270, 45, Assets.btn_start,game, playerAmount, 2));
+		uiManager.addObject(new OpponentAmountButton(280, 530, 270, 45, Assets.btn_start,game, playerAmount, 3));
 	}
 
 	@Override

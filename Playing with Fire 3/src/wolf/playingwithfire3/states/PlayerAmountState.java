@@ -20,8 +20,8 @@ public class PlayerAmountState extends State{
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new PlayerAmountButton(300, 300, 180, 22, Assets.btn_start,game,1));
-		uiManager.addObject(new PlayerAmountButton(300, 340, 180, 22, Assets.btn_start,game,2));
+		uiManager.addObject(new PlayerAmountButton(280, 370, 270, 45, Assets.btn_start,game,1));
+		uiManager.addObject(new PlayerAmountButton(280, 450, 270, 45, Assets.btn_start,game,2));
 	}
 
 	@Override

@@ -35,9 +35,12 @@ public class Assets {
 	
 	public static BufferedImage[] btn_start;
 	
+	public static BufferedImage background;
+	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/spritesheet.png"));
 		SpriteSheet spritesheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));
+		SpriteSheet background_sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/gfll.png"));
 		//test
 		whiteDog = sheet.crop(0, 2*height, width, height);
 		yellowDog = sheet.crop(0, height, width, height);
@@ -55,8 +58,10 @@ public class Assets {
 		
 		//button
 		btn_start = new BufferedImage[2];
-		btn_start[0] = sheet.crop(180, 225, 180, 22);
-		btn_start[1] = sheet.crop(180, 271, 180, 22);
+		btn_start[0] = sheet.crop(180, 225, 270, 45);
+		btn_start[1] = sheet.crop(180, 270, 270, 45);
+		//background
+		background = background_sheet.crop(0,0,819,704);
 		//bombs and explosions
 		blueBomb = spritesheet.crop(0*width, 0*height, width, height);
 		redBomb = spritesheet.crop(2*width, 0*height, width, height);

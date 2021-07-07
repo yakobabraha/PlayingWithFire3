@@ -31,9 +31,9 @@ public abstract class UIImageButton extends UIObject{
 			graphics.drawImage(images[1], (int) x,(int) y, width, height, null);
 		else
 			graphics.drawImage(images[0], (int) x,(int) y, width, height, null);
-		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 20));
+		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.BOLD, 16));
 		graphics.setColor(Color.BLACK);
-		graphics.drawString(text, (int) x + 20, (int) y + height - 5);
+		graphics.drawString(text, (int) x + 85, (int) y + height - 17);
 	}
 
 	@Override

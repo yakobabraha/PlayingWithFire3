@@ -26,9 +26,9 @@ public class LevelChooseState extends State{
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new LevelChooseButton(300, 300, 180, 22, Assets.btn_start,game, playerAmount, opponentAmount, "world1"));
-		uiManager.addObject(new LevelChooseButton(300, 340, 180, 22, Assets.btn_start,game, playerAmount, opponentAmount, "world2"));
-		uiManager.addObject(new LevelChooseButton(300, 380, 180, 22, Assets.btn_start,game, playerAmount, opponentAmount, "world3"));
+		uiManager.addObject(new LevelChooseButton(280, 370, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world1"));
+		uiManager.addObject(new LevelChooseButton(280, 450, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world2"));
+		uiManager.addObject(new LevelChooseButton(280, 530, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world3"));
 	}
 
 	@Override

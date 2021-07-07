@@ -23,8 +23,8 @@ public class MenuState extends State{
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new PlayButton(300, 300, 180, 22, Assets.btn_start,game));
-		uiManager.addObject(new PlayOnlineButton(300, 400, 180, 22, Assets.btn_start,game, "Play Online"));
+		uiManager.addObject(new PlayButton(280, 370, 270, 45, Assets.btn_start,game));
+		uiManager.addObject(new PlayOnlineButton(280, 450, 270, 45, Assets.btn_start,game, "Play Online"));
 	}
 
 	@Override
@@ -35,10 +35,7 @@ public class MenuState extends State{
 
 	@Override
 	public void render(Graphics graphics) {
-		graphics.fillRect(0, 0, game.width, game.height);
-		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
-		graphics.setColor(Color.YELLOW);
-		graphics.drawString("Menu", 350, 100);
+		graphics.drawImage(Assets.background,0,0,null);
 		uiManager.render(graphics);
 		//graphics.drawImage(Assets.btn_start[0], 300, 300, null);
 	}
