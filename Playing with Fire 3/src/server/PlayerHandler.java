@@ -18,7 +18,7 @@ public class PlayerHandler extends Thread {
     final Socket s;
     private JSONParser parser = new JSONParser();
     private HashMap<String, Game> Gamelist;
-      
+    private boolean startedGame = false;
   
     // Constructor
     public PlayerHandler(Socket s, HashMap<String, Game> gamelist,  DataInputStream dis, DataOutputStream dos) 
@@ -47,7 +47,6 @@ public class PlayerHandler extends Thread {
     	
     	// Spieler tritt dem Spiel hinzu
     	if(game.joinGame(x, y, name, skin, worldName)) {
-    		if(game.checkIfFull()) startGame();
     		return true;	
     	}
     	// Spiel ist schon voll
@@ -132,6 +131,11 @@ public class PlayerHandler extends Thread {
     	Game game = Gamelist.get(gameId);
     	while (true) {
     		toreturn = game.getGameInfo();
+    		if(game.checkIfFull() && !startedGame) {
+    			startGame();
+    			startedGame = true;
+    		}
+    		
     		try {
 				dos.writeUTF(toreturn);
 				TimeUnit.MILLISECONDS.sleep(1000);
