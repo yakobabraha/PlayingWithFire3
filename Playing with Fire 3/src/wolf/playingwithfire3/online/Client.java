@@ -85,8 +85,8 @@ public class Client {
     public JSONObject setPlayer() {
         JSONObject player = new JSONObject();
 
-        player.put("ID", "yarro1");
-        player.put("gameID", playerID);
+        player.put("ID", playerID);
+        player.put("gameID", "yarro");
         player.put("x", x);
         player.put("y", y);
         player.put("health", health);
@@ -124,6 +124,7 @@ public class Client {
 					for(int i = 0; i < parsedData.size(); i++) {
 						if(parsedData.get(i) != null) {
 							parsePlayer((JSONObject) parsedData.get(i));
+							System.out.println(parsedData.get(i));
 						}
 					}
 				} catch (ParseException e) {

@@ -1,92 +1,142 @@
 package server.Server;
 
-import java.util.Arrays;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.HashMap;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import server.Game.Spieler;
 
-public class Game{
-    private String GameID;
-    private Spieler []Spielerliste = new Spieler[4];
-
-    public Game(String id){
-    	GameID = id;
-    }
-
-    public String getGameID() {
-    	return GameID;
-    }
-    
-    public boolean distributePlayer(Spieler spieler){
-        boolean placed = false;
-        for(int i = 0; i < Spielerliste.length; i++){
-            if(Spielerliste[i] == null){
-            	spieler.setSpielerIndex(i + 1);
-                Spielerliste[i] = spieler;
-                placed = true;
-                break;
-            }
-        }
-        return placed;
+public class PlayerHandler extends Thread {
+    final DataInputStream dis;
+    final DataOutputStream dos;
+    final Socket s;
+    private JSONParser parser = new JSONParser();
+    private HashMap<String, Game> Gamelist = new HashMap<String, Game>();
+      
+  
+    // Constructor
+    public PlayerHandler(Socket s, DataInputStream dis, DataOutputStream dos) 
+    {
+        this.s = s;
+        this.dis = dis;
+        this.dos = dos;
     }
     
-    public boolean checkIfFull() {
-    	for(int i = 0; i < Spielerliste.length; i++){
-            if(Spielerliste[i] == null){
-                return false;
-            }
-        }
-    	return true;
-    }
-    
-    public Spieler[] getSpielerliste() {
-    	return Spielerliste;
-    }
-    
-    public boolean removePlayer(String spielerID) {
-        for(int i = 0; i < Spielerliste.length; i++){
-            if(Spielerliste[i].getSpielerID().equals(spielerID)){
-                Spielerliste[i] = null;
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public Spieler getPlayer(String spielerID){
-        for(int i = 0; i < Spielerliste.length; i++){
-            if(Spielerliste[i] != null && Spielerliste[i].getSpielerID().equals(spielerID)){
-                return Spielerliste[i];
-            }
-        }
-
-        return null;
-    }
-
-    public boolean joinGame(int x, int y, String spieler_, String skinPaket){
-        Spieler spieler = new Spieler(x, y, spieler_, skinPaket);
-        Spieler exist = getPlayer(spieler_);
-        if(exist != null) return false;
-        return distributePlayer(spieler);
-    }
-
-    public boolean leaveGame(){
-    	return true;
-    }
-    
-    public String getGameInfo() {
-    	JSONObject []game = new JSONObject[4];
-
-        for(int i = 0; i < Spielerliste.length; i++){
-        	JSONObject SpielerDaten = null;
-        	if(Spielerliste[i] != null) {
-        		 SpielerDaten = Spielerliste[i].getSpielerDaten();
-        	}
-        	game[i] = SpielerDaten;
-        }
+    public Game createGame (String GameID) {
+    	Game game = new Game(GameID);
     	
-    	return Arrays.toString(game);
+    	// Hash maps f�r schnelligkeit (O(1)), besser als array, da array O(n)
+    	Gamelist.put(GameID, game);
+    	return game;
+    }
+    
+    public boolean joinGame (String GameID, String name, int x, int y) {
+    	Game game = Gamelist.get(GameID);
+    	
+    	// Spiel erstellen falls keins gefunden wird
+    	if(game == null) {
+    		game = createGame(GameID);
+    	}
+    	
+    	// Spieler tritt dem Spiel hinzu
+    	if(game.joinGame(x, y, name)) return true;
+    	
+    	// Spiel ist schon voll
+    	return false;
+    }
+    
+    public void updatePlayer (String GameID, String name, int x, int y, int health) {
+    	Game game = Gamelist.get(GameID);
+    	Spieler spieler = game.getPlayer(name);
+    	spieler.setData(x, y, health);
+    }
+    
+    public boolean removePlayer (String GameID, String name) {
+    	Game game = Gamelist.get(GameID);
+    	return game.removePlayer(name);
+    }
+    
+    public String parseInstruction (String data) {
+    	try {
+			JSONObject parsedData = (JSONObject) parser.parse(data);
+			String instruction = (String) parsedData.get("instruction");
+			String GameID = (String) parsedData.get("gameID");
+			String PlayerID = (String) parsedData.get("playerID");
+			int x, y, leben;
+
+			
+			switch(instruction) {
+			case "join":
+				x = (int) parsedData.get("x");
+				y = (int) parsedData.get("y");
+				
+				joinGame(GameID, PlayerID, x, y);
+				break;
+			case "update":
+				x = (int) parsedData.get("x");
+				y = (int) parsedData.get("y");
+				leben = (int) parsedData.get("leben");
+				
+				updatePlayer(GameID, PlayerID, x, y, leben);
+				break;
+			case "leave":
+				removePlayer(GameID, PlayerID);
+				break;
+			default:
+				break;
+			}
+			
+			return GameID;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	
+    	return null;
+    	
+    }
+  
+    @Override
+    public void run() 
+    {
+        String received;
+        String toreturn;
+        String gameId;
+        Game game;
+        while (true) 
+        {
+            try {
+                // receive the answer from client
+                received = dis.readUTF();
+                if(received.equals("Exit"))
+                { 
+                	this.s.close();
+                	break;
+                }
+                
+                gameId = parseInstruction(received);
+                game = Gamelist.get(gameId);
+                toreturn = game.getGameInfo().toString();
+                dos.writeUTF(toreturn);
+                  
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+          
+        try
+        {
+            // verhindern von memory leaks // ressourcen leaks wie zu viele offene ports
+            this.dis.close();
+            this.dos.close();
+              
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
