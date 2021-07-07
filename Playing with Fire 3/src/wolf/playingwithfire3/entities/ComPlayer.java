@@ -81,8 +81,26 @@ public class ComPlayer extends Player{
 			checkItem();
 			animations.tick();
 			animations.directionByMovement(xMove, yMove);
+			checkZoneDamage();
 		}
 	}
+	
+	public void checkZoneDamage() {
+		if(System.nanoTime()-lastTimeDamage>=damageCooldown||lastTimeDamage == -1) {
+			//check if collision box in explosion
+			if(isPixelInZone((int) x+bounds.x, (int) y+bounds.y)||isPixelInZone( (int) x+bounds.x+bounds.width, (int) y+bounds.y)||isPixelInZone((int) x+bounds.x, (int) y+bounds.y+bounds.height)||isPixelInZone((int) x+bounds.x+bounds.width, (int) y+bounds.y+bounds.height)) {
+				System.out.println("Damage!");
+				health--;
+				lastTimeDamage = System.nanoTime();
+			}
+			
+		}
+	}
+	
+	public boolean isPixelInZone(int x, int y) {
+		return world.getTileID((int) (x-SettingState.xOffset)/Tile.TILEWIDTH, (int) (y-SettingState.yOffset)/Tile.TILEHEIGHT) == 2;
+	}
+	
 	public void isPixelInItem(int x, int y) {
 		 if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==3) {
 				if(speed<5.25) {

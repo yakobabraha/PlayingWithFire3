@@ -29,7 +29,7 @@ public class GameState extends State{
 	private long startTime = System.currentTimeMillis();
 	
 	private int zoneLayer = 1;
-	private long zoneDelay = 1000000000;
+	private long zoneDelay = 200000000;
 	private long zoneStart = System.nanoTime();
 	
 	
@@ -80,32 +80,40 @@ public class GameState extends State{
 	}
 	
 	public void zonetick() {
-		if(System.nanoTime() - zoneStart>zoneDelay) {
-			for(int i = zoneLayer; i<world.getHeight()/2;i++) {
-				for(int k = i; k<(world.getWidth()-i);k++) {
-					System.out.println(k);
-					if(world.getTileID(k, i)!=2) {
-						world.setTile(k, i, 2);
-						return;
+		if(currentTimer == 0) {
+			if(System.nanoTime() - zoneStart>zoneDelay) {
+				for(int i = zoneLayer; i<world.getHeight()/2;i++) {
+					for(int k = i; k<(world.getWidth()-i);k++) {
+						System.out.println(k);
+						if(world.getTileID(k, i)!=2) {
+							world.setTile(k, i, 2);
+							zoneStart = System.nanoTime();
+							return;
+						}
 					}
-				}
-				for(int k = i; k<(world.getWidth()-i);k++) {
-					if(world.getTileID(world.getWidth() - i-1, k)!=2) {
-					world.setTile(world.getWidth() - i-1, k, 2);
+					for(int k = i; k<(world.getWidth()-i);k++) {
+						if(world.getTileID(world.getWidth() - i-1, k)!=2) {
+							world.setTile(world.getWidth() - i-1, k, 2);
+							zoneStart = System.nanoTime();
+							return;
+						}
 					}
-				}
-				for(int k = i; k<(world.getWidth()-i);k++) {
-					if(world.getTileID(world.getWidth()-k, world.getHeight()-i-1)!=2) {
-					world.setTile(world.getWidth()-k, world.getHeight()-i-1, 2);
+					for(int k = i; k<(world.getWidth()-i);k++) {
+						if(world.getTileID(world.getWidth()-k, world.getHeight()-i-1)!=2) {
+							world.setTile(world.getWidth()-k, world.getHeight()-i-1, 2);
+							zoneStart = System.nanoTime();
+							return;
+						}
 					}
-				}
-				for(int k = i; k<(world.getWidth()-i);k++) {
-					if(world.getTileID(i, world.getHeight() - k)!=2) {
-					world.setTile(i, world.getHeight() - k, 2);
+					for(int k = i; k<(world.getWidth()-i);k++) {
+						if(world.getTileID(i, world.getHeight() - k)!=2) {
+							world.setTile(i, world.getHeight() - k, 2);
+							zoneStart = System.nanoTime();
+							return;
+						}
 					}
 				}
 			}
-			zoneStart = System.nanoTime();
 		}
 	}
 	
