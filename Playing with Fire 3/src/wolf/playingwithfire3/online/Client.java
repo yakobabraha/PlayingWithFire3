@@ -1,4 +1,4 @@
-package wolf.online;
+package wolf.playingwithfire3.online;
 
 import java.io.OutputStream;
 
