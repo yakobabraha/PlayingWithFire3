@@ -12,15 +12,47 @@ import java.net.*;
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import wolf.playingwithfire3.utils.*;
 
 import java.util.concurrent.TimeUnit;
 
 public class Client {
 	private Socket client = null;
 	private JSONParser parser = new JSONParser();
+	private int x, y, health, animationenIndex, spielerIndex;
+	private String playerID, gameID, ausrichtung, skinPaket;
 	
 	public Client() {
+		playerID = Utils.generateRandomString(20);
 		initClient();
+	}
+	
+	public void setX(int x_) {
+		x = x_;
+	}
+	
+	public void setY(int y_) {
+		y = y_;
+	}
+	
+	public void setLeben(int leben) {
+		health = leben;
+	}
+	
+	public void setAnimationenIndex(int index) {
+		animationenIndex = index;
+	}
+	
+	public void setSpielerIndex(int index) {
+		spielerIndex = index;
+	}
+	
+	public void setAusrichtung(String ausrichtung_) {
+		ausrichtung = ausrichtung_;
+	}
+	
+	public void setSkinpaket(String skinPaket_) {
+		skinPaket = skinPaket_;
 	}
 	
 	public void initClient() {
@@ -49,28 +81,27 @@ public class Client {
         JSONObject player = new JSONObject();
 
         player.put("ID", "yarro1");
-        player.put("gameID", "yarrosgame");
-        player.put("x", 1);
-        player.put("y", 2);
-        player.put("health", 100);
+        player.put("gameID", playerID);
+        player.put("x", x);
+        player.put("y", y);
+        player.put("health", health);
         player.put("instruction", "join");
-        player.put("skin", "default");
+        player.put("skin", skinPaket);
+        player.put("ausrichtung", ausrichtung);
+        player.put("animationIndex", animationenIndex);
         
         return player;
     }
     
-    public void parsePlayer(JSONObject jsonObject) {
-    	String playerID, skin, ausrichtung;
-    	int x, y, health, aniIndex, spielerIndex;
-    	
+    public void parsePlayer(JSONObject jsonObject) {    	
     	playerID = (String) jsonObject.get("ID");
-    	skin = (String) jsonObject.get("skinPaket");
+    	skinPaket = (String) jsonObject.get("skinPaket");
     	ausrichtung = (String) jsonObject.get("ausrichtung");
     	
     	x = toIntExact((long) jsonObject.get("x"));
     	y = toIntExact((long) jsonObject.get("y"));
     	health = toIntExact((long) jsonObject.get("health"));
-    	aniIndex = toIntExact((long) jsonObject.get("animationenIndex"));
+    	animationenIndex = toIntExact((long) jsonObject.get("animationenIndex"));
     	spielerIndex = toIntExact((long) jsonObject.get("spielerIndex"));
     	
     	
