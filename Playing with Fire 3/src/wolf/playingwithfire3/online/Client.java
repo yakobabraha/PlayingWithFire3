@@ -20,7 +20,25 @@ public class Client {
 	private JSONParser parser = new JSONParser();
 	
 	public Client(Socket clientconn) {
-		client = clientconn;
+		initClient();
+	}
+	
+	public void initClient() {
+		try {
+			client = new Socket("127.0.0.1", 1445);
+			//sendPlayerInfos(setPlayer());
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					System.out.println("Starting event listener thread");
+					startListener();
+				}
+			}).start();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Socket getClient() {
@@ -37,51 +55,6 @@ public class Client {
         player.put("health", 100);
         player.put("instruction", "join");
         player.put("skin", "default");
-        
-        return player;
-    }
-    
-    public JSONObject setPlayer2() {
-        JSONObject player = new JSONObject();
-
-        player.put("ID", "yarro2");
-        player.put("gameID", "yarrosgame");
-        player.put("x", 40);
-        player.put("y", 20);
-        player.put("health", 100);
-        player.put("instruction", "join");
-        player.put("skin", "default");
-        player.put("animationIndex", 1);
-        
-        return player;
-    }
-    
-    public JSONObject setPlayer3() {
-        JSONObject player = new JSONObject();
-
-        player.put("ID", "yarro3");
-        player.put("gameID", "yarrosgame");
-        player.put("x", 40);
-        player.put("y", 20);
-        player.put("health", 100);
-        player.put("instruction", "join");
-        player.put("skin", "default");
-        player.put("animationIndex", 1);
-        
-        return player;
-    }
-    
-    public JSONObject setPlayer4() {
-        JSONObject player = new JSONObject();
-
-        player.put("ID", "yarro4");
-        player.put("gameID", "yarrosgame");
-        player.put("x", 40);
-        player.put("y", 20);
-        player.put("health", 100);
-        player.put("instruction", "join");
-        player.put("skin", "default");
-        player.put("animationIndex", 1);
         
         return player;
     }
@@ -137,34 +110,4 @@ public class Client {
 		}
     }
 	
-    public static void main(String[] args)
-    {
-        try
-        {
-            Socket client = new Socket("127.0.0.1", 1445);
-            final Client client_ = new Client(client);
-            
-
-            client_.sendPlayerInfos(client_.setPlayer());
-
-            new Thread(new Runnable() {
-				@Override
-				public void run() {
-					System.out.println("Starting event listener thread");
-					client_.startListener();
-				}
-			}).start();
-            
-			TimeUnit.SECONDS.sleep(2);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        } catch (InterruptedException e) 
-        {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-
-
 }
