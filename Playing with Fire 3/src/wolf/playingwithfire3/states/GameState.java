@@ -51,6 +51,19 @@ public class GameState extends State{
 		//players[3] = new ComPlayer(4, "default", world, bombsManager);
 	}
 	
+	public GameState(Game game,Player[] players, String worldName, BombsManager bombsManager, World world) {
+		super(game);
+		this.game = game;
+		
+		uiManager = new UIManager();
+		uiManager.addObject(new QuitButton(10,650, 110, 22, Assets.btn_start, game));
+		game.getMouseManager().setUIManager(uiManager);
+		
+		this.world = world;
+		this.bombsManager = bombsManager;
+		this.players = players;
+	}
+	
 	public void spawnPlayers(int playerNumber, int opponentAmount) {
 		for(int i = 1;i<=playerNumber;i++) {
 			System.out.println(i);
