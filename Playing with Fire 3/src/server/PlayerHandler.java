@@ -1,16 +1,17 @@
-package server.Server;
+package server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.HashMap;
-
+import java.util.HashMap;
+import static java.lang.Math.toIntExact;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import server.Game.Spieler;
+import java.util.concurrent.TimeUnit;
 
 public class PlayerHandler extends Thread {
     final DataInputStream dis;
@@ -21,7 +22,7 @@ public class PlayerHandler extends Thread {
       
   
     // Constructor
-    public PlayerHandler(Socket s, HashMap<String, Game> gamelist, DataInputStream dis, DataOutputStream dos) 
+    public PlayerHandler(Socket s, HashMap<String, Game> gamelist,  DataInputStream dis, DataOutputStream dos) 
     {
         this.s = s;
         this.dis = dis;
@@ -31,13 +32,13 @@ public class PlayerHandler extends Thread {
     
     public Game createGame (String GameID) {
     	Game game = new Game(GameID);
-    	System.out.println("CREATING NEW GAME");
+    	
     	// Hash maps f�r schnelligkeit (O(1)), besser als array, da array O(n)
     	Gamelist.put(GameID, game);
     	return game;
     }
     
-    public boolean joinGame (String GameID, String name, int x, int y) {
+    public boolean joinGame (String GameID, String name, int x, int y, String skin) {
     	Game game = Gamelist.get(GameID);
     	
     	// Spiel erstellen falls keins gefunden wird
@@ -46,16 +47,18 @@ public class PlayerHandler extends Thread {
     	}
     	
     	// Spieler tritt dem Spiel hinzu
-    	if(game.joinGame(x, y, name)) return true;
-    	
+    	if(game.joinGame(x, y, name, skin)) {
+    		if(game.checkIfFull()) startGame();
+    		return true;	
+    	}
     	// Spiel ist schon voll
     	return false;
     }
     
-    public void updatePlayer (String GameID, String name, int x, int y, int health) {
+    public void updatePlayer (String GameID, String name, int x, int y, int health, int aniIndex, String ausrichtung) {
     	Game game = Gamelist.get(GameID);
     	Spieler spieler = game.getPlayer(name);
-    	spieler.setData(x, y, health);
+    	spieler.setData(x, y, health, aniIndex, ausrichtung);
     }
     
     public boolean removePlayer (String GameID, String name) {
@@ -68,23 +71,32 @@ public class PlayerHandler extends Thread {
 			JSONObject parsedData = (JSONObject) parser.parse(data);
 			String instruction = (String) parsedData.get("instruction");
 			String GameID = (String) parsedData.get("gameID");
-			String PlayerID = (String) parsedData.get("playerID");
-			int x, y, leben;
-			System.out.println(GameID);
-			
+			String PlayerID = (String) parsedData.get("ID");
+			int x, y, leben, aniIndex;
+			String ausrichtung, skin;
+
 			switch(instruction) {
 			case "join":
-				x = (int) parsedData.get("x");
-				y = (int) parsedData.get("y");
+				x = toIntExact((long) parsedData.get("x"));
+				y = toIntExact((long) parsedData.get("y"));
+				skin = (String) parsedData.get("skin");
 				
-				joinGame(GameID, PlayerID, x, y);
+				if(!joinGame(GameID, PlayerID, x, y, skin)) {
+					try {
+						dos.writeUTF("Player " + PlayerID + " already joined!");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				break;
 			case "update":
-				x = (int) parsedData.get("x");
-				y = (int) parsedData.get("y");
-				leben = (int) parsedData.get("leben");
+				x = toIntExact((long) parsedData.get("x"));
+				y = toIntExact((long) parsedData.get("y"));
+				leben = toIntExact((long) parsedData.get("health"));
+				aniIndex = toIntExact((long) parsedData.get("animationIndex"));
+				ausrichtung = (String) parsedData.get("ausrichtung");
 				
-				updatePlayer(GameID, PlayerID, x, y, leben);
+				updatePlayer(GameID, PlayerID, x, y, leben, aniIndex, ausrichtung);
 				break;
 			case "leave":
 				removePlayer(GameID, PlayerID);
@@ -101,14 +113,40 @@ public class PlayerHandler extends Thread {
     	return null;
     	
     }
+    
+    public void startGame() {
+    	try {
+			dos.writeUTF("Game is full, starting in 10s");
+			TimeUnit.SECONDS.sleep(10);
+			dos.writeUTF("Game is starting..");
+		} catch (IOException e) {
+			//e.printStackTrace();
+		} catch (InterruptedException e) {
+			//e.printStackTrace();
+		} 
+    }
+    
+    public void startInformationThread(String gameId) {
+    	String toreturn;
+    	Game game = Gamelist.get(gameId);
+    	while (true) {
+    		toreturn = game.getGameInfo();
+    		try {
+				dos.writeUTF(toreturn);
+				TimeUnit.MILLISECONDS.sleep(20);
+			} catch (IOException e) {
+			} catch (InterruptedException e) {
+			}
+    	}
+    }
   
     @Override
     public void run() 
     {
         String received;
         String toreturn;
-        String gameId;
         Game game;
+        boolean started = false;
         while (true) 
         {
             try {
@@ -120,13 +158,18 @@ public class PlayerHandler extends Thread {
                 	break;
                 }
                 
-                gameId = parseInstruction(received);
-                game = Gamelist.get(gameId);
-                toreturn = game.getGameInfo().toString();
-                dos.writeUTF(toreturn);
-                  
+                final String gameId = parseInstruction(received);
+                
+                if(!started) {                	
+                	new Thread(new Runnable() {
+						@Override
+						public void run() {
+							startInformationThread(gameId);
+						}
+					}).start();
+                	started = true;
+                }
             } catch (IOException e) {
-                e.printStackTrace();
             }
         }
           

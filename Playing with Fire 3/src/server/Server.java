@@ -1,4 +1,4 @@
-package server.Server;
+package server;
 
 import java.io.DataInputStream;
 import java.io.DataOutput;
@@ -36,16 +36,15 @@ public class Server{
         	Socket client = null;
             try
             {
-                System.out.println("Waiting for client at yarro " + server.getLocalPort());
+                System.out.println("Waiting for client at " + server.getLocalPort());
                 
                 client = server.accept();
                 
                 DataInputStream input = new DataInputStream(client.getInputStream());
                 DataOutputStream output = new DataOutputStream(client.getOutputStream());
 
-                System.out.println("Assigning new thread for player yarr");
+                System.out.println("Assigning new thread for player");
                 Thread t = new PlayerHandler(client, Gamelist, input, output);
-                System.out.println(HashMap);
                 t.start();
                 //output.writeUTF("Greetings");
             }
