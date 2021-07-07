@@ -6,10 +6,10 @@ public class Spieler {
     private int x, y, leben, animationIndex, spielerIndex;
     private String spielerID, skinPaket;
     private enum AUSRICHTUNG {
-    	UP,
-    	DOWN,
-    	LEFT,
-    	RIGHT
+    	up,
+    	down,
+    	left,
+    	right
     }
     private AUSRICHTUNG ausrichtung;
     
