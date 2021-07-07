@@ -1,4 +1,4 @@
-package server.Client;
+package wolf.client;
 
 import java.io.OutputStream;
 
@@ -142,15 +142,18 @@ public class Client {
         try
         {
             Socket client = new Socket("127.0.0.1", 1445);
-            Client client_ = new Client(client);
+            final Client client_ = new Client(client);
             
 
             client_.sendPlayerInfos(client_.setPlayer());
 
-            new Thread(() -> {
-            	System.out.println("Starting event listener thread");
-            	client_.startListener();
-            }).start();
+            new Thread(new Runnable() {
+				@Override
+				public void run() {
+					System.out.println("Starting event listener thread");
+					client_.startListener();
+				}
+			}).start();
             
 			TimeUnit.SECONDS.sleep(2);
         } catch (IOException e)
