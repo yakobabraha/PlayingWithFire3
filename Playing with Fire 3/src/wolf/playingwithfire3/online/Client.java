@@ -21,7 +21,7 @@ public class Client {
 	private JSONParser parser = new JSONParser();
 	private int x=1, y=1, health=3, animationenIndex=0, spielerIndex;
 	private String playerID, gameID, ausrichtung="down", skinPaket="default", instruction = "join";
-
+	private JSONObject bombs = new JSONObject();
 	
 	public Client() {
 		playerID = Utils.generateRandomString(20);
@@ -60,6 +60,12 @@ public class Client {
 		instruction = instruction_;
 	}
 	
+	public void setBomb(int x_, int y_, int timestamp) {
+		bombs.put("timestamp", timestamp);
+		bombs.put("x", x_);
+		bombs.put("y", y_);
+	}
+	
 	public void initClient() {
 		try {
 			client = new Socket("127.0.0.1", 1445);
@@ -90,12 +96,21 @@ public class Client {
         player.put("x", x);
         player.put("y", y);
         player.put("health", health);
-        player.put("instruction", "join");
+        player.put("instruction", instruction);
         player.put("skin", skinPaket);
         player.put("ausrichtung", ausrichtung);
         player.put("animationIndex", animationenIndex);
+        player.put("bomben", bombs.toString());
         
         return player;
+    }
+    
+    public void gameStarting10s() {
+    	System.out.println("Game is starting in 10 seconds");
+    }
+    
+    public void gameStart() {
+    	System.out.println("Game is starting!!!");
     }
     
     public void parsePlayer(JSONObject jsonObject) {    	
@@ -114,19 +129,26 @@ public class Client {
     
     public void startListener () {
     	DataInputStream input = null;
+    	String data = "";
         while (true) 
         {
             try {
             	input = new DataInputStream(client.getInputStream());
             	try {
-					JSONArray parsedData = (JSONArray) parser.parse(input.readUTF().toString());
-									
-					for(int i = 0; i < parsedData.size(); i++) {
-						if(parsedData.get(i) != null) {
-							parsePlayer((JSONObject) parsedData.get(i));
-							System.out.println(parsedData.get(i));
-						}
-					}
+            		data = input.readUTF().toString();
+            		
+            		if(data.equals("Game is full, starting in 10s")) gameStarting10s();
+            		else if(data.equals("Game is starting..")) gameStart();
+            		else {            			
+            			JSONArray parsedData = (JSONArray) parser.parse(data);
+            			
+            			for(int i = 0; i < parsedData.size(); i++) {
+            				if(parsedData.get(i) != null) {
+            					parsePlayer((JSONObject) parsedData.get(i));
+            					System.out.println(parsedData.get(i));
+            				}
+            			}
+            		}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -141,6 +163,8 @@ public class Client {
 		try {
 			output = new DataOutputStream(client.getOutputStream());
 			output.writeUTF(setPlayer().toString());
+			
+			bombs = new JSONObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

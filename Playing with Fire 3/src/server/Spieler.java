@@ -4,7 +4,8 @@ import org.json.simple.JSONObject;
 
 public class Spieler {
     private int x, y, leben, animationIndex, spielerIndex;
-    private String spielerID, skinPaket, worldName;
+    private String spielerID, skinPaket, worldName, gesetzteBomben;
+
     private enum AUSRICHTUNG {
     	up,
     	down,
@@ -49,27 +50,29 @@ public class Spieler {
         return leben;
     }
 
-    public boolean setXPosition(int x_){
+    public void setXPosition(int x_){
         x = x_;
-        return true;
     }
 
-    public boolean setYPosition(int y_){
+    public void setYPosition(int y_){
         y = y_;
-        return true;
-    }
-
-    public boolean setLeben(int leben_){
-        leben = leben_;
-        return true;
     }
     
-    public boolean setData(int x_, int y_, int leben_, int aniIndex, String ausrichtung_){
+    public void setLeben(int leben_){
+        leben = leben_;
+    }
+    
+    public void setBomben(String bomben) {
+    	gesetzteBomben = bomben;
+    }
+    
+    public boolean setData(int x_, int y_, int leben_, int aniIndex, String ausrichtung_, String bomben){
         x = x_;
         y = y_;
         leben = leben_;
         animationIndex = aniIndex;
         ausrichtung = AUSRICHTUNG.valueOf(ausrichtung_);
+        gesetzteBomben = bomben;
         return true;
     }
     
@@ -85,6 +88,7 @@ public class Spieler {
         daten.put("skinPaket", skinPaket);
         daten.put("spielerIndex", spielerIndex);
         daten.put("worldName", worldName);
+        daten.put("bomben", gesetzteBomben);
         
         return daten;
     }
