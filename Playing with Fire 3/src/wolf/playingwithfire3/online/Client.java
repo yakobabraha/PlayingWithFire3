@@ -19,7 +19,7 @@ public class Client {
 	private Socket client = null;
 	private JSONParser parser = new JSONParser();
 	
-	public Client(Socket clientconn) {
+	public Client() {
 		initClient();
 	}
 	
