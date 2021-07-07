@@ -11,7 +11,7 @@ public class PlayButton extends UIImageButton{
 	private Game game;
 	
 	public PlayButton(float x, float y, int width, int height, BufferedImage[] images, Game game) {
-		super(x, y, width, height, images, game, "Play Local");
+		super(x, y, width, height, images, game, "   Play Local");
 		this.game = game;
 		// TODO Auto-generated constructor stub
 	}

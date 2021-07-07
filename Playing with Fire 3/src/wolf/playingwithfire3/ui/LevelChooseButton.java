@@ -15,7 +15,7 @@ public class LevelChooseButton extends UIImageButton{
 	private String levelName;
 	
 	public LevelChooseButton(float x, float y, int width, int height, BufferedImage[] images, Game game, int playerAmount, int opponentAmount, String levelName) {
-		super(x, y, width, height, images, game, "Level "+levelName.substring(levelName.length() - 1));
+		super(x, y, width, height, images, game, "      Level "+levelName.substring(levelName.length() - 1));
 		
 		this.game = game;
 		

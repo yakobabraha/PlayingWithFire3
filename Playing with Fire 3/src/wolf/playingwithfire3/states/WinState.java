@@ -24,7 +24,7 @@ public class WinState extends State{
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new QuitButton(300,400, 180, 22, Assets.btn_start, game));
+		uiManager.addObject(new QuitButton(280, 450, 270, 45, Assets.btn_start, game));
 	}
 
 	@Override
