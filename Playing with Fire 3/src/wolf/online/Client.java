@@ -1,4 +1,4 @@
-package wolf.client;
+package wolf.online;
 
 import java.io.OutputStream;
 
