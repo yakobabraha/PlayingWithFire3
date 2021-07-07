@@ -24,9 +24,14 @@ public class GameState extends State{
 	private UIManager uiManager;
 	
 	//timer
-	private int startTimer = 180;
+	private int startTimer = 10;
 	private int currentTimer = -1;
 	private long startTime = System.currentTimeMillis();
+	
+	private int zoneLayer = 1;
+	private long zoneDelay = 1000000000;
+	private long zoneStart = System.nanoTime();
+	
 	
 	public GameState(Game game, int playerNumber, int opponentAmount, String worldName) {
 		super(game);
@@ -71,6 +76,37 @@ public class GameState extends State{
 			}
 		}
 		timertick();
+		zonetick();
+	}
+	
+	public void zonetick() {
+		if(System.nanoTime() - zoneStart>zoneDelay) {
+			for(int i = zoneLayer; i<world.getHeight()/2;i++) {
+				for(int k = i; k<(world.getWidth()-i);k++) {
+					System.out.println(k);
+					if(world.getTileID(k, i)!=2) {
+						world.setTile(k, i, 2);
+						return;
+					}
+				}
+				for(int k = i; k<(world.getWidth()-i);k++) {
+					if(world.getTileID(world.getWidth() - i-1, k)!=2) {
+					world.setTile(world.getWidth() - i-1, k, 2);
+					}
+				}
+				for(int k = i; k<(world.getWidth()-i);k++) {
+					if(world.getTileID(world.getWidth()-k, world.getHeight()-i-1)!=2) {
+					world.setTile(world.getWidth()-k, world.getHeight()-i-1, 2);
+					}
+				}
+				for(int k = i; k<(world.getWidth()-i);k++) {
+					if(world.getTileID(i, world.getHeight() - k)!=2) {
+					world.setTile(i, world.getHeight() - k, 2);
+					}
+				}
+			}
+			zoneStart = System.nanoTime();
+		}
 	}
 	
 	public void checkWin() {
@@ -115,7 +151,7 @@ public class GameState extends State{
 		graphics.setColor(Color.LIGHT_GRAY);
 		//SideBar hintergrund
 		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
-		//Ränder
+		//Rï¿½nder
 		graphics.fillRect(0, 0, game.width, SettingState.yOffset);
 		graphics.fillRect(0, game.height-15, game.width, SettingState.yOffset);
 		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
