@@ -1,31 +1,30 @@
 package wolf.playingwithfire3.online;
 
+import java.io.OutputStream;
+
 import static java.lang.Math.toIntExact;
 
 import java.io.DataInputStream;
+import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import java.net.*;
+import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import wolf.playingwithfire3.utils.*;
 
-import wolf.playingwithfire3.states.QueueState;
-import wolf.playingwithfire3.utils.Utils;
+import java.util.concurrent.TimeUnit;
 
 public class Client {
 	private Socket client = null;
 	private JSONParser parser = new JSONParser();
 	private int x=1, y=1, health=3, animationenIndex=0, spielerIndex;
 	private String playerID, gameID, ausrichtung="down", skinPaket="default", instruction = "join";
-	private QueueState queueState;
+	private JSONObject bombs = new JSONObject();
 	
-	public Client(QueueState queueState) {
+	public Client() {
 		playerID = Utils.generateRandomString(20);
-		this.queueState = queueState;
 		initClient();
 	}
 	
@@ -61,8 +60,10 @@ public class Client {
 		instruction = instruction_;
 	}
 	
-	public String getPlayerId() {
-		return playerID;
+	public void setBomb(int x_, int y_, int timestamp) {
+		bombs.put("timestamp", timestamp);
+		bombs.put("x", x_);
+		bombs.put("y", y_);
 	}
 	
 	public void initClient() {
@@ -95,12 +96,21 @@ public class Client {
         player.put("x", x);
         player.put("y", y);
         player.put("health", health);
-        player.put("instruction", "join");
+        player.put("instruction", instruction);
         player.put("skin", skinPaket);
         player.put("ausrichtung", ausrichtung);
         player.put("animationIndex", animationenIndex);
+        player.put("bomben", bombs.toString());
         
         return player;
+    }
+    
+    public void gameStarting10s() {
+    	System.out.println("Game is starting in 10 seconds");
+    }
+    
+    public void gameStart() {
+    	System.out.println("Game is starting!!!");
     }
     
     public void parsePlayer(JSONObject jsonObject) {    	
@@ -114,24 +124,31 @@ public class Client {
     	animationenIndex = toIntExact((long) jsonObject.get("animationenIndex"));
     	spielerIndex = toIntExact((long) jsonObject.get("spielerIndex"));
     	
-    	queueState.joinPlayer(x, y, health, playerID, skinPaket, spielerIndex);
+    	
     }
     
     public void startListener () {
     	DataInputStream input = null;
+    	String data = "";
         while (true) 
         {
             try {
             	input = new DataInputStream(client.getInputStream());
             	try {
-					JSONArray parsedData = (JSONArray) parser.parse(input.readUTF().toString());
-									
-					for(int i = 0; i < parsedData.size(); i++) {
-						if(parsedData.get(i) != null) {
-							parsePlayer((JSONObject) parsedData.get(i));
-							System.out.println(parsedData.get(i));
-						}
-					}
+            		data = input.readUTF().toString();
+            		
+            		if(data.equals("Game is full, starting in 10s")) gameStarting10s();
+            		else if(data.equals("Game is starting..")) gameStart();
+            		else {            			
+            			JSONArray parsedData = (JSONArray) parser.parse(data);
+            			
+            			for(int i = 0; i < parsedData.size(); i++) {
+            				if(parsedData.get(i) != null) {
+            					parsePlayer((JSONObject) parsedData.get(i));
+            					System.out.println(parsedData.get(i));
+            				}
+            			}
+            		}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -146,6 +163,8 @@ public class Client {
 		try {
 			output = new DataOutputStream(client.getOutputStream());
 			output.writeUTF(setPlayer().toString());
+			
+			bombs = new JSONObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -69,10 +69,6 @@ public class Game{
         if(exist != null) return false;
         return distributePlayer(spieler);
     }
-
-    public boolean leaveGame(){
-    	return true;
-    }
     
     public String getGameInfo() {
     	JSONObject []game = new JSONObject[4];
@@ -81,6 +77,7 @@ public class Game{
         	JSONObject SpielerDaten = null;
         	if(Spielerliste[i] != null) {
         		 SpielerDaten = Spielerliste[i].getSpielerDaten();
+        		 Spielerliste[i].setBomben(null);
         	}
         	game[i] = SpielerDaten;
         }

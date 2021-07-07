@@ -54,10 +54,10 @@ public class PlayerHandler extends Thread {
     	return false;
     }
     
-    public void updatePlayer (String GameID, String name, int x, int y, int health, int aniIndex, String ausrichtung) {
+    public void updatePlayer (String GameID, String name, int x, int y, int health, int aniIndex, String ausrichtung, String bomben) {
     	Game game = Gamelist.get(GameID);
     	Spieler spieler = game.getPlayer(name);
-    	spieler.setData(x, y, health, aniIndex, ausrichtung);
+    	spieler.setData(x, y, health, aniIndex, ausrichtung, bomben);
     }
     
     public boolean removePlayer (String GameID, String name) {
@@ -72,7 +72,7 @@ public class PlayerHandler extends Thread {
 			String GameID = (String) parsedData.get("gameID");
 			String PlayerID = (String) parsedData.get("ID");
 			int x, y, leben, aniIndex;
-			String ausrichtung, skin, worldName;
+			String ausrichtung, skin, worldName, bomben;
 
 			switch(instruction) {
 			case "join":
@@ -95,8 +95,9 @@ public class PlayerHandler extends Thread {
 				leben = toIntExact((long) parsedData.get("health"));
 				aniIndex = toIntExact((long) parsedData.get("animationIndex"));
 				ausrichtung = (String) parsedData.get("ausrichtung");
+				bomben = (String) parsedData.get("bomben");
 				
-				updatePlayer(GameID, PlayerID, x, y, leben, aniIndex, ausrichtung);
+				updatePlayer(GameID, PlayerID, x, y, leben, aniIndex, ausrichtung, bomben);
 				break;
 			case "leave":
 				removePlayer(GameID, PlayerID);
@@ -133,7 +134,7 @@ public class PlayerHandler extends Thread {
     		toreturn = game.getGameInfo();
     		try {
 				dos.writeUTF(toreturn);
-				TimeUnit.MILLISECONDS.sleep(20);
+				TimeUnit.MILLISECONDS.sleep(1000);
 			} catch (IOException e) {
 			} catch (InterruptedException e) {
 			}
