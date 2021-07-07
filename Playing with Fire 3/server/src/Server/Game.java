@@ -1,5 +1,7 @@
 package server.Server;
 
+import java.util.Arrays;
+
 import org.json.simple.JSONObject;
 
 import server.Game.Spieler;
@@ -20,12 +22,22 @@ public class Game{
         boolean placed = false;
         for(int i = 0; i < Spielerliste.length; i++){
             if(Spielerliste[i] == null){
+            	spieler.setSpielerIndex(i + 1);
                 Spielerliste[i] = spieler;
                 placed = true;
                 break;
             }
         }
         return placed;
+    }
+    
+    public boolean checkIfFull() {
+    	for(int i = 0; i < Spielerliste.length; i++){
+            if(Spielerliste[i] == null){
+                return false;
+            }
+        }
+    	return true;
     }
     
     public Spieler[] getSpielerliste() {
@@ -45,7 +57,7 @@ public class Game{
 
     public Spieler getPlayer(String spielerID){
         for(int i = 0; i < Spielerliste.length; i++){
-            if(Spielerliste[i].getSpielerID().equals(spielerID)){
+            if(Spielerliste[i] != null && Spielerliste[i].getSpielerID().equals(spielerID)){
                 return Spielerliste[i];
             }
         }
@@ -53,9 +65,10 @@ public class Game{
         return null;
     }
 
-    public boolean joinGame(int x, int y, String spieler_){
-        Spieler spieler = new Spieler(x, y, spieler_);
-
+    public boolean joinGame(int x, int y, String spieler_, String skinPaket){
+        Spieler spieler = new Spieler(x, y, spieler_, skinPaket);
+        Spieler exist = getPlayer(spieler_);
+        if(exist != null) return false;
         return distributePlayer(spieler);
     }
 
@@ -63,14 +76,17 @@ public class Game{
     	return true;
     }
     
-    public JSONObject[] getGameInfo() {
+    public String getGameInfo() {
     	JSONObject []game = new JSONObject[4];
-    	
+
         for(int i = 0; i < Spielerliste.length; i++){
-        	JSONObject SpielerDaten = Spielerliste[i].getSpielerDaten();
+        	JSONObject SpielerDaten = null;
+        	if(Spielerliste[i] != null) {
+        		 SpielerDaten = Spielerliste[i].getSpielerDaten();
+        	}
         	game[i] = SpielerDaten;
         }
     	
-    	return game;
+    	return Arrays.toString(game);
     }
 }
