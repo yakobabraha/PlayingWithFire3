@@ -97,7 +97,7 @@ public class Client {
     	x = toIntExact((long) jsonObject.get("x"));
     	y = toIntExact((long) jsonObject.get("y"));
     	health = toIntExact((long) jsonObject.get("health"));
-    	aniIndex = toIntExact((long) jsonObject.get("animationIndex"));
+    	aniIndex = toIntExact((long) jsonObject.get("animationenIndex"));
     	spielerIndex = toIntExact((long) jsonObject.get("spielerIndex"));
     	
     	
