@@ -19,6 +19,7 @@ public class QueueState extends State{
 	private BombsManager bombsManager;
 	private Player[] players;
 	private World world;
+	private boolean lastSeconds;
 	
 	
 	
@@ -30,7 +31,8 @@ public class QueueState extends State{
 		
 		this.game = game;
 		this.bombsManager = bombsManager;
-		this.world = new World("world2.txt");
+		this.world = new World("res/worlds/world2.txt");
+		this.players = new Player[4];
 	}
 
 	public void joinPlayer(int x,int y,int health,String playerID, String skinName,int spielerIndex) {
@@ -41,6 +43,10 @@ public class QueueState extends State{
 				players[spielerIndex-1] = new OnlinePlayer(spielerIndex, spielerIndex, 45, 45);
 			}
 		}
+	}
+	
+	public void setLastSeconds(boolean value) {
+		lastSeconds = value;
 	}
 	
 	@Override
@@ -55,7 +61,13 @@ public class QueueState extends State{
 		graphics.fillRect(0, 0, game.width, game.height);
 		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
 		graphics.setColor(Color.YELLOW);
-		graphics.drawString("Queue...", 350, 500);
+		if(lastSeconds) {
+			graphics.drawString("Starting...", 350, 500);
+		}else {
+			graphics.drawString("Queue...", 350, 500);
+		}
+		
+		
 	}
 
 }
