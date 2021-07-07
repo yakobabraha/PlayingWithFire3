@@ -134,6 +134,7 @@ public class Bomb extends Entity{
 			graphics.drawImage(bombPicture,(int) x,(int) y, null);
 		}else {
 			graphics.drawImage(Assets.bombExplosion,(int) x,(int) y, null);
+			bombsManager.setExplosions((int) (x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT, true);
 			for(int i = 1;i<range;i++) {
 				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isSolid()) {
 					if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isDestructible()) {
