@@ -134,8 +134,8 @@ public class PlayerHandler extends Thread {
     		if(game.checkIfFull() && !startedGame) {
     			startGame();
     			startedGame = true;
-    			}
     		}
+    		
     		try {
 				dos.writeUTF(toreturn);
 				TimeUnit.MILLISECONDS.sleep(1000);
