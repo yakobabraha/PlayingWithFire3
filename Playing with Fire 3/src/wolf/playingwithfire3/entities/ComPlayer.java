@@ -19,6 +19,9 @@ public class ComPlayer extends Player{
 	private World world;
 	private BombsManager bombsManager;
 	
+	private float lastX;
+	private float lastY;
+	
 	private Random random = new Random();
 	
 	private int playerNumber;
@@ -73,9 +76,8 @@ public class ComPlayer extends Player{
 	@Override
 	public void tick() {
 		if(health != 0) {
-			if(random.nextFloat()<=0.005f)
-				setBomb();
-			randomMovement();
+			smartBomb();
+			smartMovement();
 			move();
 			explosionDamage();
 			checkItem();
@@ -83,6 +85,20 @@ public class ComPlayer extends Player{
 			animations.directionByMovement(xMove, yMove);
 			checkZoneDamage();
 		}
+	}
+	
+	public void smartBomb() {
+		if(isPlayerOnOneTile()) {
+			if(isBoxAround()) {
+				setBomb();
+			}
+		}
+	}
+	
+	public boolean isBoxAround() {
+		int xTile = (int) (x+bounds.x-SettingState.xOffset)/Tile.TILEWIDTH;
+		int yTile = (int) (y+bounds.y-SettingState.yOffset)/Tile.TILEHEIGHT;
+		return world.getTileID(xTile+1, yTile) == 1 || world.getTileID(xTile-1, yTile) == 1 || world.getTileID(xTile, yTile+1) == 1 || world.getTileID(xTile, yTile-1) == 1;
 	}
 	
 	public void checkZoneDamage() {
@@ -122,25 +138,99 @@ public class ComPlayer extends Player{
 		}
 	}
 	
-	public void randomMovement() {
-		if(random.nextFloat()<0.05f) {
-			xMove = 0;
-			yMove = 0;
-			float r = random.nextFloat();
-			if(r<=0.25) {
-				direction = "left";
-				xMove = -speed;
-			}else if(r<=0.5) {
-				direction = "right";
-				xMove = speed;
-			}else if(r<=0.75) {
-				direction = "up";
-				yMove = -speed;
-			}else {
-				direction = "down";
-				yMove = speed;
-			}			
+	private boolean test;
+	
+	public void smartMovement() {
+		
+		int xTile = (int) (x+bounds.x-SettingState.xOffset)/Tile.TILEWIDTH;
+		int yTile = (int) (y+bounds.y-SettingState.yOffset)/Tile.TILEHEIGHT;
+		
+		int[] xMoves = new int[2];
+		int[] yMoves = new int[2];
+		xMoves[0] = (int) speed;
+		xMoves[1] = (int) -speed;
+		yMoves[0] = (int) speed;
+		yMoves[1] = (int) -speed;
+		
+		if(world.getTileID(xTile+1, yTile)==2 || bombsManager.isSolid(xTile+1, yTile) )
+			xMoves[1] = 0;
+		if(world.getTileID(xTile-1, yTile)==2 || bombsManager.isSolid(xTile-1, yTile) )
+			xMoves[0] = 0;
+		if(world.getTileID(xTile, yTile+1)==2 || bombsManager.isSolid(xTile, yTile + 1) )
+			yMoves[0] = 0;
+		if(world.getTileID(xTile, yTile-1)==2 || bombsManager.isSolid(xTile, yTile-1) )
+			yMoves[1] = 0;
+		//|| bombsManager.getExplosionFuture(xTile-1, yTile) || bombsManager.getExplosions(xTile-1, yTile)
+		if(bombsManager.getExplosionFuture(xTile, yTile-1))
+			System.out.println("yaaaaaaaaaaaa");
+		
+		if(!test) {
+			System.out.println("--------------------------");
+			System.out.println(xMoves[0]);
+			System.out.println(xMoves[1]);
+			System.out.println(yMoves[0]);
+			System.out.println(yMoves[1]);
+			System.out.println("--------------------------");
+			test = true;
 		}
+		if(isPlayerOnOneTile()) { 
+			if(random.nextFloat()<0.05f) {
+				xMove = 0;
+				yMove = 0;
+				float r = random.nextFloat();
+				if(xMoves[Math.round(r)] != 0) {
+					xMove = xMoves[Math.round(r)];
+				}else {
+					if(xMoves[0]!=0)
+						xMove = xMoves[0];
+					if(xMoves[1]!=0)
+						xMove = xMoves[1];
+				}
+				r= random.nextFloat();
+				if(yMoves[Math.round(r)] != 0) {
+					yMove = yMoves[Math.round(r)];
+				}else {
+					if(yMoves[0]!=0)
+						yMove = yMoves[0];
+					if(yMoves[1]!=0)
+						yMove = yMoves[1];
+				}
+				r = random.nextFloat();
+				if(xMove != 0 && yMove != 0) {
+					int rint = Math.round(r);
+					if(rint == 1)
+						xMove = 0;
+					if(rint == 0)
+						yMove = 0;
+				}
+			}else if(x==lastX && y== lastY && false){
+				xMove = 0;
+				yMove = 0;
+				float r = random.nextFloat();
+				if(r<=0.25) {
+					direction = "left";
+					xMove = -speed;
+				}else if(r<=0.5) {
+					direction = "right";
+					xMove = speed;
+				}else if(r<=0.75) {
+					direction = "up";
+					yMove = -speed;
+				}else {
+					direction = "down";
+					yMove = speed;
+				}	
+			}
+		}
+		
+		
+		
+		lastX = x;
+		lastY = y;
+	}
+	
+	public boolean isPlayerOnOneTile() {
+		return ((int)(x+bounds.x-SettingState.xOffset)/Tile.TILEWIDTH) == (int)((x+bounds.x+bounds.width-SettingState.xOffset)/Tile.TILEWIDTH) && (int) ((y+bounds.y-SettingState.yOffset)/Tile.TILEHEIGHT) == (int)((y+bounds.y+bounds.height-SettingState.yOffset)/Tile.TILEHEIGHT);
 	}
 	
 	public void explosionDamage() {

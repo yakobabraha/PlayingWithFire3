@@ -14,6 +14,7 @@ public class BombsManager {
 	private World world;
 	private Bomb[][] bombs;
 	private boolean[][] explosions;
+	private boolean[][] futureExplosions;
 
 	private int fps;
 	
@@ -25,6 +26,7 @@ public class BombsManager {
 		this.fps = fps;
 		this.bombs = new Bomb[width][height];
 		this.explosions = new boolean[width][height];
+		this.futureExplosions = new boolean[width][height];
 		this.world = world;
 
 
@@ -64,6 +66,14 @@ public class BombsManager {
 	}
 	public void setExplosions(int x, int y, boolean value) {
 		explosions[x][y] = value;
+	}
+	
+	public void setExplosionsFuture(int x, int y, boolean value) {
+		futureExplosions[x][y] = value;
+	}
+	
+	public boolean getExplosionFuture(int x, int y) {
+		return futureExplosions[x][y];
 	}
 	
 	public boolean getExplosions(int x, int y) {

@@ -19,8 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class Client {
 	private Socket client = null;
 	private JSONParser parser = new JSONParser();
-	private int x, y, health, animationenIndex, spielerIndex;
-	private String playerID, gameID, ausrichtung, skinPaket;
+	private int x=1, y=1, health=3, animationenIndex=0, spielerIndex;
+	private String playerID, gameID, ausrichtung="down", skinPaket="default", instruction = "join";
+
 	
 	public Client() {
 		playerID = Utils.generateRandomString(20);
@@ -35,7 +36,7 @@ public class Client {
 		y = y_;
 	}
 	
-	public void setLeben(int leben) {
+	public void setHealth(int leben) {
 		health = leben;
 	}
 	
@@ -53,6 +54,10 @@ public class Client {
 	
 	public void setSkinpaket(String skinPaket_) {
 		skinPaket = skinPaket_;
+	}
+	
+	public void setInstruction(String instruction_) {
+		instruction = instruction_;
 	}
 	
 	public void initClient() {
@@ -130,11 +135,11 @@ public class Client {
         }
     }
     
-    public void sendPlayerInfos (JSONObject player) {
+    public void sendPlayerInfos () {
     	DataOutputStream output = null;
 		try {
 			output = new DataOutputStream(client.getOutputStream());
-			output.writeUTF(player.toString());
+			output.writeUTF(setPlayer().toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

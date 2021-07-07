@@ -132,6 +132,39 @@ public class Bomb extends Entity{
 	public void render(Graphics graphics) {
 		if(!explosion) {
 			graphics.drawImage(bombPicture,(int) x,(int) y, null);
+			bombsManager.setExplosionsFuture((int) (x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT, true);
+			for(int i = 1;i<range;i++) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isSolid()) {
+					break;	
+				}
+				bombsManager.setExplosionsFuture((int) (x-SettingState.xOffset)/Tile.TILEWIDTH+i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT, true);
+				if((int)(x-SettingState.xOffset)/Tile.TILEWIDTH+i==toDestroy[0])
+					break;
+			}
+			for(int i = 1;i<range;i++) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT).isSolid()) {
+					break;
+				}
+				bombsManager.setExplosionsFuture((int) (x-SettingState.xOffset)/Tile.TILEWIDTH-i,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT, true);
+				if((int)(x-SettingState.xOffset)/Tile.TILEWIDTH-i==toDestroy[1])
+					break;
+			}
+			for(int i = 1;i<range;i++) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i).isSolid()) {
+					break;
+				}
+				bombsManager.setExplosionsFuture((int) (x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT+i, true);
+				if((int)(y-SettingState.yOffset)/Tile.TILEHEIGHT+i==toDestroy[2])
+					break;
+			}
+			for(int i = 1;i<range;i++) {
+				if(world.getTile((int)(x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i).isSolid()) {
+					break;
+				}
+				bombsManager.setExplosionsFuture((int) (x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT-i, true);
+				if((int)(y-SettingState.yOffset)/Tile.TILEHEIGHT-i==toDestroy[3])
+					break;
+			}
 		}else {
 			graphics.drawImage(Assets.bombExplosion,(int) x,(int) y, null);
 			bombsManager.setExplosions((int) (x-SettingState.xOffset)/Tile.TILEWIDTH,(int) (y-SettingState.yOffset)/Tile.TILEHEIGHT, true);

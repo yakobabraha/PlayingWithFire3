@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import wolf.playingwithfire3.Game;
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.ui.PlayButton;
+import wolf.playingwithfire3.ui.PlayOnlineButton;
 import wolf.playingwithfire3.ui.UIImageButton;
 import wolf.playingwithfire3.ui.UIManager;
 
@@ -23,6 +24,7 @@ public class MenuState extends State{
 		game.getMouseManager().setUIManager(uiManager);
 		
 		uiManager.addObject(new PlayButton(300, 300, 180, 22, Assets.btn_start,game));
+		uiManager.addObject(new PlayOnlineButton(300, 400, 180, 22, Assets.btn_start,game, "Play Online"));
 	}
 
 	@Override
