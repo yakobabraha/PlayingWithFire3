@@ -1,30 +1,35 @@
 package wolf.playingwithfire3.online;
 
-import java.io.OutputStream;
-
 import static java.lang.Math.toIntExact;
 
 import java.io.DataInputStream;
-import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.*;
-import org.json.simple.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import wolf.playingwithfire3.utils.*;
 
-import java.util.concurrent.TimeUnit;
+import wolf.playingwithfire3.states.QueueState;
+import wolf.playingwithfire3.utils.Utils;
 
 public class Client {
 	private Socket client = null;
 	private JSONParser parser = new JSONParser();
 	private int x=1, y=1, health=3, animationenIndex=0, spielerIndex;
 	private String playerID, gameID, ausrichtung="down", skinPaket="default", instruction = "join";
+
+	private QueueState queueState;
+
 	private JSONObject bombs = new JSONObject();
+
 	
-	public Client() {
+	public Client(QueueState queueState) {
 		playerID = Utils.generateRandomString(20);
+		this.queueState = queueState;
 		initClient();
 	}
 	
@@ -60,10 +65,16 @@ public class Client {
 		instruction = instruction_;
 	}
 	
+
+	public String getPlayerId() {
+		return playerID;
+	}
+
 	public void setBomb(int x_, int y_, int timestamp) {
 		bombs.put("timestamp", timestamp);
 		bombs.put("x", x_);
 		bombs.put("y", y_);
+
 	}
 	
 	public void initClient() {
@@ -107,6 +118,7 @@ public class Client {
     
     public void gameStarting10s() {
     	System.out.println("Game is starting in 10 seconds");
+    	queueState.setLastSeconds(true);
     }
     
     public void gameStart() {
@@ -124,7 +136,7 @@ public class Client {
     	animationenIndex = toIntExact((long) jsonObject.get("animationenIndex"));
     	spielerIndex = toIntExact((long) jsonObject.get("spielerIndex"));
     	
-    	
+    	queueState.joinPlayer(x, y, health, playerID, skinPaket, spielerIndex);
     }
     
     public void startListener () {
@@ -145,7 +157,7 @@ public class Client {
             			for(int i = 0; i < parsedData.size(); i++) {
             				if(parsedData.get(i) != null) {
             					parsePlayer((JSONObject) parsedData.get(i));
-            					System.out.println(parsedData.get(i));
+            					//System.out.println(parsedData.get(i));
             				}
             			}
             		}
