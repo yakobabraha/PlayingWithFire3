@@ -24,6 +24,7 @@ public class Bomb extends Entity{
 	private Player owner;
 	private BufferedImage bombPicture;
 	
+	
 	public Bomb(float x, float y, int width, int height, float bombDuration, float explosionDuration,int range,int fps, BombsManager bombsManager, World world, Player owner) {
 		super(x, y, width, height);
 		this.bombDuration = bombDuration;
