@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.HashMap;
-import java.util.HashMap;
 import static java.lang.Math.toIntExact;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -38,7 +37,7 @@ public class PlayerHandler extends Thread {
     	return game;
     }
     
-    public boolean joinGame (String GameID, String name, int x, int y, String skin) {
+    public boolean joinGame (String GameID, String name, int x, int y, String skin, String worldName) {
     	Game game = Gamelist.get(GameID);
     	
     	// Spiel erstellen falls keins gefunden wird
@@ -47,7 +46,7 @@ public class PlayerHandler extends Thread {
     	}
     	
     	// Spieler tritt dem Spiel hinzu
-    	if(game.joinGame(x, y, name, skin)) {
+    	if(game.joinGame(x, y, name, skin, worldName)) {
     		if(game.checkIfFull()) startGame();
     		return true;	
     	}
@@ -73,15 +72,16 @@ public class PlayerHandler extends Thread {
 			String GameID = (String) parsedData.get("gameID");
 			String PlayerID = (String) parsedData.get("ID");
 			int x, y, leben, aniIndex;
-			String ausrichtung, skin;
+			String ausrichtung, skin, worldName;
 
 			switch(instruction) {
 			case "join":
 				x = toIntExact((long) parsedData.get("x"));
 				y = toIntExact((long) parsedData.get("y"));
 				skin = (String) parsedData.get("skin");
+				worldName = "world_2";
 				
-				if(!joinGame(GameID, PlayerID, x, y, skin)) {
+				if(!joinGame(GameID, PlayerID, x, y, skin, worldName)) {
 					try {
 						dos.writeUTF("Player " + PlayerID + " already joined!");
 					} catch (IOException e) {

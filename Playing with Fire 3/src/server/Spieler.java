@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 public class Spieler {
     private int x, y, leben, animationIndex, spielerIndex;
-    private String spielerID, skinPaket;
+    private String spielerID, skinPaket, worldName;
     private enum AUSRICHTUNG {
     	up,
     	down,
@@ -13,14 +13,15 @@ public class Spieler {
     }
     private AUSRICHTUNG ausrichtung;
     
-    public Spieler(int initX, int initY, String spielerID_, String skinPaket_){
+    public Spieler(int initX, int initY, String spielerID_, String skinPaket_, String worldName_){
         x = initX;
         y = initY;
-        leben = 100;
+        leben = 3;
         spielerID = spielerID_;
         skinPaket = skinPaket_;
         ausrichtung = AUSRICHTUNG.down;
         animationIndex = 0;
+        worldName = worldName_;
     }
     
     public boolean setSpielerIndex(int index) {
@@ -83,6 +84,7 @@ public class Spieler {
         daten.put("animationenIndex", animationIndex);
         daten.put("skinPaket", skinPaket);
         daten.put("spielerIndex", spielerIndex);
+        daten.put("worldName", worldName);
         
         return daten;
     }

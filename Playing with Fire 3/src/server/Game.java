@@ -63,8 +63,8 @@ public class Game{
         return null;
     }
 
-    public boolean joinGame(int x, int y, String spieler_, String skinPaket){
-        Spieler spieler = new Spieler(x, y, spieler_, skinPaket);
+    public boolean joinGame(int x, int y, String spieler_, String skinPaket, String worldName){
+        Spieler spieler = new Spieler(x, y, spieler_, skinPaket, worldName);
         Spieler exist = getPlayer(spieler_);
         if(exist != null) return false;
         return distributePlayer(spieler);
