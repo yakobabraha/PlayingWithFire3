@@ -116,8 +116,8 @@ public class Assets {
 		logo = sheet.crop(width, 2* height, 116, 87);
 		//hearts
 		redheart = heartsheet.crop(1,2, 26, 26);
-		greenheart = heartsheet.crop(27, 2,26, 26);
-		purpleheart = heartsheet.crop(55, 2,26, 26);
+		greenheart = heartsheet.crop(55, 2,26, 26);
+		purpleheart = heartsheet.crop(27, 2,26, 26);
 		blueheart = heartsheet.crop(82, 2, 26, 26);
 		//players test
 		test_bluePlayer_down = new BufferedImage[2];

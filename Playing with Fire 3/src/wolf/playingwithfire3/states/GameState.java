@@ -188,10 +188,10 @@ public class GameState extends State{
 				if(i==0)
 				graphics.drawImage(Assets.blueProfile,22, 200 + i * 100+5+4, null);
 				else if(i==1)
-					graphics.drawImage(Assets.redProfile,23, 220 + i * 100+5+4, null);
+					graphics.drawImage(Assets.redProfile,23, 213 + i * 100+5+4, null);
 				else if(i==2)
-					graphics.drawImage(Assets.purpleProfile,22, 225 + i * 100+5+4, null);
-				else graphics.drawImage(Assets.greenProfile,22, 240 + i * 100+5+4, null);
+					graphics.drawImage(Assets.greenProfile,22, 225 + i * 100+5+4, null);
+				else graphics.drawImage(Assets.purpleProfile,22, 235+ i * 100+5+4, null);
 			}
 		}
 		//herzen
@@ -214,6 +214,11 @@ public class GameState extends State{
 	public void renderTimer(Graphics graphics) {
 		//time digits
 		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
+		graphics.setColor(Color.GRAY);
+		graphics.drawRect(238, 755, 90, 30);
+		graphics.drawRect(237, 754, 92, 32);
+		graphics.fillRect(239, 756, 90,30 );
+		graphics.setColor(Color.RED);
 		graphics.drawString(formatSeconds(currentTimer), 250, 780);
 		//timeline
 		float G = startTimer * 1000;
@@ -222,6 +227,7 @@ public class GameState extends State{
 		int length = 0;
 		if(currentTimer != 0)
 			length = (int) (100 * percent);
+		graphics.setColor(Color.BLACK);
 		graphics.drawRect(350, 760, 102, 22);
 		graphics.drawRect(349, 759, 104, 24);
 		graphics.setColor(Color.RED);

@@ -24,7 +24,7 @@ public class QuitButton2 extends UIImageButton{
 			graphics.drawImage(Assets.btn_start[0], (int) x,(int) y, width, height, null);
 		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.BOLD, 16));
 		graphics.setColor(Color.BLACK);
-		graphics.drawString(" Back to menu", (int) x + 68, (int) y + height - 17);
+		graphics.drawString(" Back to menu", (int) x + 75, (int) y + height - 17);
 	}
 	@Override
 	public void onClick() {
