@@ -80,4 +80,16 @@ public class OnlinePlayer extends Player{
 		return 0;
 	}
 
+	@Override
+	public void setHealth(int h) {
+		// TODO Auto-generated method stub
+		health = h;
+	}
+
+	@Override
+	public boolean isOnlinePlayer() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

@@ -345,4 +345,16 @@ public class ComPlayer extends Player{
 		
 	}
 
+	@Override
+	public void setHealth(int h) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOnlinePlayer() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

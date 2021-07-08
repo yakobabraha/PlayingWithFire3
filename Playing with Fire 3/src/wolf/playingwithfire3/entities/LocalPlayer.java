@@ -184,6 +184,7 @@ public class LocalPlayer extends Player{
 		client.setAnimationenIndex(animations.getAnimationIndex());
 		client.setAusrichtung(animations.getDirection());
 		client.sendPlayerInfos();
+		client.setHealth(health);
 	}
 	
 	public void checkZoneDamage() {
@@ -316,5 +317,11 @@ public class LocalPlayer extends Player{
 	public void setAnimIndex(int i) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean isOnlinePlayer() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

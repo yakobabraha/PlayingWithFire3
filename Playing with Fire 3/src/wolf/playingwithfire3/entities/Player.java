@@ -15,4 +15,6 @@ public abstract class Player extends Entity{
 	public abstract int getPlayerNumber();
 	public abstract void setDirection(String direction);
 	public abstract void setAnimIndex(int i);
+	public abstract void setHealth(int h);
+	public abstract boolean isOnlinePlayer();
 }
