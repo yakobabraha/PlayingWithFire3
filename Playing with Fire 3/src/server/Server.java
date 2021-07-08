@@ -19,7 +19,6 @@ public class Server{
         try
         {
             server = new ServerSocket(port);
-            server.setSoTimeout(1000000000);
         } catch (SocketException e) 
         {
             e.printStackTrace();

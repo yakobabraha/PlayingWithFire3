@@ -162,7 +162,7 @@ public class PlayerHandler extends Thread {
     		toreturn = game.getGameInfo();
     		try {
 				dos.writeUTF(toreturn);
-				TimeUnit.MILLISECONDS.sleep(10);
+				TimeUnit.MILLISECONDS.sleep(20);
 			} catch (IOException e) {
 			} catch (InterruptedException e) {
 			}
@@ -196,7 +196,7 @@ public class PlayerHandler extends Thread {
             	
             	/* readUTF formatiert den Stream Input direkt in einen lesbaren String
             	 * 
-            	 * Die Nachricht "Exit" ist eine Abbruchbedingung für den Loop
+            	 * Die Nachricht "Exit" ist eine Abbruchbedingung fï¿½r den Loop
             	 * 
             	 * startThread startet einen Thread, der die den output stream zu der Client Verbindung nutzt,
             	 * und die Spieler daten aktualisiert .
