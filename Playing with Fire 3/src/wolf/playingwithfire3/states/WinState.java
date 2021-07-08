@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import wolf.playingwithfire3.Game;
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.ui.QuitButton;
+import wolf.playingwithfire3.ui.QuitButton2;
 import wolf.playingwithfire3.ui.UIManager;
 
 public class WinState extends State{
@@ -28,7 +29,7 @@ public class WinState extends State{
 		
 		this.stateManager = stateManager;
 		
-		uiManager.addObject(new QuitButton(280, 450, 270, 45, Assets.btn_start, game, stateManager));
+		uiManager.addObject(new QuitButton2(280, 450, 270, 45, Assets.btn_start, game, stateManager));
 	}
 
 	@Override

@@ -27,8 +27,8 @@ public class MenuState extends State{
 		
 		this.stateManager = stateManager;
 		
-		uiManager.addObject(new PlayButton(280, 370, 270, 45, Assets.btn_start,game,stateManager));
-		uiManager.addObject(new PlayOnlineButton(280, 450, 270, 45, Assets.btn_start,game, "  Play Online",stateManager));
+		uiManager.addObject(new PlayButton(280, 450, 270, 45, Assets.btn_start,game,stateManager));
+		uiManager.addObject(new PlayOnlineButton(280, 530, 270, 45, Assets.btn_start,game, "  Play Online",stateManager));
 	}
 
 	@Override

@@ -42,10 +42,7 @@ public class LevelChooseState extends State{
 
 	@Override
 	public void render(Graphics graphics) {
-		graphics.fillRect(0, 0, game.width, game.height);
-		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
-		graphics.setColor(Color.YELLOW);
-		graphics.drawString("Choose Level", 350, 100);
+		graphics.drawImage(Assets.level,0,0,null);
 		uiManager.render(graphics);
 	}
 

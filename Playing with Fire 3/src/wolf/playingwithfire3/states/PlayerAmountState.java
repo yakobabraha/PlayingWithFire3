@@ -37,10 +37,7 @@ public class PlayerAmountState extends State{
 	@Override
 	public void render(Graphics graphics) {
 		// TODO Auto-generated method stub
-		graphics.fillRect(0, 0, game.width, game.height);
-		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
-		graphics.setColor(Color.YELLOW);
-		graphics.drawString("Choose Player Amount", 350, 100);
+		graphics.drawImage(Assets.playerAmount,0,0,null);
 		uiManager.render(graphics);
 	}
 
