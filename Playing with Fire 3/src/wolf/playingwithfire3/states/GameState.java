@@ -32,13 +32,17 @@ public class GameState extends State{
 	private long zoneDelay = 200000000;
 	private long zoneStart = System.nanoTime();
 	
+	private StateManager stateManager;
 	
-	public GameState(Game game, int playerNumber, int opponentAmount, String worldName) {
+	
+	public GameState(Game game, int playerNumber, int opponentAmount, String worldName, StateManager stateManager) {
 		super(game);
 		this.game = game;
 		
+		this.stateManager = stateManager;
+		
 		uiManager = new UIManager();
-		uiManager.addObject(new QuitButton(10,650, 110, 22, Assets.btn_start, game));
+		uiManager.addObject(new QuitButton(10,650, 110, 22, Assets.btn_start, game, stateManager));
 		game.getMouseManager().setUIManager(uiManager);
 		
 		world = new World("res/worlds/"+worldName+".txt");
@@ -56,7 +60,7 @@ public class GameState extends State{
 		this.game = game;
 		
 		uiManager = new UIManager();
-		uiManager.addObject(new QuitButton(10,650, 110, 22, Assets.btn_start, game));
+		uiManager.addObject(new QuitButton(10,650, 110, 22, Assets.btn_start, game,stateManager));
 		game.getMouseManager().setUIManager(uiManager);
 		
 		this.world = world;
@@ -140,7 +144,7 @@ public class GameState extends State{
 		if(amount == 1) {
 			for(int i = 0; i < players.length;i++) {
 				if(players[i]!=null && players[i].getHealth() != 0) {
-					State.setState(new WinState(game, i));
+					stateManager.setState(new WinState(game, i,stateManager));
 				}
 			}
 		}

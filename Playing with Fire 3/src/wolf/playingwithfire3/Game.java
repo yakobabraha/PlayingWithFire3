@@ -7,9 +7,9 @@ import wolf.playingwithfire3.display.Display;
 import wolf.playingwithfire3.gfx.Assets;
 import wolf.playingwithfire3.input.KeyManager;
 import wolf.playingwithfire3.input.MouseManager;
-import wolf.playingwithfire3.states.GameState;
 import wolf.playingwithfire3.states.MenuState;
 import wolf.playingwithfire3.states.State;
+import wolf.playingwithfire3.states.StateManager;
 
 //Hauptklasse
 public class Game implements Runnable{
@@ -24,6 +24,7 @@ public class Game implements Runnable{
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	private StateManager stateManager;
 	
 	private int fps = 60;
 	//States
@@ -38,6 +39,7 @@ public class Game implements Runnable{
 		this.height = height;	
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
+		this.stateManager = new StateManager();
 	}
 	
 	private void init() {
@@ -51,7 +53,7 @@ public class Game implements Runnable{
 		
 		//alle states erstellen und ersten state setzen
 
-		State.setState(new MenuState(this));
+		stateManager.setState(new MenuState(this,stateManager));
 	}
 	
 	public KeyManager getKeyManager() {
@@ -66,8 +68,8 @@ public class Game implements Runnable{
 	private void tick() {	
 		keyManager.tick();
 		
-		if(State.getState() != null)
-			State.getState().tick();
+		if(stateManager.getState() != null)
+			stateManager.getState().tick();
 	}
 	
 	//render: Variablen, die durch tick geändert wurden(z.B. Postionen) werden jetzt zum rendern verwendet
@@ -82,8 +84,8 @@ public class Game implements Runnable{
 		g.clearRect(0, 0, width, height);
 		//ab hier malen
 		
-		if(State.getState() != null)
-			State.getState().render(g);
+		if(stateManager.getState() != null)
+			stateManager.getState().render(g);
 			
 		//gemaltes Bild wird im Screen gezeigt
 		bs.show();

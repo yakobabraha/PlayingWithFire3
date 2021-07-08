@@ -57,6 +57,8 @@ public class Assets {
 	
 	public static BufferedImage background;
 	
+	public boolean test;
+	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/spritesheet.png"));
 		SpriteSheet spritesheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));

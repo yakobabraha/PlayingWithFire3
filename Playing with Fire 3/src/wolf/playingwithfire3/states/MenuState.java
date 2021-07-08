@@ -16,15 +16,19 @@ public class MenuState extends State{
 	private Game game;
 	private UIManager uiManager;
 	
+	private StateManager stateManager;
 	
-	public MenuState(Game game) {
+	
+	public MenuState(Game game, StateManager stateManager) {
 		super(game);
 		this.game = game;
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new PlayButton(280, 370, 270, 45, Assets.btn_start,game));
-		uiManager.addObject(new PlayOnlineButton(280, 450, 270, 45, Assets.btn_start,game, "Play Online"));
+		this.stateManager = stateManager;
+		
+		uiManager.addObject(new PlayButton(280, 370, 270, 45, Assets.btn_start,game,stateManager));
+		uiManager.addObject(new PlayOnlineButton(280, 450, 270, 45, Assets.btn_start,game, "Play Online",stateManager));
 	}
 
 	@Override
