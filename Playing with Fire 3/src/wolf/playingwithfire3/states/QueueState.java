@@ -26,12 +26,13 @@ public class QueueState extends State{
 	public QueueState(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
-		client = new Client(this);
-		client.sendPlayerInfos();
+		
 		this.game = game;
 		this.bombsManager = bombsManager;
 		this.world = new World("res/worlds/world2.txt");
 		this.players = new Player[4];
+		client = new Client(this);
+		client.sendPlayerInfos();
 		System.out.println(this.players);
 	}
 
@@ -48,6 +49,10 @@ public class QueueState extends State{
 	
 	public void setLastSeconds(boolean value) {
 		lastSeconds = value;
+	}
+	
+	public void startGame() {
+		
 	}
 	
 	@Override

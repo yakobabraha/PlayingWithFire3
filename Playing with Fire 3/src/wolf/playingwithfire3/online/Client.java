@@ -123,6 +123,7 @@ public class Client {
     
     public void gameStart() {
     	System.out.println("Game is starting!!!");
+    	queueState.startGame();
     }
     
     public void parsePlayer(JSONObject jsonObject) {    	
