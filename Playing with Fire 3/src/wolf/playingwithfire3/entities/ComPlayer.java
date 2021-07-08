@@ -88,10 +88,16 @@ public class ComPlayer extends Player{
 	}
 	
 	public void smartBomb() {
+		/*
 		if(isPlayerOnOneTile()) {
 			if(isBoxAround()) {
 				setBomb();
 			}
+		}
+		*/
+		float r = random.nextFloat();
+		if(r<0.05f) {
+			setBomb();
 		}
 	}
 	
@@ -153,26 +159,16 @@ public class ComPlayer extends Player{
 		yMoves[1] = (int) -speed;
 		
 		if(world.getTileID(xTile+1, yTile)==2 || bombsManager.isSolid(xTile+1, yTile) )
-			xMoves[1] = 0;
-		if(world.getTileID(xTile-1, yTile)==2 || bombsManager.isSolid(xTile-1, yTile) )
 			xMoves[0] = 0;
+		if(world.getTileID(xTile-1, yTile)==2 || bombsManager.isSolid(xTile-1, yTile) )
+			xMoves[1] = 0;
 		if(world.getTileID(xTile, yTile+1)==2 || bombsManager.isSolid(xTile, yTile + 1) )
 			yMoves[0] = 0;
 		if(world.getTileID(xTile, yTile-1)==2 || bombsManager.isSolid(xTile, yTile-1) )
 			yMoves[1] = 0;
 		//|| bombsManager.getExplosionFuture(xTile-1, yTile) || bombsManager.getExplosions(xTile-1, yTile)
-		if(bombsManager.getExplosionFuture(xTile, yTile-1))
-			System.out.println("yaaaaaaaaaaaa");
+
 		
-		if(!test) {
-			System.out.println("--------------------------");
-			System.out.println(xMoves[0]);
-			System.out.println(xMoves[1]);
-			System.out.println(yMoves[0]);
-			System.out.println(yMoves[1]);
-			System.out.println("--------------------------");
-			test = true;
-		}
 		if(isPlayerOnOneTile()) { 
 			if(random.nextFloat()<0.05f) {
 				xMove = 0;
@@ -203,7 +199,7 @@ public class ComPlayer extends Player{
 					if(rint == 0)
 						yMove = 0;
 				}
-			}else if(x==lastX && y== lastY && false){
+			}else if(x==lastX && y== lastY ){
 				xMove = 0;
 				yMove = 0;
 				float r = random.nextFloat();
@@ -331,6 +327,30 @@ public class ComPlayer extends Player{
 	public int getPlayerNumber() {
 		// TODO Auto-generated method stub
 		return playerNumber;
+	}
+
+	@Override
+	public void setDirection(String direction) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setAnimIndex(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setHealth(int h) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOnlinePlayer() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -87,6 +87,29 @@ public class AnimationPacket {
 		this.direction = direction;
 	}
 	
+	public String getDirection() {
+		return direction;
+	}
+	
+	public void setAnimIndex(int i) {
+		switch(direction) {
+		case "down":
+			animDown.setCurrentId(i);;
+			break;
+		case "up":
+			animUp.setCurrentId(i);
+			break;
+		case "left":
+			animLeft.setCurrentId(i);
+			break;
+		case "right":
+			animRight.setCurrentId(i);
+			break;
+		default:
+
+		}
+	}
+	
 	public void directionByMovement(float xMove, float yMove) {
 		if(xMove>0) {
 			direction = "right";
@@ -112,6 +135,22 @@ public class AnimationPacket {
 			return animRight.getCurrentFrame();
 		default:
 			return animDown.getCurrentFrame();
+		}
+	}
+
+	public int getAnimationIndex() {
+		// TODO Auto-generated method stub
+		switch(direction) {
+		case "down":
+			return animDown.getCurrentFrameId();
+		case "up":
+			return animUp.getCurrentFrameId();
+		case "left":
+			return animLeft.getCurrentFrameId();
+		case "right":
+			return animRight.getCurrentFrameId();
+		default:
+			return animDown.getCurrentFrameId();
 		}
 	}
 }

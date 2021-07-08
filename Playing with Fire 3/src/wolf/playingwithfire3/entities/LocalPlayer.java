@@ -171,7 +171,7 @@ public class LocalPlayer extends Player{
 			animations.tick();
 			checkZoneDamage();
 		}
-		//sendData();
+		sendData();
 	}
 	
 	public void sendData() {
@@ -298,5 +298,23 @@ public class LocalPlayer extends Player{
 
 
 
+	}
+
+	@Override
+	public void setDirection(String direction) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setAnimIndex(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isOnlinePlayer() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

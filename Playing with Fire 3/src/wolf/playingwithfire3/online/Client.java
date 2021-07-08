@@ -157,10 +157,13 @@ public class Client {
     	if(!started ) {
     		queueState.joinPlayer(x, y, health, playerID, skinPaket, spielerIndex);
     	}else {
-
+    		if(players[spielerIndex-1].isOnlinePlayer()) {
 	    		players[spielerIndex-1].setX(x);
 	    		players[spielerIndex-1].setY(y);
-
+	    		players[spielerIndex-1].setAnimIndex(animationenIndex);
+	    		players[spielerIndex-1].setDirection(ausrichtung);
+	    		players[spielerIndex-1].setHealth(health);
+    		}
     	}
     }
     

@@ -162,7 +162,7 @@ public class PlayerHandler extends Thread {
     		toreturn = game.getGameInfo();
     		try {
 				dos.writeUTF(toreturn);
-				TimeUnit.MILLISECONDS.sleep(20);
+				TimeUnit.MILLISECONDS.sleep(10);
 			} catch (IOException e) {
 			} catch (InterruptedException e) {
 			}
