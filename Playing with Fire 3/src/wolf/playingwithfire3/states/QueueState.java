@@ -33,11 +33,9 @@ public class QueueState extends State{
 		this.players = new Player[4];
 		client = new Client(this);
 		client.sendPlayerInfos();
-		System.out.println(this.players);
 	}
 
 	public void joinPlayer(int x,int y,int health,String playerID, String skinName,int spielerIndex) {
-		System.out.println(players);
 		if(players[spielerIndex-1]==null) {
 			if(playerID==client.getPlayerId()) {
 				players[spielerIndex-1] = new LocalPlayer(world, game, bombsManager, 1100000000,spielerIndex,3, skinName);
