@@ -20,7 +20,7 @@ public class PlayOnlineButton extends UIImageButton{
 	public void onClick() {
 		// TODO Auto-generated method stub
 		game.getMouseManager().setUIManager(null);
-		stateManager.setState(new QueueState(game));
+		stateManager.setState(new QueueState(game,stateManager));
 		
 	}
 

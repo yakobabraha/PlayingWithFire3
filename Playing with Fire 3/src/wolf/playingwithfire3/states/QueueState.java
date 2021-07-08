@@ -20,10 +20,11 @@ public class QueueState extends State{
 	private Player[] players;
 	private World world;
 	private boolean lastSeconds;
+	private StateManager stateManager;
 	
 	
 	
-	public QueueState(Game game) {
+	public QueueState(Game game, StateManager stateManager) {
 		super(game);
 		// TODO Auto-generated constructor stub
 		
@@ -33,6 +34,7 @@ public class QueueState extends State{
 		this.players = new Player[4];
 		client = new Client(this);
 		client.sendPlayerInfos();
+		this.stateManager = stateManager;
 	}
 
 	public void joinPlayer(int x,int y,int health,String playerID, String skinName,int spielerIndex) {
@@ -50,7 +52,8 @@ public class QueueState extends State{
 	}
 	
 	public void startGame() {
-		
+		stateManager.setState(new GameState(game, players, "world2", bombsManager, world));
+		System.out.println("debuggg");
 	}
 	
 	@Override
