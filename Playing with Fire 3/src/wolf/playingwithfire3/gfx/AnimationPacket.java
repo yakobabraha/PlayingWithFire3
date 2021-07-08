@@ -47,26 +47,26 @@ public class AnimationPacket {
 			case 1:
 				animDown = new Animation(250,Assets.default_bluePlayer_down);
 				animUp = new Animation(250,Assets.default_bluePlayer_up);
-				animLeft = new Animation(500,Assets.default_bluePlayer_left);
-				animRight = new Animation(500,Assets.default_bluePlayer_right);
+				animLeft = new Animation(250,Assets.default_bluePlayer_left);
+				animRight = new Animation(250,Assets.default_bluePlayer_right);
 				break;
 			case 2:
 				animDown = new Animation(250,Assets.default_redPlayer_down);
 				animUp = new Animation(250,Assets.default_redPlayer_up);
-				animLeft = new Animation(500,Assets.default_redPlayer_left);
-				animRight = new Animation(500,Assets.default_redPlayer_right);
+				animLeft = new Animation(250,Assets.default_redPlayer_left);
+				animRight = new Animation(250,Assets.default_redPlayer_right);
 				break;
 			case 3:
 				animDown = new Animation(250,Assets.default_purplePlayer_down);
 				animUp = new Animation(250,Assets.default_purplePlayer_up);
-				animLeft = new Animation(500,Assets.default_purplePlayer_left);
-				animRight = new Animation(500,Assets.default_purplePlayer_right);
+				animLeft = new Animation(250,Assets.default_purplePlayer_left);
+				animRight = new Animation(250,Assets.default_purplePlayer_right);
 				break;
 			case 4:
 				animDown = new Animation(250,Assets.default_greenPlayer_down);
 				animUp = new Animation(250,Assets.default_greenPlayer_up);
-				animLeft = new Animation(500,Assets.default_greenPlayer_left);
-				animRight = new Animation(500,Assets.default_greenPlayer_right);
+				animLeft = new Animation(250,Assets.default_greenPlayer_left);
+				animRight = new Animation(250,Assets.default_greenPlayer_right);
 				break;
 			}
 		

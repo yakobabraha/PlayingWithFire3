@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="wolf.playingwithfire3.display.Display" project="Playing with Fire 3" 
     file="/Playing with Fire 3/src/wolf/playingwithfire3/display/Display.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="679" y="95"/>    
+    <position height="-1" width="-1" x="687" y="128"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -67,8 +67,8 @@
   </class>  
   <class id="8" language="java" name="wolf.playingwithfire3.ui.UIImageButton" project="Playing with Fire 3" 
     file="/Playing with Fire 3/src/wolf/playingwithfire3/ui/UIImageButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1214" y="216"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="171" width="322" x="1000" y="108"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -76,7 +76,7 @@
   </class>  
   <class id="9" language="java" name="wolf.playingwithfire3.ui.UIObject" project="Playing with Fire 3" 
     file="/Playing with Fire 3/src/wolf/playingwithfire3/ui/UIObject.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1160" y="670"/>    
+    <position height="-1" width="-1" x="1136" y="629"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -85,7 +85,7 @@
   </class>  
   <class id="10" language="java" name="wolf.playingwithfire3.worlds.World" project="Playing with Fire 3" 
     file="/Playing with Fire 3/src/wolf/playingwithfire3/worlds/World.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="291" width="138" x="489" y="184"/>    
+    <position height="291" width="138" x="458" y="178"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

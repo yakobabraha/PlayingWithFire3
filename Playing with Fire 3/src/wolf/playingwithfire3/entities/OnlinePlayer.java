@@ -70,9 +70,9 @@ public class OnlinePlayer extends Player{
 	@Override
 	public void render(Graphics graphics) {
 		// TODO Auto-generated method stub
-		graphics.drawImage(animations.getCurrentFrame(), (int) x, (int) y, null);
+		
 		if(health != 0) {
-			
+			graphics.drawImage(animations.getCurrentFrame(), (int) x, (int) y, null);
 		}
 	}
 

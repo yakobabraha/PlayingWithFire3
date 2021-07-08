@@ -86,8 +86,8 @@ public class Client {
 		}
 	}
 
-	public void setBomb(int x_, int y_, int timestamp) {
-		bombs.put("timestamp", timestamp);
+	public void setBomb(int x_, int y_, long l) {
+		bombs.put("timestamp", l);
 		bombs.put("x", x_);
 		bombs.put("y", y_);
 	}
@@ -155,6 +155,9 @@ public class Client {
     	health = toIntExact((long) jsonObject.get("health"));
     	animationenIndex = toIntExact((long) jsonObject.get("animationenIndex"));
     	spielerIndex = toIntExact((long) jsonObject.get("spielerIndex"));
+    
+    	
+    	
     	
     	if(!started ) {
     		queueState.joinPlayer(x, y, health, playerID, skinPaket, spielerIndex);
