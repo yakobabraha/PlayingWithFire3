@@ -158,7 +158,6 @@ public class Client {
     		queueState.joinPlayer(x, y, health, playerID, skinPaket, spielerIndex);
     	}else {
 
-	    		System.out.println();
 	    		players[spielerIndex-1].setX(x);
 	    		players[spielerIndex-1].setY(y);
 
