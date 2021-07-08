@@ -142,56 +142,63 @@ public class Assets {
 		test_greenPlayer_left[0] = sheet.crop(width * 8, height * 3, width, height);
 		test_greenPlayer_right[0] = sheet.crop(width * 9, height * 3, width, height);
 		
-		//default player
-		/*
+		
 		default_bluePlayer_down = new BufferedImage[2];
 		default_bluePlayer_up = new BufferedImage[2];
-		default_bluePlayer_right = new BufferedImage[1];
-		default_bluePlayer_left = new BufferedImage[1];
+		default_bluePlayer_right = new BufferedImage[2];
+		default_bluePlayer_left = new BufferedImage[2];
 		
-		default_bluePlayer_down[0] = playerssheet.crop(width * 4, height * 0, width, height);
-		default_bluePlayer_down[1] = playerssheet.crop(width * 5, height * 0, width, height);
-		default_bluePlayer_up[0] = playerssheet.crop(width * 6, height * 0, width, height);
-		default_bluePlayer_up[1] = playerssheet.crop(width * 7, height * 0, width, height);
-		default_bluePlayer_left[0] = playerssheet.crop(width * 8, height * 0, width, height);
-		default_bluePlayer_right[0] = playerssheet.crop(width * 9, height * 0, width, height);
+		default_bluePlayer_down[0] = playerssheet.crop(width * 5, height * 1, width, height);
+		default_bluePlayer_down[1] = playerssheet.crop(width * 6, height * 1, width, height);
+		default_bluePlayer_up[0] = playerssheet.crop(width * 7, height * 1, width, height);
+		default_bluePlayer_up[1] = playerssheet.crop(width * 8, height * 1, width, height);
+		default_bluePlayer_left[0] = playerssheet.crop(width * 3, height * 1, width, height);
+		default_bluePlayer_left[1] = playerssheet.crop(width * 4, height * 1, width, height);
+		default_bluePlayer_right[0] = playerssheet.crop(width * 1, height * 1, width, height);
+		default_bluePlayer_right[1] = playerssheet.crop(width * 2, height * 1, width, height);
 		
 		default_redPlayer_down = new BufferedImage[2];
 		default_redPlayer_up = new BufferedImage[2];
-		default_redPlayer_right = new BufferedImage[1];
-		default_redPlayer_left = new BufferedImage[1];
+		default_redPlayer_right = new BufferedImage[2];
+		default_redPlayer_left = new BufferedImage[2];
 		
-		default_redPlayer_down[0] = playerssheet.crop(width * 4, height * 1, width,3* height);
-		default_redPlayer_down[1] = playerssheet.crop(width * 5, height * 1, width,3*  height);
-		default_redPlayer_up[0] = playerssheet.crop(width * 6, height * 1, width,3*  height);
-		default_redPlayer_up[1] = playerssheet.crop(width * 7, height * 1, width,3*  height);
-		default_redPlayer_left[0] = playerssheet.crop(width * 8, height * 1, width,3*  height);
-		default_redPlayer_right[0] = playerssheet.crop(width * 9, height * 1, width,3*  height);
+		default_redPlayer_down[0] = playerssheet.crop(width * 5, height * 3, width,height);
+		default_redPlayer_down[1] = playerssheet.crop(width * 6, height * 3, width,height);
+		default_redPlayer_up[0] = playerssheet.crop(width * 7, height * 3, width,height);
+		default_redPlayer_up[1] = playerssheet.crop(width * 8, height * 3, width,height);
+		default_redPlayer_left[0] = playerssheet.crop(width * 3, height * 3, width,height);
+		default_redPlayer_left[1] = playerssheet.crop(width * 4, height * 3, width,height);
+		default_redPlayer_right[0] = playerssheet.crop(width * 1, height * 3, width,height);
+		default_redPlayer_right[1] = playerssheet.crop(width * 2, height * 3, width,height);
+
 
 		default_purplePlayer_down = new BufferedImage[2];
 		default_purplePlayer_up = new BufferedImage[2];
-		default_purplePlayer_right = new BufferedImage[1];
-		default_purplePlayer_left = new BufferedImage[1];
+		default_purplePlayer_right = new BufferedImage[2];
+		default_purplePlayer_left = new BufferedImage[2];
 		
-		default_purplePlayer_down[0] = playerssheet.crop(width * 4, height * 2, width,0* height);
-		default_purplePlayer_down[1] = playerssheet.crop(width * 5, height * 2, width,0* height);
-		default_purplePlayer_up[0] = playerssheet.crop(width * 6, height * 2, width,0* height);
-		default_purplePlayer_up[1] = playerssheet.crop(width * 7, height * 2, width,0* height);
-		default_purplePlayer_left[0] = playerssheet.crop(width * 8, height * 2, width,0* height);
-		default_purplePlayer_right[0] = playerssheet.crop(width * 9, height * 2, width,0* height);
+		default_purplePlayer_down[0] = playerssheet.crop(width * 5, 0, width,height);
+		default_purplePlayer_down[1] = playerssheet.crop(width * 6, 0, width,height);
+		default_purplePlayer_up[0] = playerssheet.crop(width * 7, 0, width,height);
+		default_purplePlayer_up[1] = playerssheet.crop(width * 8, 0, width,height);
+		default_purplePlayer_left[0] = playerssheet.crop(width * 3, 0, width,height);
+		default_purplePlayer_left[1] = playerssheet.crop(width * 4, 0, width,height);
+		default_purplePlayer_right[0] = playerssheet.crop(width * 1, 0, width,height);
+		default_purplePlayer_right[1] = playerssheet.crop(width * 2, 0, width,height);
 		
 		default_greenPlayer_down = new BufferedImage[2];
 		default_greenPlayer_up = new BufferedImage[2];
-		default_greenPlayer_right = new BufferedImage[1];
-		default_greenPlayer_left = new BufferedImage[1];
+		default_greenPlayer_right = new BufferedImage[2];
+		default_greenPlayer_left = new BufferedImage[2];
 		
-		default_greenPlayer_down[0] = playerssheet.crop(width * 4, height * 3, width,2* height);
-		default_greenPlayer_down[1] = playerssheet.crop(width * 5, height * 3, width,2* height);
-		default_greenPlayer_up[0] = playerssheet.crop(width * 6, height * 3, width,2* height);
-		default_greenPlayer_up[1] = playerssheet.crop(width * 7, height * 3, width,2* height);
-		default_greenPlayer_left[0] = playerssheet.crop(width * 8, height * 3, width,2* height);
-		default_greenPlayer_right[0] = playerssheet.crop(width * 9, height * 3, width,2* height);
-		*/
+		default_greenPlayer_down[0] = playerssheet.crop(width * 5, height * 2, width,height);
+		default_greenPlayer_down[1] = playerssheet.crop(width * 6, height * 2, width,height);
+		default_greenPlayer_up[0] = playerssheet.crop(width * 7, height * 2, width,height);
+		default_greenPlayer_up[1] = playerssheet.crop(width * 8, height * 2, width,height);
+		default_greenPlayer_left[0] = playerssheet.crop(width * 3, height * 2, width,height);
+		default_greenPlayer_left[1] = playerssheet.crop(width * 4, height * 2, width,height);
+		default_greenPlayer_right[0] = playerssheet.crop(width * 1, height * 2, width,height);
+		default_greenPlayer_right[1] = playerssheet.crop(width * 2, height * 2, width,height);
 		
 		
 		
