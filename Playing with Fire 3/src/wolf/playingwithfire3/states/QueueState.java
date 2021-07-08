@@ -40,11 +40,9 @@ public class QueueState extends State{
 	public void joinPlayer(int x,int y,int health,String playerID, String skinName,int spielerIndex) {
 		if(players[spielerIndex-1]==null) {
 			if(playerID.equals(client.getOwnPlayerId())) {
-				players[spielerIndex-1] = new LocalPlayer(world, game, bombsManager, 1100000000,spielerIndex,3, skinName,true);
-				System.out.println(playerID+" localPlayer");
+				players[spielerIndex-1] = new LocalPlayer(world, game, bombsManager, 1100000000,spielerIndex,3, skinName,true,client);
 			}else {
 				players[spielerIndex-1] = new OnlinePlayer(spielerIndex, spielerIndex, 45, 45,spielerIndex,skinName,world);
-				System.out.println(playerID+" OnlinePlayer");
 			}
 		}
 	}
@@ -55,6 +53,12 @@ public class QueueState extends State{
 	
 	public Player[] startGame() {
 		stateManager.setState(new GameState(game, players, "world2", bombsManager, world,stateManager));
+		System.out.println("----------------------");
+		System.out.println(players[0]);
+		System.out.println(players[1]);
+		System.out.println(players[2]);
+		System.out.println(players[3]);
+		System.out.println("--------------------------");
 		return players;
 	}
 	

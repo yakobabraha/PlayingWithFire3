@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import wolf.playingwithfire3.Game;
 import wolf.playingwithfire3.gfx.AnimationPacket;
+import wolf.playingwithfire3.online.Client;
 import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.worlds.World;
@@ -26,9 +27,10 @@ public class LocalPlayer extends Player{
 	private AnimationPacket animations;
 	private int bombrange;
 	private boolean isOnline;
+	private Client client;
 	
 	
-	public LocalPlayer(World world,Game game, BombsManager bombsManager, long damageCooldown, int playerNumber, int bombAmount, String skinName, boolean isOnline) {
+	public LocalPlayer(World world,Game game, BombsManager bombsManager, long damageCooldown, int playerNumber, int bombAmount, String skinName, boolean isOnline,Client client) {
 		super(world.getSpawnX(playerNumber)*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY(playerNumber)*Tile.TILEHEIGHT+SettingState.yOffset, 45, 45);
 		this.bombsManager = bombsManager;
 		health = DEFAULT_HEALTH;
@@ -43,6 +45,7 @@ public class LocalPlayer extends Player{
 		bounds.width = 18;
 		bounds.height = 28;
 		
+		this.client = client;
 		this.damageCooldown = damageCooldown;
 		this.playerNumber = playerNumber;
 		this.bombAmount = 1;
@@ -168,6 +171,13 @@ public class LocalPlayer extends Player{
 			animations.tick();
 			checkZoneDamage();
 		}
+		sendData();
+	}
+	
+	public void sendData() {
+		client.setX((int)x);
+		client.setY((int)y);
+		client.sendPlayerInfos();
 	}
 	
 	public void checkZoneDamage() {

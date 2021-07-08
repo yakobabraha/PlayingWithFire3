@@ -73,7 +73,7 @@ public class GameState extends State{
 	public void spawnPlayers(int playerNumber, int opponentAmount) {
 		for(int i = 1;i<=playerNumber;i++) {
 			System.out.println(i);
-			players[i-1] = new LocalPlayer(world,game,bombsManager,1100000000,i,3, "default",false);
+			players[i-1] = new LocalPlayer(world,game,bombsManager,1100000000,i,3, "default",false,null);
 		}
 		
 		for(int i = 2;i<=opponentAmount+1;i++) {
