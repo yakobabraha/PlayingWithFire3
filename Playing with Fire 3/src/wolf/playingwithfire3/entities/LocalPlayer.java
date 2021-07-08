@@ -171,7 +171,7 @@ public class LocalPlayer extends Player{
 			animations.tick();
 			checkZoneDamage();
 		}
-		sendData();
+		//sendData();
 	}
 	
 	public void sendData() {

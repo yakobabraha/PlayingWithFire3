@@ -42,6 +42,8 @@ public class WinState extends State{
 	public void render(Graphics graphics) {
 		// TODO Auto-generated method stub
 		graphics.fillRect(0, 0, game.width, game.height);
+		graphics.drawImage(Assets.cup,70,200,null);
+		graphics.drawImage(Assets.cup,600,200,null);
 		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
 		if(playerIndex==0) {
 			graphics.setColor(Color.BLUE);

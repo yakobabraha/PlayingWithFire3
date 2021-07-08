@@ -13,7 +13,7 @@ public class Assets {
 	public static BufferedImage blueBomb, redBomb, purpleBomb, greenBomb, bombExplosion;
 	public static BufferedImage logo, redheart,greenheart,purpleheart,blueheart;
 	public static BufferedImage skull;
-	
+	public static BufferedImage cup;
 	public static BufferedImage[] test_bluePlayer_down;
 	public static BufferedImage[] test_bluePlayer_right;
 	public static BufferedImage[] test_bluePlayer_left;
@@ -96,6 +96,7 @@ public class Assets {
 		bombAmount = sheet.crop(2*width,4*height,width,height);
 		bombRange = sheet.crop(width,4*height,width,height);
 		
+		cup = sheet.crop(3, 271, 157, 425-270);
 		//button
 		btn_start = new BufferedImage[2];
 		btn_start[0] = sheet.crop(180, 225, 270, 45);
