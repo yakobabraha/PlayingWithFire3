@@ -183,7 +183,7 @@ public class GameState extends State{
 	public void drawPlayerCard(Graphics graphics, int i) {
 		if(players[i]!=null) {
 			if(players[i].getHealth() == 0) {
-				graphics.drawImage(Assets.skull,36+6, 220 + i * 100+5+4, null);
+				graphics.drawImage(Assets.skull,36+6, 220 + i * 105+5+4, null);
 			}else {
 				if(i==0)
 				graphics.drawImage(Assets.blueProfile,22, 200 + i * 100+5+4, null);

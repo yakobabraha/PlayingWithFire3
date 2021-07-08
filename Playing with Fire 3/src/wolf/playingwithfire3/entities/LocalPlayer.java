@@ -46,6 +46,9 @@ public class LocalPlayer extends Player{
 		bounds.height = 28;
 		
 		this.client = client;
+		if(client != null) {
+
+		}
 		this.damageCooldown = damageCooldown;
 		this.playerNumber = playerNumber;
 		this.bombAmount = 1;
@@ -171,12 +174,15 @@ public class LocalPlayer extends Player{
 			animations.tick();
 			checkZoneDamage();
 		}
-		sendData();
+		if(isOnline)
+			sendData();
 	}
 	
 	public void sendData() {
 		client.setX((int)x);
 		client.setY((int)y);
+		client.setAnimationenIndex(animations.getAnimationIndex());
+		client.setAusrichtung(animations.getDirection());
 		client.sendPlayerInfos();
 	}
 	
@@ -298,5 +304,17 @@ public class LocalPlayer extends Player{
 
 
 
+	}
+
+	@Override
+	public void setDirection(String direction) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setAnimIndex(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -160,7 +160,8 @@ public class Client {
 
 	    		players[spielerIndex-1].setX(x);
 	    		players[spielerIndex-1].setY(y);
-
+	    		players[spielerIndex-1].setAnimIndex(animationenIndex);
+	    		players[spielerIndex-1].setDirection(ausrichtung);
     	}
     }
     

@@ -10,6 +10,7 @@ import wolf.playingwithfire3.entities.LocalPlayer;
 import wolf.playingwithfire3.entities.OnlinePlayer;
 import wolf.playingwithfire3.entities.Player;
 import wolf.playingwithfire3.online.Client;
+import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.worlds.World;
 
 public class QueueState extends State{
@@ -32,9 +33,14 @@ public class QueueState extends State{
 		this.world = new World("res/worlds/world2.txt");
 		this.bombsManager = new BombsManager(world.getWidth(), world.getHeight(),1.5f,1.0f,game.getFps(),world);;
 		this.players = new Player[4];
+		
 		client = new Client(this);
 		client.sendPlayerInfos();
 		this.stateManager = stateManager;
+		for(int i = 1;i<5;i++) {
+			System.out.println(world.getSpawnX(i)*Tile.TILEWIDTH+SettingState.xOffset);
+			System.out.println(world.getSpawnY(i)*Tile.TILEHEIGHT+SettingState.yOffset);
+		}
 	}
 
 	public void joinPlayer(int x,int y,int health,String playerID, String skinName,int spielerIndex) {
@@ -42,7 +48,7 @@ public class QueueState extends State{
 			if(playerID.equals(client.getOwnPlayerId())) {
 				players[spielerIndex-1] = new LocalPlayer(world, game, bombsManager, 1100000000,spielerIndex,3, skinName,true,client);
 			}else {
-				players[spielerIndex-1] = new OnlinePlayer(spielerIndex, spielerIndex, 45, 45,spielerIndex,skinName,world);
+				players[spielerIndex-1] = new OnlinePlayer(spielerIndex, spielerIndex, 45, 45,spielerIndex,skinName,world,client);
 			}
 		}
 	}
