@@ -28,7 +28,7 @@ public class OnlinePlayer extends Player{
 	@Override
 	public int getHealth() {
 		// TODO Auto-generated method stub
-		return 3;
+		return health;
 	}
 
 	@Override
