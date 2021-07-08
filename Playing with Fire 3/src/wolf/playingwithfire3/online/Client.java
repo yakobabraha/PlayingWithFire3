@@ -101,7 +101,7 @@ public class Client {
     public JSONObject setPlayer() {
         JSONObject player = new JSONObject();
 
-        player.put("ID", playerID);
+        player.put("ID", ownPlayerID);
         player.put("gameID", "yarro");
         player.put("x", x);
         player.put("y", y);
@@ -124,6 +124,7 @@ public class Client {
     public void gameStart() {
     	System.out.println("Game is starting!!!");
     	players = queueState.startGame();
+    	instruction = "update";
     	started = true;
     }
     
@@ -153,12 +154,14 @@ public class Client {
     	animationenIndex = toIntExact((long) jsonObject.get("animationenIndex"));
     	spielerIndex = toIntExact((long) jsonObject.get("spielerIndex"));
     	
-    	if(!started) {
+    	if(!started ) {
     		queueState.joinPlayer(x, y, health, playerID, skinPaket, spielerIndex);
     	}else {
-    		System.out.println(players);
-    		players[spielerIndex-1].setX(x);
-    		players[spielerIndex-1].setY(y);
+
+	    		System.out.println();
+	    		players[spielerIndex-1].setX(x);
+	    		players[spielerIndex-1].setY(y);
+
     	}
     }
     
