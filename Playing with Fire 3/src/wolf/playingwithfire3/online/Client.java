@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,9 +22,9 @@ public class Client {
 	private JSONParser parser = new JSONParser();
 	private int x=1, y=1, health=3, animationenIndex=0, spielerIndex;
 	private String playerID, gameID, ausrichtung="down", skinPaket="default", instruction = "join";
-
+	
 	private QueueState queueState;
-
+	private JSONObject[] powerups = new JSONObject[4];
 	private JSONObject bombs = new JSONObject();
 
 	
@@ -65,6 +66,18 @@ public class Client {
 		instruction = instruction_;
 	}
 	
+	public void addPowerUp(int x_, int y_, String type) {
+		JSONObject data = new JSONObject();
+		data.put("x", x_);
+		data.put("y", y_);
+		data.put("type", type);
+		
+		for(int i = 0; i < powerups.length; i++) {
+			if(powerups[i] != null) {
+				powerups[i] = data;
+			}
+		}
+	}
 
 	public String getPlayerId() {
 		return playerID;
@@ -112,6 +125,7 @@ public class Client {
         player.put("ausrichtung", ausrichtung);
         player.put("animationIndex", animationenIndex);
         player.put("bomben", bombs.toString());
+        player.put("powerups", Arrays.toString(powerups));
         
         return player;
     }

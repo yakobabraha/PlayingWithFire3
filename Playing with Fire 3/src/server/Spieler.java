@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 public class Spieler {
     private int x, y, leben, animationIndex, spielerIndex;
-    private String spielerID, skinPaket, worldName, gesetzteBomben;
+    private String spielerID, skinPaket, worldName, gesetzteBomben, powerups;
 
     private enum AUSRICHTUNG {
     	up,
@@ -58,6 +58,10 @@ public class Spieler {
         y = y_;
     }
     
+    public void setPowerups(String powerups_) {
+    	powerups = powerups_;
+    }
+    
     public void setLeben(int leben_){
         leben = leben_;
     }
@@ -66,13 +70,14 @@ public class Spieler {
     	gesetzteBomben = bomben;
     }
     
-    public boolean setData(int x_, int y_, int leben_, int aniIndex, String ausrichtung_, String bomben){
+    public boolean setData(int x_, int y_, int leben_, int aniIndex, String ausrichtung_, String bomben, String powerups_){
         x = x_;
         y = y_;
         leben = leben_;
         animationIndex = aniIndex;
         ausrichtung = AUSRICHTUNG.valueOf(ausrichtung_);
         gesetzteBomben = bomben;
+        powerups = powerups_;
         return true;
     }
     
@@ -89,6 +94,7 @@ public class Spieler {
         daten.put("spielerIndex", spielerIndex);
         daten.put("worldName", worldName);
         daten.put("bomben", gesetzteBomben);
+        daten.put("powerups", powerups);
         
         return daten;
     }
