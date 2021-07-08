@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import wolf.playingwithfire3.Game;
+import wolf.playingwithfire3.states.StateManager;
 
 public abstract class UIObject {
 
@@ -13,8 +14,9 @@ public abstract class UIObject {
 	protected Rectangle bounds;
 	protected boolean hovering = false;
 	protected Game game;
+	protected StateManager stateManager;
 	
-	public UIObject(float x, float y, int width, int height, Game game) {
+	public UIObject(float x, float y, int width, int height, Game game, StateManager stateManager) {
 		this.x = x;
 		this.y = y;
 		this.width = width;

@@ -6,14 +6,15 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import wolf.playingwithfire3.Game;
+import wolf.playingwithfire3.states.StateManager;
 
 public abstract class UIImageButton extends UIObject{
 
 	private BufferedImage[] images;
 	private String text;
 	
-	public UIImageButton(float x, float y, int width, int height, BufferedImage[] images,Game game, String text) {
-		super(x, y, width, height,game);
+	public UIImageButton(float x, float y, int width, int height, BufferedImage[] images,Game game, String text,StateManager stateManager) {
+		super(x, y, width, height,game,stateManager);
 		this.images = images;
 		this.text = text;
 	}
