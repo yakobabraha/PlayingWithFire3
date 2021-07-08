@@ -1,5 +1,7 @@
 package wolf.playingwithfire3.states;
 
+// Yakob
+
 public class StateManager {
 	private State currentState = null;
 	

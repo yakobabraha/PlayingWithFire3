@@ -1,7 +1,7 @@
 package wolf.playingwithfire3.gfx;
 
 import java.awt.image.BufferedImage;
-
+//Armin
 public class SpriteSheet {
 	
 	private BufferedImage sheet;

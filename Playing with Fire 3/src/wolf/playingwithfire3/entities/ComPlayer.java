@@ -1,5 +1,7 @@
 package wolf.playingwithfire3.entities;
 
+// Leon, Yakob
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
