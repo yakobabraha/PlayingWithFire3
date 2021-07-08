@@ -1,5 +1,7 @@
 package wolf.playingwithfire3.entities;
 
+// Yakob & Armin
+
 import java.awt.Graphics;
 
 import wolf.playingwithfire3.gfx.AnimationPacket;

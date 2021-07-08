@@ -1,5 +1,7 @@
 package wolf.playingwithfire3.states;
 
+// Yakob, Armin, Leon
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -49,10 +51,6 @@ public class GameState extends State{
 		bombsManager = new BombsManager(world.getWidth(), world.getHeight(),1.5f,1.0f,game.getFps(),world);
 		players = new Player[4];
 		spawnPlayers(playerNumber, opponentAmount);
-		//players[0] = new LocalPlayer(world,game,bombsManager,1100000000,1,3, "default");
-		//players[1] = new LocalPlayer(world,game,bombsManager,1100000000,2,3,"default");
-		//players[2] = new ComPlayer(3, "default", world, bombsManager);
-		//players[3] = new ComPlayer(4, "default", world, bombsManager);
 	}
 	
 	public GameState(Game game,Player[] players, String worldName, BombsManager bombsManager, World world, StateManager stateManager) {

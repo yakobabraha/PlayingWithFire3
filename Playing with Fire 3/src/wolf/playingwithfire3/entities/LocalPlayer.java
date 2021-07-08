@@ -1,5 +1,7 @@
 package wolf.playingwithfire3.entities;
 
+// Yakob & Alex & Armin
+
 import java.awt.Graphics;
 
 import wolf.playingwithfire3.Game;
@@ -171,12 +173,16 @@ public class LocalPlayer extends Player{
 			animations.tick();
 			checkZoneDamage();
 		}
-		sendData();
+		if(isOnline) 
+			sendData();
 	}
 	
 	public void sendData() {
 		client.setX((int)x);
 		client.setY((int)y);
+		client.setAusrichtung(animations.getDirection());
+		client.setAnimationenIndex(animations.getAnimationIndex());
+
 		client.sendPlayerInfos();
 	}
 	

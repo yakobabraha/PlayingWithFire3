@@ -1,5 +1,7 @@
 package wolf.playingwithfire3;
 
+// Yakob
+
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -72,7 +74,7 @@ public class Game implements Runnable{
 			stateManager.getState().tick();
 	}
 	
-	//render: Variablen, die durch tick geändert wurden(z.B. Postionen) werden jetzt zum rendern verwendet
+	//render: Variablen, die durch tick geï¿½ndert wurden(z.B. Postionen) werden jetzt zum rendern verwendet
 	private void render() {
 		bs = display.getCanvas().getBufferStrategy();
 		if(bs == null) {
@@ -125,7 +127,7 @@ public class Game implements Runnable{
 		this.fps = fps;
 	}
 
-	//thread wird gestartet (in dem läuft der Game Loop)
+	//thread wird gestartet (in dem lï¿½uft der Game Loop)
 	public synchronized void start() {
 		if(running) 
 			return;

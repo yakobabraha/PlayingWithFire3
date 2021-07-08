@@ -1,5 +1,7 @@
 package wolf.playingwithfire3.display;
 
+// Yakob, Armin, Leon
+
 import java.awt.Canvas;
 import java.awt.Dimension;
 
