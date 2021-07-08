@@ -16,7 +16,9 @@ public class WinState extends State{
 	
 	private UIManager uiManager;
 	
-	public WinState(Game game, int playerIndex) {
+	private StateManager stateManager;
+	
+	public WinState(Game game, int playerIndex, StateManager stateManager) {
 		super(game);
 		this.game = game;
 		this.playerIndex = playerIndex;
@@ -24,7 +26,9 @@ public class WinState extends State{
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new QuitButton(280, 450, 270, 45, Assets.btn_start, game));
+		this.stateManager = stateManager;
+		
+		uiManager.addObject(new QuitButton(280, 450, 270, 45, Assets.btn_start, game, stateManager));
 	}
 
 	@Override

@@ -4,24 +4,24 @@ import java.awt.image.BufferedImage;
 
 import wolf.playingwithfire3.Game;
 import wolf.playingwithfire3.states.OpponentAmountState;
-import wolf.playingwithfire3.states.PlayerAmountState;
-import wolf.playingwithfire3.states.State;
+import wolf.playingwithfire3.states.StateManager;
 
 public class PlayerAmountButton extends UIImageButton{
 	
 	private Game game;
 	private int playerAmount;
 	
-	public PlayerAmountButton(float x, float y, int width, int height, BufferedImage[] images, Game game, int playerAmount) {
-		super(x, y, width, height, images, game,playerAmount+"      Player");
+	public PlayerAmountButton(float x, float y, int width, int height, BufferedImage[] images, Game game, int playerAmount, StateManager stateManager) {
+		super(x, y, width, height, images, game,playerAmount+"      Player", stateManager);
 		this.game = game;
 		this.playerAmount = playerAmount;
+		this.stateManager = stateManager;
 	}
 
 	@Override
 	public void onClick() {
 		game.getMouseManager().setUIManager(null);
-		State.setState(new OpponentAmountState(game, playerAmount));
+		stateManager.setState(new OpponentAmountState(game, playerAmount,stateManager));
 	}
 
 }

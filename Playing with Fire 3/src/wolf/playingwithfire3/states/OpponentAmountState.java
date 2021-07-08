@@ -17,7 +17,9 @@ public class OpponentAmountState extends State{
 	
 	private int playerAmount;
 	
-	public OpponentAmountState(Game game, int playerAmount) {
+	private StateManager stateManager;
+	
+	public OpponentAmountState(Game game, int playerAmount, StateManager stateManager) {
 		super(game);
 		this.game = game;
 		this.playerAmount = playerAmount;
@@ -25,9 +27,11 @@ public class OpponentAmountState extends State{
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new OpponentAmountButton(280, 370, 270, 45, Assets.btn_start,game, playerAmount, 1));
-		uiManager.addObject(new OpponentAmountButton(280, 450, 270, 45, Assets.btn_start,game, playerAmount, 2));
-		uiManager.addObject(new OpponentAmountButton(280, 530, 270, 45, Assets.btn_start,game, playerAmount, 3));
+		this.stateManager = stateManager;
+		
+		uiManager.addObject(new OpponentAmountButton(280, 370, 270, 45, Assets.btn_start,game, playerAmount, 1,stateManager));
+		uiManager.addObject(new OpponentAmountButton(280, 450, 270, 45, Assets.btn_start,game, playerAmount, 2,stateManager));
+		uiManager.addObject(new OpponentAmountButton(280, 530, 270, 45, Assets.btn_start,game, playerAmount, 3,stateManager));
 	}
 
 	@Override

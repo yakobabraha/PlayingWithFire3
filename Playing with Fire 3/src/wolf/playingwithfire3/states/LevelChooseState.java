@@ -17,7 +17,9 @@ public class LevelChooseState extends State{
 	private int playerAmount;
 	private int opponentAmount;
 	
-	public LevelChooseState(Game game, int playerAmount, int opponentAmount) {
+	private StateManager stateManager;
+	
+	public LevelChooseState(Game game, int playerAmount, int opponentAmount, StateManager stateManager) {
 		super(game);
 		this.game = game;
 		this.playerAmount = playerAmount;
@@ -26,9 +28,11 @@ public class LevelChooseState extends State{
 		uiManager = new UIManager();
 		game.getMouseManager().setUIManager(uiManager);
 		
-		uiManager.addObject(new LevelChooseButton(280, 370, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world1"));
-		uiManager.addObject(new LevelChooseButton(280, 450, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world2"));
-		uiManager.addObject(new LevelChooseButton(280, 530, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world3"));
+		this.stateManager = stateManager;
+		
+		uiManager.addObject(new LevelChooseButton(280, 370, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world1",stateManager));
+		uiManager.addObject(new LevelChooseButton(280, 450, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world2",stateManager));
+		uiManager.addObject(new LevelChooseButton(280, 530, 270, 45, Assets.btn_start,game, playerAmount, opponentAmount, "world3",stateManager));
 	}
 
 	@Override
