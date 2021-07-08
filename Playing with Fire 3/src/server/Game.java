@@ -18,8 +18,25 @@ public class Game{
     
     public boolean distributePlayer(Spieler spieler){
         boolean placed = false;
+        int x_ = 0, y_ = 0;
         for(int i = 0; i < Spielerliste.length; i++){
             if(Spielerliste[i] == null){
+            	if(i == 0) {
+            		x_ = 175;
+            		y_ = 94;
+            	} else if (i == 1) {
+            		x_ = 715;
+            		y_ = 94;
+            	} else if (i == 2) {
+            		x_ = 175;
+            		y_ = 634;
+            	} else if (i == 3) {
+            		x_ = 715;
+            		y_ = 634;
+            	}
+            	
+            	spieler.setXPosition(x_);
+            	spieler.setYPosition(y_);
             	spieler.setSpielerIndex(i + 1);
                 Spielerliste[i] = spieler;
                 placed = true;
