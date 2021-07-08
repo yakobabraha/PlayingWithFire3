@@ -7,6 +7,7 @@ public class Assets {
 	private static int width = 45, height = 45;
 	
 	public static BufferedImage whiteDog, yellowDog, yellowDogFace, whiteDogFace;
+	public static BufferedImage purpleProfile,blueProfile,greenProfile,redProfile;
 	public static BufferedImage floor, box, wall;
 	public static BufferedImage speedTile, bombAmount,bombRange;
 	public static BufferedImage blueBomb, redBomb, purpleBomb, greenBomb, bombExplosion;
@@ -56,8 +57,10 @@ public class Assets {
 	public static BufferedImage[] btn_start;
 	
 	public static BufferedImage background;
-
-	
+	public static BufferedImage playerAmount;
+	public static BufferedImage opponentAmount;
+	public static BufferedImage level;
+	public static BufferedImage gameGUI;
 	public boolean test;
 	
 	public static void init() {
@@ -65,12 +68,24 @@ public class Assets {
 		SpriteSheet spritesheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));
 		SpriteSheet heartsheet = new SpriteSheet(ImageLoader.loadImage("res/textures/heartssheet.png"));
 		SpriteSheet background_sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/gfll.png"));
+		SpriteSheet profilesheet = new SpriteSheet(ImageLoader.loadImage("res/textures/profile.png"));
 		SpriteSheet playerssheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheetplayers.png"));
+		SpriteSheet gamesheet = new SpriteSheet(ImageLoader.loadImage("res/textures/gameGUI.png"));
+		SpriteSheet playerAmountsheet = new SpriteSheet(ImageLoader.loadImage("res/textures/playersssss.png"));
+		SpriteSheet opponentAmountsheet = new SpriteSheet(ImageLoader.loadImage("res/textures/opponnetn.png"));
+		SpriteSheet levelsheet = new SpriteSheet(ImageLoader.loadImage("res/textures/levebells.png"));
+		
+		
 		//test
 		whiteDog = sheet.crop(0, 2*height, width, height);
 		yellowDog = sheet.crop(0, height, width, height);
 		whiteDogFace = sheet.crop(3*width, 0, width, height);
 		yellowDogFace = sheet.crop(width, height, width, height);
+		//default
+		purpleProfile = profilesheet.crop(0, 0, 75, 74);
+		blueProfile = profilesheet.crop(2*width, 0, 75, 74);
+		greenProfile = profilesheet.crop(4*width, 0, 75, 74);
+		redProfile = profilesheet.crop(6*width, 0, 75, 74);
 		skull = sheet.crop(0, 4*width, width, height);
 		
 		floor = sheet.crop(0, 0, width, height);
@@ -86,7 +101,11 @@ public class Assets {
 		btn_start[0] = sheet.crop(180, 225, 270, 45);
 		btn_start[1] = sheet.crop(180, 270, 270, 45);
 		//background
-		background = background_sheet.crop(0,0,819,704);
+		background = background_sheet.crop(0,0,820,800);
+		playerAmount = playerAmountsheet.crop(0, 0, 820, 800);
+		opponentAmount = opponentAmountsheet.crop(0, 0, 820, 800);
+		level = levelsheet.crop(0, 0, 820, 800);
+		gameGUI = gamesheet.crop(0,0,820,800);
 		//bombs and explosions
 		blueBomb = spritesheet.crop(0*width, 0*height, width, height);
 		redBomb = spritesheet.crop(2*width, 0*height, width, height);
@@ -176,7 +195,7 @@ public class Assets {
 		default_redPlayer_left[0] = playerssheet.crop(width * 3, height * 3, width,height);
 		default_redPlayer_left[1] = playerssheet.crop(width * 4, height * 3, width,height);
 		default_redPlayer_right[0] = playerssheet.crop(width * 1, height * 3, width,height);
-		default_redPlayer_right[1] = playerssheet.crop(width * 2, height * 3, width,height);
+		default_redPlayer_right[1] = playerssheet.crop(width * 2, height * 3,width,height );
 
 
 		default_purplePlayer_down = new BufferedImage[2];

@@ -175,62 +175,36 @@ public class GameState extends State{
 	}
 	
 	public void drawlayout(Graphics graphics) {
-		graphics.setColor(Color.LIGHT_GRAY);
-		//SideBar hintergrund
-		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
-		//R�nder
-		graphics.fillRect(0, 0, game.width, SettingState.yOffset);
-		graphics.fillRect(0, game.height-15, game.width, SettingState.yOffset);
-		graphics.fillRect(0, 0, SettingState.xOffset, game.height);
-		graphics.fillRect(805, 0, 15, game.height);
-		drawsidebar(graphics);
-	}
-	
-	public void drawsidebar(Graphics graphics) {
-		graphics.drawImage(Assets.logo, 5, 10, null);
+		graphics.drawImage(Assets.gameGUI,0,0,null);
 		for(int i = 0;i<4;i++) {
 			drawPlayerCard(graphics, i);
 		}
 	}
-	
 	public void drawPlayerCard(Graphics graphics, int i) {
-		//player card rand
-		graphics.setColor(Color.black);
-		graphics.drawRect(10, 120 + i * 100, 100, 80);
-		//playerbild
-		graphics .setColor(Color.darkGray);
-		graphics.fillRect(32, 120 + i * 100+5, 55, 50);
 		if(players[i]!=null) {
 			if(players[i].getHealth() == 0) {
-				graphics.drawImage(Assets.skull,32+5, 120 + i * 100+5+4, null);
+				graphics.drawImage(Assets.skull,36+6, 220 + i * 100+5+4, null);
 			}else {
-				graphics.drawImage(Assets.yellowDogFace,32+5, 120 + i * 100+5+4, null);
+				if(i==0)
+				graphics.drawImage(Assets.blueProfile,22, 200 + i * 100+5+4, null);
+				else if(i==1)
+					graphics.drawImage(Assets.redProfile,23, 220 + i * 100+5+4, null);
+				else if(i==2)
+					graphics.drawImage(Assets.purpleProfile,22, 225 + i * 100+5+4, null);
+				else graphics.drawImage(Assets.greenProfile,22, 240 + i * 100+5+4, null);
 			}
-			if(i == 0)
-				graphics.setColor(Color.blue);
-			if(i == 1)
-				graphics.setColor(Color.red);
-			if(i == 2)
-				graphics.setColor(Color.pink);
-			if(i == 3)
-				graphics.setColor(Color.green);
-			
-			
-			graphics.fillRect(32+5+40, 120 + i * 100+5+4+22,15,15);
-			graphics.setColor(Color.black);
 		}
-
 		//herzen
 		if(players[i]!=null) {
 			int playerHealth = players[i].getHealth();
 			for(int x = 0; x<playerHealth;x++) {
 				if(i==0)
-				graphics.drawImage(Assets.blueheart, 25 +24 * x, 120 + i * 100 + 55, null);
+				graphics.drawImage(Assets.blueheart, 28 +24 * x, 215 + i * 100 + 55, null);
 				else if(i==1)
-				graphics.drawImage(Assets.redheart, 25 +24 * x, 120 + i * 100 + 55, null);
+				graphics.drawImage(Assets.redheart, 28 +24 * x, 228 + i * 100 + 55, null);
 				else if(i==2)
-				graphics.drawImage(Assets.greenheart, 25 +24 * x, 120 + i * 100 + 55, null);
-				else graphics.drawImage(Assets.purpleheart, 25 +24 * x, 120 + i * 100 + 55, null);
+				graphics.drawImage(Assets.purpleheart, 28 +24 * x, 240 + i * 100 + 55, null);
+				else graphics.drawImage(Assets.greenheart, 28 +24 * x, 250 + i * 100 + 55, null);
 
 			}
 		}
@@ -240,7 +214,7 @@ public class GameState extends State{
 	public void renderTimer(Graphics graphics) {
 		//time digits
 		graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 25));
-		graphics.drawString(formatSeconds(currentTimer), 30, 550);
+		graphics.drawString(formatSeconds(currentTimer), 250, 780);
 		//timeline
 		float G = startTimer * 1000;
 		float W = G - (System.currentTimeMillis() - startTime);
@@ -248,10 +222,10 @@ public class GameState extends State{
 		int length = 0;
 		if(currentTimer != 0)
 			length = (int) (100 * percent);
-		graphics.drawRect(14, 599, 102, 22);
-		graphics.drawRect(13, 598, 104, 24);
+		graphics.drawRect(350, 760, 102, 22);
+		graphics.drawRect(349, 759, 104, 24);
 		graphics.setColor(Color.RED);
-		graphics.fillRect(15, 600, length, 21);
+		graphics.fillRect(350, 761, length, 21);
 	}
 	
 	public String formatSeconds(int seconds) {
