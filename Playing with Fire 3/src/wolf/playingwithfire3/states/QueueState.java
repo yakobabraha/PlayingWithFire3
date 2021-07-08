@@ -29,8 +29,8 @@ public class QueueState extends State{
 		// TODO Auto-generated constructor stub
 		
 		this.game = game;
-		this.bombsManager = bombsManager;
 		this.world = new World("res/worlds/world2.txt");
+		this.bombsManager = new BombsManager(world.getWidth(), world.getHeight(),1.5f,1.0f,game.getFps(),world);;
 		this.players = new Player[4];
 		client = new Client(this);
 		client.sendPlayerInfos();

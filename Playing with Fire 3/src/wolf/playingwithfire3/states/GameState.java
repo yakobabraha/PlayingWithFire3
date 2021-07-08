@@ -66,6 +66,7 @@ public class GameState extends State{
 		this.world = world;
 		this.bombsManager = bombsManager;
 		this.players = players;
+		System.out.println(bombsManager);
 	}
 	
 	public void spawnPlayers(int playerNumber, int opponentAmount) {
