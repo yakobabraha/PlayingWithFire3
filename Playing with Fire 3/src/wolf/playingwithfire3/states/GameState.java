@@ -218,11 +218,18 @@ public class GameState extends State{
 			graphics.setColor(Color.black);
 		}
 
-		//herze
+		//herzen
 		if(players[i]!=null) {
 			int playerHealth = players[i].getHealth();
 			for(int x = 0; x<playerHealth;x++) {
-				graphics.drawImage(Assets.heart, 25 +24 * x, 120 + i * 100 + 55, null);
+				if(i==0)
+				graphics.drawImage(Assets.blueheart, 25 +24 * x, 120 + i * 100 + 55, null);
+				else if(i==1)
+				graphics.drawImage(Assets.redheart, 25 +24 * x, 120 + i * 100 + 55, null);
+				else if(i==2)
+				graphics.drawImage(Assets.greenheart, 25 +24 * x, 120 + i * 100 + 55, null);
+				else graphics.drawImage(Assets.purpleheart, 25 +24 * x, 120 + i * 100 + 55, null);
+
 			}
 		}
 		renderTimer(graphics);
