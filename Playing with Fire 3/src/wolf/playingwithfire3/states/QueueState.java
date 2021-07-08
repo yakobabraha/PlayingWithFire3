@@ -41,10 +41,9 @@ public class QueueState extends State{
 		if(players[spielerIndex-1]==null) {
 			if(playerID.equals(client.getOwnPlayerId())) {
 				players[spielerIndex-1] = new LocalPlayer(world, game, bombsManager, 1100000000,spielerIndex,3, skinName,true);
-				System.out.println(playerID+" localPlayer");
 			}else {
 				players[spielerIndex-1] = new OnlinePlayer(spielerIndex, spielerIndex, 45, 45,spielerIndex,skinName,world);
-				System.out.println(playerID+" OnlinePlayer");
+				System.out.println(players[spielerIndex-1] + " " + spielerIndex + " yarro");
 			}
 		}
 	}
@@ -55,7 +54,7 @@ public class QueueState extends State{
 	
 	public Player[] startGame() {
 		stateManager.setState(new GameState(game, players, "world2", bombsManager, world,stateManager));
-		return players;
+		return this.players;
 	}
 	
 	@Override

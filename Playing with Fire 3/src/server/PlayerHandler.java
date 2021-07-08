@@ -131,10 +131,12 @@ public class PlayerHandler extends Thread {
     	
     }
     
-    public void startGame() {
+    public void startGame(Game game) {
     	try {
 			dos.writeUTF("Game is full, starting in 10s");
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(2);
+	
+			dos.writeUTF(game.getGameInfo());
 			dos.writeUTF("Game is starting..");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -157,11 +159,6 @@ public class PlayerHandler extends Thread {
     		 * 
     		 */
     		
-    		if(!startedGame && game.checkIfFull()) {
-    			startGame();
-    			startedGame = true;
-    		}
-    		
     		toreturn = game.getGameInfo();
     		try {
 				dos.writeUTF(toreturn);
@@ -169,6 +166,11 @@ public class PlayerHandler extends Thread {
 			} catch (IOException e) {
 			} catch (InterruptedException e) {
 			}
+    		
+    		if(!startedGame && game.checkIfFull()) {
+    			startGame(game);
+    			startedGame = true;
+    		}
     	}
     }
   
