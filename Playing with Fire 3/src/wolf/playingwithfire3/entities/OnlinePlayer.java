@@ -2,17 +2,30 @@ package wolf.playingwithfire3.entities;
 
 import java.awt.Graphics;
 
+import wolf.playingwithfire3.Game;
+import wolf.playingwithfire3.gfx.AnimationPacket;
+import wolf.playingwithfire3.states.SettingState;
+import wolf.playingwithfire3.tile.Tile;
+import wolf.playingwithfire3.worlds.World;
+
 public class OnlinePlayer extends Player{
 
-	public OnlinePlayer(float x, float y, int width, int height) {
-		super(x, y, width, height);
+	protected int health;
+	private AnimationPacket animations;
+	private World word;
+
+	
+	public OnlinePlayer(float x, float y, int width, int height,int playerNumber ,String skinName, World world) {
+		super(world.getSpawnX(playerNumber)*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY(playerNumber)*Tile.TILEHEIGHT+SettingState.yOffset, 45, 45);
 		// TODO Auto-generated constructor stub
+		animations = new AnimationPacket(playerNumber,skinName);
+		health = 3;
 	}
 
 	@Override
 	public int getHealth() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 3;
 	}
 
 	@Override
@@ -27,6 +40,14 @@ public class OnlinePlayer extends Player{
 		
 	}
 
+	public void setX(float  value) {
+		x = value;
+	}
+	
+	public void setY(float value) {
+		y = value;
+	}
+	
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
@@ -36,7 +57,10 @@ public class OnlinePlayer extends Player{
 	@Override
 	public void render(Graphics graphics) {
 		// TODO Auto-generated method stub
-		
+		graphics.drawImage(animations.getCurrentFrame(), (int) x, (int) y, null);
+		if(health != 0) {
+			
+		}
 	}
 
 	@Override

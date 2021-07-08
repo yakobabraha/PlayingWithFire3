@@ -25,9 +25,10 @@ public class LocalPlayer extends Player{
 	private int bombAmount;
 	private AnimationPacket animations;
 	private int bombrange;
+	private boolean isOnline;
 	
 	
-	public LocalPlayer(World world,Game game, BombsManager bombsManager, long damageCooldown, int playerNumber, int bombAmount, String skinName) {
+	public LocalPlayer(World world,Game game, BombsManager bombsManager, long damageCooldown, int playerNumber, int bombAmount, String skinName, boolean isOnline) {
 		super(world.getSpawnX(playerNumber)*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY(playerNumber)*Tile.TILEHEIGHT+SettingState.yOffset, 45, 45);
 		this.bombsManager = bombsManager;
 		health = DEFAULT_HEALTH;
@@ -45,6 +46,7 @@ public class LocalPlayer extends Player{
 		this.damageCooldown = damageCooldown;
 		this.playerNumber = playerNumber;
 		this.bombAmount = 1;
+		this.isOnline = isOnline;
 		
 		animations = new AnimationPacket(playerNumber, skinName);
 		
@@ -199,7 +201,7 @@ public class LocalPlayer extends Player{
 	private void getInput() {
 		xMove = 0;
 		yMove = 0;
-		if(playerNumber == 1) {
+		if(playerNumber == 1 || isOnline) {
 			if(game.getKeyManager().setBomb1)
 				setBomb();
 			if(game.getKeyManager().up1) {

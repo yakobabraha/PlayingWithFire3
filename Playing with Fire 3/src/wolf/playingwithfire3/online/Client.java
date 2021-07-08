@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import wolf.playingwithfire3.entities.Player;
 import wolf.playingwithfire3.states.QueueState;
 import wolf.playingwithfire3.utils.Utils;
 
@@ -21,15 +22,19 @@ public class Client {
 	private Socket client = null;
 	private JSONParser parser = new JSONParser();
 	private int x=1, y=1, health=3, animationenIndex=0, spielerIndex;
-	private String playerID, gameID, powerupsRaw, ausrichtung="down", skinPaket="default", instruction = "join";
+	private String playerID, gameID, powerupsRaw, ausrichtung="down", skinPaket="default", instruction = "join",ownPlayerID;
 	
 	private QueueState queueState;
 	private JSONObject[] powerups = new JSONObject[4];
 	private JSONObject bombs = new JSONObject();
+	
+	private Player[] players;
+	private boolean started;
 
 	
 	public Client(QueueState queueState) {
 		playerID = Utils.generateRandomString(20);
+		ownPlayerID = playerID;
 		this.queueState = queueState;
 		initClient();
 	}
@@ -85,8 +90,8 @@ public class Client {
 		bombs.put("y", y_);
 	}
 
-	public String getPlayerId() {
-		return playerID;
+	public String getOwnPlayerId() {
+		return ownPlayerID;
 	}
 	
 	public Socket getClient() {
@@ -118,7 +123,8 @@ public class Client {
     
     public void gameStart() {
     	System.out.println("Game is starting!!!");
-    	queueState.startGame();
+    	players = queueState.startGame();
+    	started = true;
     }
     
     public JSONObject parsePowerups(String rawData) {
@@ -147,7 +153,13 @@ public class Client {
     	animationenIndex = toIntExact((long) jsonObject.get("animationenIndex"));
     	spielerIndex = toIntExact((long) jsonObject.get("spielerIndex"));
     	
-    	queueState.joinPlayer(x, y, health, playerID, skinPaket, spielerIndex);
+    	if(!started) {
+    		queueState.joinPlayer(x, y, health, playerID, skinPaket, spielerIndex);
+    	}else {
+    		System.out.println(players);
+    		players[spielerIndex-1].setX(x);
+    		players[spielerIndex-1].setY(y);
+    	}
     }
     
     public void startListener () {

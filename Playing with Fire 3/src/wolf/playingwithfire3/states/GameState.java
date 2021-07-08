@@ -24,7 +24,7 @@ public class GameState extends State{
 	private UIManager uiManager;
 	
 	//timer
-	private int startTimer = 10;
+	private int startTimer = 120;
 	private int currentTimer = -1;
 	private long startTime = System.currentTimeMillis();
 	
@@ -55,7 +55,7 @@ public class GameState extends State{
 		//players[3] = new ComPlayer(4, "default", world, bombsManager);
 	}
 	
-	public GameState(Game game,Player[] players, String worldName, BombsManager bombsManager, World world) {
+	public GameState(Game game,Player[] players, String worldName, BombsManager bombsManager, World world, StateManager stateManager) {
 		super(game);
 		this.game = game;
 		
@@ -66,13 +66,14 @@ public class GameState extends State{
 		this.world = world;
 		this.bombsManager = bombsManager;
 		this.players = players;
+		this.stateManager = stateManager;
 		System.out.println(bombsManager);
 	}
 	
 	public void spawnPlayers(int playerNumber, int opponentAmount) {
 		for(int i = 1;i<=playerNumber;i++) {
 			System.out.println(i);
-			players[i-1] = new LocalPlayer(world,game,bombsManager,1100000000,i,3, "default");
+			players[i-1] = new LocalPlayer(world,game,bombsManager,1100000000,i,3, "default",false);
 		}
 		
 		for(int i = 2;i<=opponentAmount+1;i++) {
