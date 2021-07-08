@@ -10,7 +10,7 @@ public class Assets {
 	public static BufferedImage floor, box, wall;
 	public static BufferedImage speedTile, bombAmount,bombRange;
 	public static BufferedImage blueBomb, redBomb, purpleBomb, greenBomb, bombExplosion;
-	public static BufferedImage logo, heart;
+	public static BufferedImage logo, redheart,greenheart,purpleheart,blueheart;
 	public static BufferedImage skull;
 	
 	public static BufferedImage[] test_bluePlayer_down;
@@ -56,13 +56,14 @@ public class Assets {
 	public static BufferedImage[] btn_start;
 	
 	public static BufferedImage background;
+
 	
 	public boolean test;
 	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/spritesheet.png"));
 		SpriteSheet spritesheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheet.png"));
-		
+		SpriteSheet heartsheet = new SpriteSheet(ImageLoader.loadImage("res/textures/heartssheet.png"));
 		SpriteSheet background_sheet = new SpriteSheet(ImageLoader.loadImage("res/textures/gfll.png"));
 		SpriteSheet playerssheet = new SpriteSheet(ImageLoader.loadImage("res/textures/sheetplayers.png"));
 		//test
@@ -94,7 +95,11 @@ public class Assets {
 		bombExplosion = sheet.crop(3*width, height, width, height);
 		
 		logo = sheet.crop(width, 2* height, 116, 87);
-		heart = sheet.crop(0, 3 * height, 24, 24);
+		//hearts
+		redheart = heartsheet.crop(1,2, 26, 26);
+		greenheart = heartsheet.crop(27, 2,26, 26);
+		purpleheart = heartsheet.crop(55, 2,26, 26);
+		blueheart = heartsheet.crop(82, 2, 26, 26);
 		//players test
 		test_bluePlayer_down = new BufferedImage[2];
 		test_bluePlayer_up = new BufferedImage[2];
