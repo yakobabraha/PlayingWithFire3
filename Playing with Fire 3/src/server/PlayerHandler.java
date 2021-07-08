@@ -21,7 +21,7 @@ public class PlayerHandler extends Thread {
     private boolean startedGame = false;
   
     // Constructor
-    public PlayerHandler(Socket s, HashMap<String, Game> gamelist,  DataInputStream dis, DataOutputStream dos) 
+    public PlayerHandler(Socket s, HashMap<String, Game> gamelist, DataInputStream dis, DataOutputStream dos) 
     {
         this.s = s;
         this.dis = dis;
@@ -32,7 +32,6 @@ public class PlayerHandler extends Thread {
     public Game createGame (String GameID) {
     	Game game = new Game(GameID);
     	
-    	// Hash maps f�r schnelligkeit (O(1)), besser als array, da array O(n)
     	Gamelist.put(GameID, game);
     	return game;
     }
@@ -53,10 +52,10 @@ public class PlayerHandler extends Thread {
     	return false;
     }
     
-    public void updatePlayer (String GameID, String name, int x, int y, int health, int aniIndex, String ausrichtung, String bomben) {
+    public void updatePlayer (String GameID, String name, int x, int y, int health, int aniIndex, String ausrichtung, String bomben, String powerups) {
     	Game game = Gamelist.get(GameID);
     	Spieler spieler = game.getPlayer(name);
-    	spieler.setData(x, y, health, aniIndex, ausrichtung, bomben);
+    	spieler.setData(x, y, health, aniIndex, ausrichtung, bomben, powerups);
     }
     
     public boolean removePlayer (String GameID, String name) {
@@ -71,14 +70,14 @@ public class PlayerHandler extends Thread {
 			String GameID = (String) parsedData.get("gameID");
 			String PlayerID = (String) parsedData.get("ID");
 			int x, y, leben, aniIndex;
-			String ausrichtung, skin, worldName, bomben;
+			String ausrichtung, skin, worldName, bomben, powerups;
 
 			switch(instruction) {
 			case "join":
 				x = toIntExact((long) parsedData.get("x"));
 				y = toIntExact((long) parsedData.get("y"));
 				skin = (String) parsedData.get("skin");
-				worldName = "world_2";
+                worldName = "world_2";
 				
 				if(!joinGame(GameID, PlayerID, x, y, skin, worldName)) {
 					try {
@@ -95,8 +94,9 @@ public class PlayerHandler extends Thread {
 				aniIndex = toIntExact((long) parsedData.get("animationIndex"));
 				ausrichtung = (String) parsedData.get("ausrichtung");
 				bomben = (String) parsedData.get("bomben");
+				powerups = (String) parsedData.get("powerups");
 				
-				updatePlayer(GameID, PlayerID, x, y, leben, aniIndex, ausrichtung, bomben);
+				updatePlayer(GameID, PlayerID, x, y, leben, aniIndex, ausrichtung, bomben, powerups);
 				break;
 			case "leave":
 				removePlayer(GameID, PlayerID);
@@ -130,15 +130,15 @@ public class PlayerHandler extends Thread {
     	String toreturn;
     	Game game = Gamelist.get(gameId);
     	while (true) {
-    		toreturn = game.getGameInfo();
-    		if(game.checkIfFull() && !startedGame) {
+    		if(!startedGame && game.checkIfFull()) {
     			startGame();
     			startedGame = true;
     		}
     		
+    		toreturn = game.getGameInfo();
     		try {
 				dos.writeUTF(toreturn);
-				TimeUnit.MILLISECONDS.sleep(1000);
+				TimeUnit.MILLISECONDS.sleep(20);
 			} catch (IOException e) {
 			} catch (InterruptedException e) {
 			}
@@ -149,8 +149,6 @@ public class PlayerHandler extends Thread {
     public void run() 
     {
         String received;
-        String toreturn;
-        Game game;
         boolean started = false;
         while (true) 
         {

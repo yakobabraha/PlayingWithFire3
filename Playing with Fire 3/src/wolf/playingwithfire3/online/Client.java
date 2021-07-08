@@ -21,7 +21,7 @@ public class Client {
 	private Socket client = null;
 	private JSONParser parser = new JSONParser();
 	private int x=1, y=1, health=3, animationenIndex=0, spielerIndex;
-	private String playerID, gameID, ausrichtung="down", skinPaket="default", instruction = "join";
+	private String playerID, gameID, powerupsRaw, ausrichtung="down", skinPaket="default", instruction = "join";
 	
 	private QueueState queueState;
 	private JSONObject[] powerups = new JSONObject[4];
@@ -79,33 +79,14 @@ public class Client {
 		}
 	}
 
-	public String getPlayerId() {
-		return playerID;
-	}
-
 	public void setBomb(int x_, int y_, int timestamp) {
 		bombs.put("timestamp", timestamp);
 		bombs.put("x", x_);
 		bombs.put("y", y_);
-
 	}
-	
-	public void initClient() {
-		try {
-			client = new Socket("127.0.0.1", 1445);
-			//sendPlayerInfos(setPlayer());
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					System.out.println("Starting event listener thread");
-					startListener();
-				}
-			}).start();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+	public String getPlayerId() {
+		return playerID;
 	}
 	
 	public Socket getClient() {
@@ -137,6 +118,22 @@ public class Client {
     
     public void gameStart() {
     	System.out.println("Game is starting!!!");
+    	queueState.startGame();
+    }
+    
+    public JSONObject parsePowerups(String rawData) {
+    	try {
+			JSONArray parsedData = (JSONArray) parser.parse(rawData);
+			
+			for(int i = 0; i < parsedData.size(); i++) {
+				if(parsedData.get(i) != null) {
+					// die einzelnen Powerups verarbeiten;
+				}
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	return null;
     }
     
     public void parsePlayer(JSONObject jsonObject) {    	
@@ -171,7 +168,6 @@ public class Client {
             			for(int i = 0; i < parsedData.size(); i++) {
             				if(parsedData.get(i) != null) {
             					parsePlayer((JSONObject) parsedData.get(i));
-            					//System.out.println(parsedData.get(i));
             				}
             			}
             		}
@@ -196,5 +192,22 @@ public class Client {
 			e.printStackTrace();
 		}
     }
+    
+	public void initClient() {
+		try {
+			client = new Socket("127.0.0.1", 1445);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					System.out.println("Starting event listener thread");
+					startListener();
+				}
+			}).start();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
