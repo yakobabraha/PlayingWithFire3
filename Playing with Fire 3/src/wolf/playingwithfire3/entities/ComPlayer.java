@@ -333,4 +333,16 @@ public class ComPlayer extends Player{
 		return playerNumber;
 	}
 
+	@Override
+	public void setDirection(String direction) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setAnimIndex(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

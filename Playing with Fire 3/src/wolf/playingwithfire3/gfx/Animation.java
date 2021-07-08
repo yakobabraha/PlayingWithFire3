@@ -32,6 +32,12 @@ public class Animation {
 		return frames[index];
 	}
 	
+	public int getCurrentFrameId() {
+		return index;
+	}
 	
+	public void setCurrentId(int i) {
+		index = i;
+	}
 	
 }
