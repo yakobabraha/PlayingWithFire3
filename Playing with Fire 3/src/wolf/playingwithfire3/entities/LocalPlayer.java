@@ -122,18 +122,24 @@ public class LocalPlayer extends Player{
 					speed = speed+0.75f;
 					}
 				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
+				if(isOnline)
+					client.addPowerUp((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT, 0);
 		 }
 		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==4) {
 				if(this.bombAmount<4) {
 					this.bombAmount = this.bombAmount + 1;
 					}
 				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
+				if(isOnline)
+					client.addPowerUp((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT, 0);
 		}
 		else  if(world.getTileID((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT)==5) {
 				if(bombrange<6) {
 					bombrange = bombrange + 1;
 					}
 				world.setTile((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT,0);
+				if(isOnline)
+					client.addPowerUp((x-SettingState.xOffset)/Tile.TILEWIDTH, (y-SettingState.yOffset)/Tile.TILEHEIGHT, 0);
 		}
 	}
 
@@ -257,7 +263,7 @@ public class LocalPlayer extends Player{
 			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this,bombrange,false)) {
 				bombAmount--;
 				if(isOnline)
-					client.setBomb(getTilePositionX(), getTilePositionY(), System.nanoTime());
+					client.setBomb(getTilePositionX(), getTilePositionY(), bombrange);
 			}
 	}
 	
@@ -328,7 +334,7 @@ public class LocalPlayer extends Player{
 	}
 
 	@Override
-	public void setBomb(int x, int y) {
+	public void setBomb(int x, int y, int range) {
 		// TODO Auto-generated method stub
 		
 	}

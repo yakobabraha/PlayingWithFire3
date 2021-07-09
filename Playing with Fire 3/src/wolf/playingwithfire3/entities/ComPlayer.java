@@ -375,7 +375,7 @@ public class ComPlayer extends Player{
 	}
 
 	@Override
-	public void setBomb(int x, int y) {
+	public void setBomb(int x, int y, int range) {
 		// TODO Auto-generated method stub
 		
 	}

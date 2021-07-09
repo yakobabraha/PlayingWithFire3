@@ -41,7 +41,7 @@ public class Client {
 		playerID = Utils.generateRandomString(20);
 		ownPlayerID = playerID;
 		this.queueState = queueState;
-		queueState.getWorld();
+		this.world = queueState.getWorld();
 		initClient();
 	}
 	
@@ -82,16 +82,22 @@ public class Client {
 		data.put("x", x_);
 		data.put("y", y_);
 		data.put("type", type);
-		
+		System.out.println(data);
 		for(int i = 0; i < powerups.length; i++) {
-			if(powerups[i] != null) {
+			if(powerups[i] == null) {
 				powerups[i] = data;
+				break;
 			}
 		}
+		System.out.println(powerups[0]);
+		System.out.println(powerups[1]);
+		System.out.println(powerups[2]);
+		System.out.println(powerups[3]);
+		System.out.println(powerups.length);
 	}
 
-	public void setBomb(int x_, int y_, long l) {
-		bombs.put("timestamp", l);
+	public void setBomb(int x_, int y_, int range) {
+		bombs.put("range", range);
 		bombs.put("x", x_);
 		bombs.put("y", y_);
 	}
@@ -137,11 +143,13 @@ public class Client {
     public JSONObject parsePowerups(String rawData, int spielerIndex) {
     	try {
 			JSONArray parsedData = (JSONArray) parser.parse(rawData);
-			
 			for(int i = 0; i < parsedData.size(); i++) {
 				if(parsedData.get(i) != null) {
 					// die einzelnen Powerups verarbeiten;
 					JSONObject powerup = (JSONObject) parsedData.get(i);
+					System.out.println("income powerup1");
+					System.out.println(powerup);
+					System.out.println("income powerup2");
 					int powerupx = toIntExact((long) powerup.get("x"));
 			    	int powerupy = toIntExact((long) powerup.get("y"));    	
 			    	int poweruptype = toIntExact((long) powerup.get("type")); 
@@ -162,12 +170,12 @@ public class Client {
     public void parseBomb(JSONObject bomb, int spielerIndex) {
     	int bombx = toIntExact((long) bomb.get("x"));
     	int bomby = toIntExact((long) bomb.get("y"));    	
-    	long bombts = (long) bomb.get("timestamp");
+    	int bombrange= toIntExact((long) bomb.get("range"));
 
     	
     	if(players[spielerIndex-1].isOnlinePlayer()) {
     		System.out.println("bombset");
-    		players[spielerIndex-1].setBomb(bombx,bomby);
+    		players[spielerIndex-1].setBomb(bombx,bomby,bombrange);
     	}
     	if(bombs.toString().equals(bomb.toString())) bombs = new JSONObject();
     	
