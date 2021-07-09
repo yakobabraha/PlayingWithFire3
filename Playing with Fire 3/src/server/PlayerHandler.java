@@ -214,6 +214,7 @@ public class PlayerHandler extends Thread {
                 } else if(received.equals("Restart_Game")) {
                 	Gamelist.get("yarro").resetSpielerlist();
                 	stop = true;
+                	break;
                 }
             
                 gameID = parseInstruction(received);
