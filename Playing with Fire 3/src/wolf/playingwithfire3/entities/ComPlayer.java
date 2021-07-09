@@ -92,7 +92,7 @@ public class ComPlayer extends Player{
 	public void smartBomb() {
 		
 		if(isPlayerOnOneTile()) {
-			if(isBoxAround()&&isOnEdge()) {
+			if(isBoxAround()) {
 				setBomb();
 			}
 		}
@@ -191,7 +191,7 @@ public class ComPlayer extends Player{
 			System.out.println("move!!!!");
 		
 		if(isPlayerOnOneTile()) { 
-			if(random.nextFloat()<0.05f||mustMove) {
+			if(mustMove) {
 				xMove = 0;
 				yMove = 0;
 				float r = random.nextFloat();
@@ -372,6 +372,12 @@ public class ComPlayer extends Player{
 	public boolean isOnlinePlayer() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void setBomb(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -19,4 +19,5 @@ public abstract class Player extends Entity{
 	public abstract void setAnimIndex(int i);
 	public abstract void setHealth(int h);
 	public abstract boolean isOnlinePlayer();
+	public abstract void setBomb(int x, int y);
 }

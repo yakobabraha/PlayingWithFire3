@@ -50,7 +50,7 @@ public class QueueState extends State{
 			if(playerID.equals(client.getOwnPlayerId())) {
 				players[spielerIndex-1] = new LocalPlayer(world, game, bombsManager, 1100000000,spielerIndex,3, skinName,true,client);
 			}else {
-				players[spielerIndex-1] = new OnlinePlayer(spielerIndex, spielerIndex, 45, 45,spielerIndex,skinName,world,client);
+				players[spielerIndex-1] = new OnlinePlayer(spielerIndex, spielerIndex, 45, 45,spielerIndex,skinName,world,client,bombsManager);
 			}
 		}
 	}

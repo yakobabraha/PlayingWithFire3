@@ -326,4 +326,10 @@ public class LocalPlayer extends Player{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void setBomb(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
 }

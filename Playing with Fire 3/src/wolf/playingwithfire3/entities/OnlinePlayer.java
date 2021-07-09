@@ -16,13 +16,16 @@ public class OnlinePlayer extends Player{
 	private AnimationPacket animations;
 	private World word;
 	private Client client;
+	private BombsManager bombsManager;
+	private int playerNumber;
 
 	
-	public OnlinePlayer(float x, float y, int width, int height,int playerNumber ,String skinName, World world, Client client) {
+	public OnlinePlayer(float x, float y, int width, int height,int playerNumber ,String skinName, World world, Client client, BombsManager bombsManager) {
 		super(world.getSpawnX(playerNumber)*Tile.TILEWIDTH+SettingState.xOffset,world.getSpawnY(playerNumber)*Tile.TILEHEIGHT+SettingState.yOffset, 45, 45);
 		// TODO Auto-generated constructor stub
 		this.client = client;
-
+		this.bombsManager = bombsManager;
+		this.playerNumber = playerNumber;
 		animations = new AnimationPacket(playerNumber,skinName);
 		health = 3;
 	}
@@ -79,7 +82,7 @@ public class OnlinePlayer extends Player{
 	@Override
 	public int getPlayerNumber() {
 		// TODO Auto-generated method stub
-		return 0;
+		return playerNumber;
 	}
 
 	@Override
@@ -92,6 +95,12 @@ public class OnlinePlayer extends Player{
 	public boolean isOnlinePlayer() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public void setBomb(int x, int y) {
+		// TODO Auto-generated method stub
+		bombsManager.addBomb(x, y, this, 3);
 	}
 
 }

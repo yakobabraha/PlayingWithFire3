@@ -145,15 +145,19 @@ public class Client {
     	return null;
     }
     
-    public void parseBomb(JSONObject bomb) {
-    	long bombx = (long) bomb.get("x");
-    	long bomby = (long) bomb.get("y");
+    public void parseBomb(JSONObject bomb, int spielerIndex) {
+    	int bombx = toIntExact((long) bomb.get("x"));
+    	int bomby = toIntExact((long) bomb.get("y"));    	
     	long bombts = (long) bomb.get("timestamp");
-    	if(bombx != 0) System.out.println(bomb.get("x"));
-    	if(bombx != 0) System.out.println(bomb.get("y"));
-    	if(bombx != 0) System.out.println(bomb.get("timestamp"));
+
     	
+    	if(players[spielerIndex-1].isOnlinePlayer()) {
+    		System.out.println("bombset");
+    		players[spielerIndex-1].setBomb(bombx,bomby);
+    	}
     	if(bombs.toString().equals(bomb.toString())) bombs = new JSONObject();
+    	
+    	
     }
     
     public void parsePlayer(JSONObject jsonObject) {    	
@@ -171,7 +175,7 @@ public class Client {
 			if(jsonObject.get("bomben") == null) bomb = new JSONObject();
 			else { bomb = (JSONObject) parser.parse((String) jsonObject.get("bomben"));}
 			
-			if(bomb.get("x") != null) parseBomb(bomb);
+			if(bomb.get("x") != null) parseBomb(bomb,spielerIndex);
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
