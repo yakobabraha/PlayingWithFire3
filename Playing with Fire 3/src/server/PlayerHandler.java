@@ -20,7 +20,7 @@ public class PlayerHandler extends Thread {
     private JSONParser parser = new JSONParser();
     private HashMap<String, Game> Gamelist;
     private boolean startedGame = false;
-  
+    boolean stop = false;
     // Constructor
     public PlayerHandler(Socket s, HashMap<String, Game> gamelist, DataInputStream dis, DataOutputStream dos) 
     {
@@ -150,7 +150,7 @@ public class PlayerHandler extends Thread {
     public void startInformationThread(String gameId) {
     	String toreturn;
     	Game game = Gamelist.get(gameId);
-    	while (true) {
+    	while (true && !stop) {
     		
     		/*
     		 * Falls die Spielerliste voll ist, wird das Spiel gestartet.
@@ -166,6 +166,7 @@ public class PlayerHandler extends Thread {
 				dos.writeUTF(toreturn);
 				TimeUnit.MILLISECONDS.sleep(20);
 			} catch (IOException e) {
+				stop = true;
 			} catch (InterruptedException e) {
 			}
     		//game.resetBombs();
@@ -192,8 +193,7 @@ public class PlayerHandler extends Thread {
     {
         String received, gameID;
         boolean started = false;
-        
-        while (true) 
+        while (true && !stop) 
         {
             try {
             	

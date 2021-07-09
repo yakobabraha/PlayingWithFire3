@@ -89,14 +89,6 @@ public class Game{
         return distributePlayer(spieler);
     }
     
-    public void resetBombs () {
-    	for(int i = 0; i < Spielerliste.length; i++){
-    		if(Spielerliste[i] != null) {
-    			Spielerliste[i].setBomben(new JSONObject().toString());
-    		}
-    	}
-    }
-    
     public String getGameInfo() {
     	JSONObject []game = new JSONObject[4];
 
