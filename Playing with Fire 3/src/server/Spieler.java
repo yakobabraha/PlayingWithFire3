@@ -97,6 +97,7 @@ public class Spieler {
         daten.put("worldName", worldName);
         
         if(bombs == null) bombs = new JSONObject().toString();
+        if(powerups == null) powerups = "[]";
         daten.put("bomben", bombs);
         daten.put("powerups", powerups);
         

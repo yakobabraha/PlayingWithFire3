@@ -154,6 +154,8 @@ public class Client {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+    	
+    	if(rawData.equals(Arrays.toString(powerups))) powerups = new JSONObject[4];
     	return null;
     }
     
