@@ -216,6 +216,12 @@ public class PlayerHandler extends Thread {
                 if(!started) started = startThread(gameID);
                 
             } catch (IOException e) {
+            	try {
+					this.s.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         }
           
