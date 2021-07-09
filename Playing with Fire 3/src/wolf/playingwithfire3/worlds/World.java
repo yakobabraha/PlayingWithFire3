@@ -62,8 +62,9 @@ public class World {
 		else {
 			tiles[x][y] = 5;
 		}
-		if(client!=null)
+		if(client!=null) {
 			client.addPowerUp(x, y, tiles[x][y]);
+		}
 	}
 	
 	public void setTile(int x, int y, int id) {
