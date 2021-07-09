@@ -90,17 +90,22 @@ public class ComPlayer extends Player{
 	}
 	
 	public void smartBomb() {
-		/*
+		
 		if(isPlayerOnOneTile()) {
-			if(isBoxAround()) {
+			if(isBoxAround()&&isOnEdge()) {
 				setBomb();
 			}
 		}
-		*/
+		
 		float r = random.nextFloat();
-		if(r<0.05f) {
+		if(r<0.005f) {
 			setBomb();
 		}
+	}
+	
+	public boolean isOnEdge() {
+		int i;
+		return true;
 	}
 	
 	public boolean isBoxAround() {
@@ -160,19 +165,33 @@ public class ComPlayer extends Player{
 		yMoves[0] = (int) speed;
 		yMoves[1] = (int) -speed;
 		
-		if(world.getTileID(xTile+1, yTile)==2 || bombsManager.isSolid(xTile+1, yTile) )
+		boolean mustMove = false;
+		
+		if(world.getTileID(xTile+1, yTile)==2 || bombsManager.isSolid(xTile+1, yTile) || bombsManager.getExplosions(xTile+1, yTile)|| (bombsManager.getExplosionFuture(xTile+1, yTile)&& !bombsManager.getExplosionFuture(xTile, yTile)))
 			xMoves[0] = 0;
-		if(world.getTileID(xTile-1, yTile)==2 || bombsManager.isSolid(xTile-1, yTile) )
+		if(world.getTileID(xTile-1, yTile)==2 || bombsManager.isSolid(xTile-1, yTile) || bombsManager.getExplosions(xTile-1, yTile)|| (bombsManager.getExplosionFuture(xTile-1, yTile)&& !bombsManager.getExplosionFuture(xTile, yTile)))
 			xMoves[1] = 0;
-		if(world.getTileID(xTile, yTile+1)==2 || bombsManager.isSolid(xTile, yTile + 1) )
+		if(world.getTileID(xTile, yTile+1)==2 || bombsManager.isSolid(xTile, yTile + 1) || bombsManager.getExplosions(xTile, yTile+1)|| (bombsManager.getExplosionFuture(xTile, yTile+1)&& !bombsManager.getExplosionFuture(xTile, yTile)))
 			yMoves[0] = 0;
-		if(world.getTileID(xTile, yTile-1)==2 || bombsManager.isSolid(xTile, yTile-1) )
+		if(world.getTileID(xTile, yTile-1)==2 || bombsManager.isSolid(xTile, yTile-1) || bombsManager.getExplosions(xTile, yTile-1)|| (bombsManager.getExplosionFuture(xTile, yTile-1)&& !bombsManager.getExplosionFuture(xTile, yTile)))
 			yMoves[1] = 0;
+
 		//|| bombsManager.getExplosionFuture(xTile-1, yTile) || bombsManager.getExplosions(xTile-1, yTile)
 
+		if(xMoves[0] == 0 && xMove>0)
+			mustMove = true;
+		if(xMoves[1] == 0 && xMove<0)
+			mustMove = true;
+		if(yMoves[0] == 0 && yMove>0)
+			mustMove = true;
+		if(yMoves[1] == 0 && yMove>0)
+			mustMove = true;
+		
+		if(mustMove)
+			System.out.println("move!!!!");
 		
 		if(isPlayerOnOneTile()) { 
-			if(random.nextFloat()<0.05f) {
+			if(random.nextFloat()<0.05f||mustMove) {
 				xMove = 0;
 				yMove = 0;
 				float r = random.nextFloat();
@@ -201,7 +220,7 @@ public class ComPlayer extends Player{
 					if(rint == 0)
 						yMove = 0;
 				}
-			}else if(x==lastX && y== lastY ){
+			}else if(x==lastX && y== lastY && false){
 				xMove = 0;
 				yMove = 0;
 				float r = random.nextFloat();

@@ -96,6 +96,7 @@ public class BombsManager {
 	
 	public void render(Graphics graphics) {
 		this.explosions = new boolean[width][height];
+		this.futureExplosions = new boolean[width][height];
 		for(int y = 0;y<height;y++) {
 			for(int x = 0;x<width;x++) {
 			if(bombs[x][y]!=null) 
