@@ -155,14 +155,14 @@ public class Client {
     	health = toIntExact((long) jsonObject.get("health"));
     	animationenIndex = toIntExact((long) jsonObject.get("animationenIndex"));
     	spielerIndex = toIntExact((long) jsonObject.get("spielerIndex"));
-    	try {
-    		JSONObject bomb = (JSONObject) jsonObject.get("bomben");
-    		if(bomb!=null)
-    			System.out.println(bomb);
-    	} catch(Exception e) {
-    	//System.out.println(e.getMessage());
-    	}
-    	
+    	JSONObject bomb;
+		try {
+			if(jsonObject.get("bomben") == null) bomb = new JSONObject();
+			else { bomb = (JSONObject) parser.parse((String) jsonObject.get("bomben"));
+			System.out.println(bomb);}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
     	
     	
     	if(!started ) {

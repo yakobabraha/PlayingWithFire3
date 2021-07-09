@@ -95,6 +95,8 @@ public class Spieler {
         daten.put("skinPaket", skinPaket);
         daten.put("spielerIndex", spielerIndex);
         daten.put("worldName", worldName);
+        
+        if(bombs == null) bombs = new JSONObject().toString();
         daten.put("bomben", bombs);
         daten.put("powerups", powerups);
         
