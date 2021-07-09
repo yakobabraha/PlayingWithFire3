@@ -61,6 +61,10 @@ public class Game{
     	return Spielerliste;
     }
     
+    public void resetSpielerlist() {
+    	Spielerliste = new Spieler[4];
+    }
+    
     public boolean removePlayer(String spielerID) {
         for(int i = 0; i < Spielerliste.length; i++){
             if(Spielerliste[i].getSpielerID().equals(spielerID)){

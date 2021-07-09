@@ -35,7 +35,7 @@ public class Client {
 	private boolean started;
 	
 	private World world;
-
+	private DataOutputStream output = null;
 	
 	public Client(QueueState queueState) {
 		playerID = Utils.generateRandomString(20);
@@ -241,14 +241,20 @@ public class Client {
         }
     }
     
+    public void restartGame() {
+    	try {
+			output.writeUTF("Restart_Game");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
     public void sendPlayerInfos () {
-    	DataOutputStream output = null;
 		try {
 			
 			output = new DataOutputStream(client.getOutputStream());
 			output.writeUTF(setPlayer().toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

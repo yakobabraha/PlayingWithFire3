@@ -112,6 +112,7 @@ public class PlayerHandler extends Thread {
 
 			switch(Instruction) {
 			case "join":
+				stop = false;
 				preGameJoin(GameID, PlayerID, parsedData);
 				break;
 			case "update":
@@ -210,10 +211,14 @@ public class PlayerHandler extends Thread {
                 if(received.equals("Exit")){ 
                 	this.s.close();
                 	break;
+                } else if(received.equals("Restart_Game")) {
+                	Gamelist.get("yarro").resetSpielerlist();
+                	stop = true;
                 }
             
                 gameID = parseInstruction(received);
                 if(!started) started = startThread(gameID);
+                
                 
             } catch (IOException e) {
             	try {
