@@ -168,6 +168,7 @@ public class PlayerHandler extends Thread {
 			} catch (IOException e) {
 			} catch (InterruptedException e) {
 			}
+    		//game.resetBombs();
     		
     		if(!startedGame && game.checkIfFull()) {
     			startGame(game);

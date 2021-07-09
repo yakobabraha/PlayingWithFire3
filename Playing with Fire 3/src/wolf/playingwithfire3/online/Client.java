@@ -145,6 +145,17 @@ public class Client {
     	return null;
     }
     
+    public void parseBomb(JSONObject bomb) {
+    	long bombx = (long) bomb.get("x");
+    	long bomby = (long) bomb.get("y");
+    	long bombts = (long) bomb.get("timestamp");
+    	if(bombx != 0) System.out.println(bomb.get("x"));
+    	if(bombx != 0) System.out.println(bomb.get("y"));
+    	if(bombx != 0) System.out.println(bomb.get("timestamp"));
+    	
+    	if(bombs.toString().equals(bomb.toString())) bombs = new JSONObject();
+    }
+    
     public void parsePlayer(JSONObject jsonObject) {    	
     	playerID = (String) jsonObject.get("ID");
     	skinPaket = (String) jsonObject.get("skinPaket");
@@ -158,8 +169,10 @@ public class Client {
     	JSONObject bomb;
 		try {
 			if(jsonObject.get("bomben") == null) bomb = new JSONObject();
-			else { bomb = (JSONObject) parser.parse((String) jsonObject.get("bomben"));
-			System.out.println(bomb);}
+			else { bomb = (JSONObject) parser.parse((String) jsonObject.get("bomben"));}
+			
+			if(bomb.get("x") != null) parseBomb(bomb);
+			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -211,10 +224,9 @@ public class Client {
     public void sendPlayerInfos () {
     	DataOutputStream output = null;
 		try {
+			
 			output = new DataOutputStream(client.getOutputStream());
 			output.writeUTF(setPlayer().toString());
-			
-			bombs = new JSONObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
