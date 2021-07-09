@@ -251,6 +251,7 @@ public class Client {
     
     public void restartGame() {
     	try {
+    		System.out.println("RESTARTING GAME");
 			output.writeUTF("Restart_Game");
 		} catch (IOException e) {
 			e.printStackTrace();

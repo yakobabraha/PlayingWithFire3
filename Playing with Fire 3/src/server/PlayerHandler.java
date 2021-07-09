@@ -218,7 +218,7 @@ public class PlayerHandler extends Thread {
                 	break;
                 } else {
                 	gameID = parseInstruction(received);
-                	if(!started && gameID) started = startThread(gameID);                	
+                	if(!started && gameID != null) started = startThread(gameID);                	
                 }
             } catch (IOException e) {
             	try {
