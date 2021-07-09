@@ -34,30 +34,36 @@ public class BombsManager {
 
 	}
 	
-	public boolean addBomb(int x, int y, Player owner,int range) {
+	public boolean addBomb(int x, int y, Player owner,int range, boolean isOnline) {
 		System.out.println(x);
 		if(bombs[x][y]==null) {
-			bombs[x][y]=new Bomb(x*Tile.TILEWIDTH+SettingState.xOffset,y*Tile.TILEHEIGHT+SettingState.yOffset,Tile.TILEWIDTH,Tile.TILEHEIGHT,bombDuration,explosionDuration,range,fps,this,world, owner);
+			bombs[x][y]=new Bomb(x*Tile.TILEWIDTH+SettingState.xOffset,y*Tile.TILEHEIGHT+SettingState.yOffset,Tile.TILEWIDTH,Tile.TILEHEIGHT,bombDuration,explosionDuration,range,fps,this,world, owner,isOnline);
 			return true;
 		}
 		return false;
 	}
 	
-	public void endExplosion(int x, int y) {
+	public void endExplosion(int x, int y, boolean isOnlinePlayer) {
 		int[] toDestroy = bombs[x][y].getToDestroy();
-		if(toDestroy[0]!=0)
-			world.destroyBox(toDestroy[0], y);
-		if(toDestroy[1]!=0)
-			world.destroyBox(toDestroy[1], y);
-		if(toDestroy[2]!=0)
-			world.destroyBox(x, toDestroy[2]);
-		if(toDestroy[3]!=0)
-			world.destroyBox(x, toDestroy[3]);
-		System.out.println(toDestroy[0]);
-		System.out.println(toDestroy[1]);
-		System.out.println(toDestroy[2]);
-		System.out.println(toDestroy[3]);
-		System.out.println("-");
+		if(!isOnlinePlayer) {
+			if(toDestroy[0]!=0)
+				world.destroyBox(toDestroy[0], y);
+			if(toDestroy[1]!=0)
+				world.destroyBox(toDestroy[1], y);
+			if(toDestroy[2]!=0)
+				world.destroyBox(x, toDestroy[2]);
+			if(toDestroy[3]!=0)
+				world.destroyBox(x, toDestroy[3]);
+		}else {
+			if(toDestroy[0]!=0)
+				world.setTile(toDestroy[0], y,0);
+			if(toDestroy[1]!=0)
+				world.setTile(toDestroy[1], y,0);
+			if(toDestroy[2]!=0)
+				world.setTile(x, toDestroy[2],0);
+			if(toDestroy[3]!=0)
+				world.setTile(x, toDestroy[3],0);
+		}
 		bombs[x][y]=null;
 	}
 	public void sendOn(int x, int y) {

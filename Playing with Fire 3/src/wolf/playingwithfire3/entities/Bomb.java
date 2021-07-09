@@ -24,9 +24,10 @@ public class Bomb extends Entity{
 	private int[] toDestroy = new int[4];
 	private Player owner;
 	private BufferedImage bombPicture;
+	private boolean isOnline;
 	
 	
-	public Bomb(float x, float y, int width, int height, float bombDuration, float explosionDuration,int range,int fps, BombsManager bombsManager, World world, Player owner) {
+	public Bomb(float x, float y, int width, int height, float bombDuration, float explosionDuration,int range,int fps, BombsManager bombsManager, World world, Player owner, boolean isOnline) {
 		super(x, y, width, height);
 		this.bombDuration = bombDuration;
 		this.fps = fps;
@@ -36,6 +37,7 @@ public class Bomb extends Entity{
 		this.world = world;
 		this.explosionDuration = explosionDuration;
 		this.owner = owner;
+		this.isOnline = isOnline;
 		chooseBombPicture(owner.getPlayerNumber());
 	}
 	
@@ -68,7 +70,7 @@ public class Bomb extends Entity{
 		}else {
 			tickCounter++;
 			if(tickCounter/fps>=explosionDuration) {
-				bombsManager.endExplosion((int)(x-SettingState.xOffset)/Tile.TILEWIDTH, (int) (y-SettingState.yOffset)/Tile.TILEHEIGHT);
+				bombsManager.endExplosion((int)(x-SettingState.xOffset)/Tile.TILEWIDTH, (int) (y-SettingState.yOffset)/Tile.TILEHEIGHT, isOnline);
 			}
 		}
 	}

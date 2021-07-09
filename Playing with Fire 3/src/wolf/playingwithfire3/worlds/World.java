@@ -5,6 +5,7 @@ package wolf.playingwithfire3.worlds;
 import java.awt.Graphics;
 import java.util.Random;
 
+import wolf.playingwithfire3.online.Client;
 import wolf.playingwithfire3.states.SettingState;
 import wolf.playingwithfire3.tile.Tile;
 import wolf.playingwithfire3.utils.Utils;
@@ -15,6 +16,7 @@ public class World {
 	private int spawnX1, spawnY1,spawnX2,spawnY2,spawnX3, spawnY3,spawnX4, spawnY4;
 	private int[][] tiles;
 	private Random random;
+	private Client client;
 	
 
 	public World(String path) {
@@ -60,6 +62,8 @@ public class World {
 		else {
 			tiles[x][y] = 5;
 		}
+		if(client!=null)
+			client.addPowerUp(x, y, tiles[x][y]);
 	}
 	
 	public void setTile(int x, int y, int id) {
@@ -158,7 +162,9 @@ public class World {
 		return width;
 	}
 
-
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 	public int getHeight() {
 		return height;

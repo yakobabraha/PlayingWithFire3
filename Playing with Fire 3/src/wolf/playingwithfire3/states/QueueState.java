@@ -37,6 +37,7 @@ public class QueueState extends State{
 		this.players = new Player[4];
 		
 		client = new Client(this);
+		world.setClient(client);
 		client.sendPlayerInfos();
 		this.stateManager = stateManager;
 		for(int i = 1;i<5;i++) {
@@ -53,6 +54,10 @@ public class QueueState extends State{
 				players[spielerIndex-1] = new OnlinePlayer(spielerIndex, spielerIndex, 45, 45,spielerIndex,skinName,world,client,bombsManager);
 			}
 		}
+	}
+	
+	public World getWorld() {
+		return world;
 	}
 	
 	public void setLastSeconds(boolean value) {

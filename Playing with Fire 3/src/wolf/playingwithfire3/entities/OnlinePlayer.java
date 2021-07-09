@@ -100,7 +100,7 @@ public class OnlinePlayer extends Player{
 	@Override
 	public void setBomb(int x, int y) {
 		// TODO Auto-generated method stub
-		bombsManager.addBomb(x, y, this, 3);
+		bombsManager.addBomb(x, y, this, 3,true);
 	}
 
 }

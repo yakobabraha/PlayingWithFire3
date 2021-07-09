@@ -254,7 +254,7 @@ public class LocalPlayer extends Player{
 	
 	public void setBomb() {
 		if(bombAmount != 0)
-			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this,bombrange)) {
+			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this,bombrange,false)) {
 				bombAmount--;
 				if(isOnline)
 					client.setBomb(getTilePositionX(), getTilePositionY(), System.nanoTime());

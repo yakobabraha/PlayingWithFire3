@@ -19,6 +19,7 @@ import org.json.simple.parser.ParseException;
 import wolf.playingwithfire3.entities.Player;
 import wolf.playingwithfire3.states.QueueState;
 import wolf.playingwithfire3.utils.Utils;
+import wolf.playingwithfire3.worlds.World;
 
 public class Client {
 	private Socket client = null;
@@ -32,12 +33,15 @@ public class Client {
 	
 	private Player[] players;
 	private boolean started;
+	
+	private World world;
 
 	
 	public Client(QueueState queueState) {
 		playerID = Utils.generateRandomString(20);
 		ownPlayerID = playerID;
 		this.queueState = queueState;
+		queueState.getWorld();
 		initClient();
 	}
 	
@@ -73,7 +77,7 @@ public class Client {
 		instruction = instruction_;
 	}
 	
-	public void addPowerUp(int x_, int y_, String type) {
+	public void addPowerUp(int x_, int y_, int type) {
 		JSONObject data = new JSONObject();
 		data.put("x", x_);
 		data.put("y", y_);
@@ -130,13 +134,21 @@ public class Client {
     	started = true;
     }
     
-    public JSONObject parsePowerups(String rawData) {
+    public JSONObject parsePowerups(String rawData, int spielerIndex) {
     	try {
 			JSONArray parsedData = (JSONArray) parser.parse(rawData);
 			
 			for(int i = 0; i < parsedData.size(); i++) {
 				if(parsedData.get(i) != null) {
 					// die einzelnen Powerups verarbeiten;
+					JSONObject powerup = (JSONObject) parsedData.get(i);
+					int powerupx = toIntExact((long) powerup.get("x"));
+			    	int powerupy = toIntExact((long) powerup.get("y"));    	
+			    	int poweruptype = toIntExact((long) powerup.get("type")); 
+			    	if(players[spielerIndex-1].isOnlinePlayer()) {
+			    		System.out.println("powerup online");
+			    		world.setTile(powerupx, powerupy, poweruptype);
+			    	}
 				}
 			}
 		} catch (ParseException e) {
@@ -180,6 +192,8 @@ public class Client {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		parsePowerups((String)jsonObject.get("powerups"), spielerIndex);
     	
     	
     	if(!started ) {

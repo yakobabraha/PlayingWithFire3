@@ -264,7 +264,7 @@ public class ComPlayer extends Player{
 	
 	public void setBomb() {
 		if(bombAmount != 0)
-			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this,bombrange))
+			if(bombsManager.addBomb(getTilePositionX(), getTilePositionY(), this,bombrange,false))
 				bombAmount--;
 	}
 	
