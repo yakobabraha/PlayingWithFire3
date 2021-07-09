@@ -21,6 +21,7 @@ public class PlayerHandler extends Thread {
     private HashMap<String, Game> Gamelist;
     private boolean startedGame = false;
     boolean stop = false;
+    boolean started = false;
     // Constructor
     public PlayerHandler(Socket s, HashMap<String, Game> gamelist, DataInputStream dis, DataOutputStream dos) 
     {
@@ -116,7 +117,7 @@ public class PlayerHandler extends Thread {
 				preGameJoin(GameID, PlayerID, parsedData);
 				break;
 			case "update":
-				preUpdatePlayer(GameID, PlayerID, parsedData);
+				if(started) preUpdatePlayer(GameID, PlayerID, parsedData);
 				break;
 			case "leave":
 				removePlayer(GameID, PlayerID);
@@ -193,7 +194,6 @@ public class PlayerHandler extends Thread {
     public void run() 
     {
         String received, gameID;
-        boolean started = false;
         while (true && !stop) 
         {
             try {
@@ -218,7 +218,7 @@ public class PlayerHandler extends Thread {
                 	break;
                 } else {
                 	gameID = parseInstruction(received);
-                	if(!started) started = startThread(gameID);                	
+                	if(!started && gameID) started = startThread(gameID);                	
                 }
             } catch (IOException e) {
             	try {
