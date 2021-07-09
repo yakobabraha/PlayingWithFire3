@@ -212,15 +212,14 @@ public class PlayerHandler extends Thread {
                 	this.s.close();
                 	break;
                 } else if(received.equals("Restart_Game")) {
-                	//Gamelist.get("yarro").resetSpielerlist();
-                	//stop = true;
-                	//break;
+                	Gamelist.get("yarro").resetSpielerlist();
+                	stop = true;
+                	started = false;
+                	break;
+                } else {
+                	gameID = parseInstruction(received);
+                	if(!started) started = startThread(gameID);                	
                 }
-            
-                gameID = parseInstruction(received);
-                if(!started) started = startThread(gameID);
-                
-                
             } catch (IOException e) {
             	try {
 					this.s.close();
