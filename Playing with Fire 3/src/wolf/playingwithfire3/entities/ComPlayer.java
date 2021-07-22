@@ -220,7 +220,7 @@ public class ComPlayer extends Player{
 					if(rint == 0)
 						yMove = 0;
 				}
-			}else if(x==lastX && y== lastY && false){
+			}else if(x==lastX && y== lastY){
 				xMove = 0;
 				yMove = 0;
 				float r = random.nextFloat();
